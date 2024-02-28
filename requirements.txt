@@ -1,0 +1,4 @@
+openbabel-wheel
+lxml
+numpy
+plip
