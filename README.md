@@ -1,5 +1,9 @@
-## Projectinformatie
-Choose a self-explaining name for your project.
+# Biodock
+### version 0.0.0
+### Authors: 
+    Ramon Reilman
+    Yamila Timmer
+    Stijn Vermeulen
 
 ## Wat/waarom/wie
 Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.l images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
@@ -11,6 +15,11 @@ Within a particular ecosystem, there may be a common way of installing things, s
 Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
 ### voorbeeld commandline
+>$ lepro XXXXX.pdb
+>
+>$ ledock dock.in
+> 
+>$ plip -f pro.pdb -p --peptides 1 2 3
 
 ## in/output data
 
