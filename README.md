@@ -34,7 +34,11 @@ Use examples liberally, and show the expected output if you can. It's helpful to
 ## bekende bugs (optioneel)
 
 ## Support (contactgegevens)
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Incase of any bugs, or needed support, please mail one of the following emails: <br>
+- r.reilman@st.hanze.nl
+- s.vermeulen@st.hanze.nl
+- y.timmer@st.hanze.nl
+
 
 ## Authors and acknowledgment
 Show your appreciation to those who have contributed to the project.
