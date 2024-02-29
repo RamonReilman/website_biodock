@@ -12,14 +12,29 @@ Let people know what your project can do specifically. Provide context and add a
 Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
 ## gebruikershandleiding voor ontwikkelaar/programmeur
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Before running the tools you must already have:
+- A .pdb file of the protein
+- A .mol2 file of the ligand
+- A ligand file without extensions that holds the filenames of all the ,mol2 ligand files
+
+lepro modifies the .pdb file to create pro.pdb and provides the dock.in to use for ledock.
+
+ledock than takes the dock.in file and creates a .dok file.
+
+plip uses the pro.pdb and the .dok file converted to a .pdb file to create pictures.
+
+Use examples liberally, and show the expected output if you can. 
+It's helpful to have inline the smallest example of usage that you can demonstrate, 
+while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
 ### voorbeeld commandline
+So to get pictures out of the pdb file you usually run:
 >$ lepro XXXXX.pdb
 >
 >$ ledock dock.in
 > 
 >$ plip -f pro.pdb -p --peptides 1 2 3
+
 
 ## in/output data
 
