@@ -18,8 +18,6 @@ To install the tools ledock/lepro/lefrag:
 
 ~$ wget http://www.lephar.com/download/lepro_linux_x86
 
-~$ wget http://www.lephar.com/download/lefrag_linux_x86
-
 # Now make the tools executable
 ~$ chmod +x /path/to/tool
 
@@ -56,7 +54,7 @@ To use the tools you need:
 - A pdb file of a peptide <br>
     - This contains information about the peptide
 - A mol2 file of a ligand
-    - Moelculair information about the ligand, can be used to render it in pymol for example.
+    - Molecular information about the ligand, can be used to render it in pymol for example.
 
 ### Output data
 - a .dok file
@@ -75,8 +73,8 @@ Plip legend:
 | Charge Center | [255, 255, 0] | yellow | spheres |
 | Aromatic Ring Center  | [230, 230, 230] | grey90 | spheres |
 | Ions | [250, 255, 128] | hotpink | spheres |
-[1]
 
+[1]
 #### Interactions
 
 | Description  | RGB | PyMOL color | Representation |
@@ -90,6 +88,7 @@ Plip legend:
 | Halogen Bond | [54, 255, 191] | greencyan | solid line |
 | Salt Bridge | [255, 255, 0] | yellow | dashed line |
 | Metal Complex | [140, 64, 153] | violetpurple | dashed line |
+
 [1]
 ## bekende bugs (optioneel)
 
@@ -97,7 +96,7 @@ Plip legend:
 Incase of any bugs, or needed support, please mail one of the following emails: <br>
 - r.reilman@st.hanze.nl
 - s.vermeulen@st.hanze.nl
-- y.timmer@st.hanze.nl
+- y.timmer.2@st.hanze.nl
 
 ## Authors and acknowledgment
 Show your appreciation to those who have contributed to the project.
