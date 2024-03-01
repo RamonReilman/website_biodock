@@ -15,20 +15,40 @@ Within a particular ecosystem, there may be a common way of installing things, s
 Before running the tools you must already have:
 - A .pdb file of the protein
 - A .mol2 file of the ligand
-- A ligand file without extensions that holds the filenames of all the ,mol2 ligand files
+- A ligand file without extensions that holds the filenames of all the .mol2 ligand files
 
-lepro modifies the .pdb file to create pro.pdb and provides the dock.in to use for ledock.
+Lepro takes a .pdb file and creates a simplified copy called pro.pdb in which things like hydrogen atoms, ligands, ions and cofactors are removed.\
+It also creates a dock.in file that looks like this:
+>Receptor\
+>pro.pdb\
+>\
+>RMSD\
+>1.0\
+>\
+>Binding pocket\
+>74.066 96.508\
+>93.153 124.53\
+>80.721 106.061\
+>\
+>Number of binding poses\
+>20\
+>\
+>Ligands list\
+>ligands\
+>\
+>END
 
-ledock than takes the dock.in file and creates a .dok file.
+(in this example the ligands file under Ligands list is a file without extension that houses all of the .mol2 ligand files)\
+The dock.in is used to run ledock. Ledock uses the file references in the dock.in to effectively get all the data.
+ledock uses that data to dock the given ligands and it returns a .dok file with the specified number of binding poses sorted
+on score(a lower number is a higher score).\
+plip takes a .pdb file to create an image, in this case the .pdb file needs to have the protein and the appropriate ligands
+The best way to do this here is to take the appropriate ligands from the .dok file and put them in the pro.pdb.
+You can do this because this .dok file is just a .pdb made by ledock.
 
-plip uses the pro.pdb and the .dok file converted to a .pdb file to create pictures.
-
-Use examples liberally, and show the expected output if you can. 
-It's helpful to have inline the smallest example of usage that you can demonstrate, 
-while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
 ### voorbeeld commandline
-So to get pictures out of the pdb file you usually run:
+To get pictures out of the .pdb file you usually run:
 >$ lepro XXXXX.pdb
 >
 >$ ledock dock.in
