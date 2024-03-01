@@ -7,23 +7,45 @@ Let people know what your project can do specifically. Provide context and add a
 ## Installation and system requirements <br>
 ### system requirements: <br>
 - OS, linux
-- Python3
+- Python 3.0 or higher
 - pip3
 
 
 ### Installing tools: <br>
-Ledock: <br>
-- wget http://www.lephar.com/download/ledock_linux_x86 <br>
+To install the tools ledock/lepro/lefrag:
+```bash
+~$ wget http://www.lephar.com/download/ledock_linux_x86
 
-Lepro: <br>
-- wget http://www.lephar.com/download/lepro_linux_x86 <br>
+~$ wget http://www.lephar.com/download/lepro_linux_x86
 
-Lefrag: <br>
-- wget http://www.lephar.com/download/lefrag_linux_x86 <br>
+~$ wget http://www.lephar.com/download/lefrag_linux_x86
+```
+The 3 tools are now downloaded on your computer. <br>
+They need to be changed into an executable
+```bash
+~$ chmod +x /path/to/tool
+```
+The tools can now be used by calling them
+```bash
+~$ /path/to/tool
+```
+But you could also create an alias in the .bash_aliases or .bashrc files. <br>
+<br>
+Plip: <br>
+There are 2 ways to install plip, depending on if you're installing it on your own computer or the bin computers. <br>
 
-plip: <br>
-- pip3 install -r requirements.txt --no-deps plip <br>
+On your own laptop/computer:
+```bash
+~$ pip3 install -r /path/to/requirements.txt --no-deps plip
+```
 
+To install plip on a bin computer, you will need to install it in a virtual enviroment. <br>
+```bash
+~$ python3 -m venv /path/to/newvenv --system-site-packages
+~$ source /path/to/newvenv/bin/activate
+~$ pip3 install -r /path/to/requirements.txt --no-deps plip
+```
+plip can now be used within the venv. <br>
 ## gebruikershandleiding voor ontwikkelaar/programmeur
 Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
