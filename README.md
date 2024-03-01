@@ -19,14 +19,11 @@ To install the tools ledock/lepro/lefrag:
 ~$ wget http://www.lephar.com/download/lepro_linux_x86
 
 ~$ wget http://www.lephar.com/download/lefrag_linux_x86
-```
-The 3 tools are now downloaded on your computer. <br>
-They need to be changed into an executable
-```bash
+
+# Now make the tools executable
 ~$ chmod +x /path/to/tool
-```
-The tools can now be used by calling them
-```bash
+
+# To use the tools
 ~$ /path/to/tool
 ```
 But you could also create an alias in the .bash_aliases or .bashrc files. <br>
@@ -42,7 +39,9 @@ On your own laptop/computer:
 To install plip on a bin computer, you will need to install it in a virtual enviroment. <br>
 ```bash
 ~$ python3 -m venv /path/to/newvenv --system-site-packages
+# Activate the venv
 ~$ source /path/to/newvenv/bin/activate
+# Install package into the venv
 ~$ pip3 install -r /path/to/requirements.txt --no-deps plip
 ```
 plip can now be used within the venv. <br>
@@ -52,7 +51,46 @@ Use examples liberally, and show the expected output if you can. It's helpful to
 ### voorbeeld commandline
 
 ## in/output data
+### Input data
+To use the tools you need:
+- A pdb file of a peptide <br>
+    - This contains information about the peptide
+- A mol2 file of a ligand
+    - Moelculair information about the ligand, can be used to render it in pymol for example.
 
+### Output data
+- a .dok file
+    - This contains a number of position the ligand could be in, it is in an decreasing order. The first ligand has the most optimal position
+    
+- Pictures of ligand in binding site
+    - These pictures show how a ligand is fit into the binding site. There are also bonds formed and showed. PLIP is used for this and gives us a legend to use in said pictures.
+
+Plip legend:
+
+| Description  | RGB | PyMOL color | Representation |
+| ------------ | --- | ------------| ---------------|
+| Protein  | [43, 131, 186] | myblue (custom) | sticks |
+| Ligand  | [253, 174, 97] | myorange (custom) | sticks |
+| Water  | [191, 191, 255]  | lightblue | nb_spheres |
+| Charge Center | [255, 255, 0] | yellow | spheres |
+| Aromatic Ring Center  | [230, 230, 230] | grey90 | spheres |
+| Ions | [250, 255, 128] | hotpink | spheres |
+[1]
+
+#### Interactions
+
+| Description  | RGB | PyMOL color | Representation |
+| ------------ | --- | ------------| -------------- |
+| Hydrophobic Interaction  | [128, 128, 128] | grey50 | dashed |
+| Hydrogen Bond  | [0, 0, 255] | blue | solid line |
+| Water Bridges  | [191, 191, 255]  | lightblue | solid line |
+| pi-Stacking (parallel) | [0, 255, 0] | green | dashed line |
+| pi-Stacking (perpendicular)  | [140, 179, 102] | smudge | dashed line |
+| pi-Cation Interaction | [255, 128, 0] | orange | dashed line |
+| Halogen Bond | [54, 255, 191] | greencyan | solid line |
+| Salt Bridge | [255, 255, 0] | yellow | dashed line |
+| Metal Complex | [140, 64, 153] | violetpurple | dashed line |
+[1]
 ## bekende bugs (optioneel)
 
 ## Support (contactgegevens)
@@ -61,6 +99,8 @@ Incase of any bugs, or needed support, please mail one of the following emails: 
 - s.vermeulen@st.hanze.nl
 - y.timmer@st.hanze.nl
 
-
 ## Authors and acknowledgment
 Show your appreciation to those who have contributed to the project.
+
+## sources
+1. https://github.com/pharmai/plip/blob/master/DOCUMENTATION.md?plain=1
