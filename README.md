@@ -15,7 +15,7 @@ Within a particular ecosystem, there may be a common way of installing things, s
 Before running the tools you must already have:
 - A .pdb file of the protein
 - A .mol2 file of the ligand
-- A ligand file without extensions that holds the filenames of all the .mol2 ligand files
+- A ligand file without extensions that holds the filenames of all the .mol2 ligand files (here it is called ligands)
 
 Lepro takes a .pdb file and creates a simplified copy called pro.pdb in which things like hydrogen atoms, ligands, ions and cofactors are removed.\
 It also creates a dock.in file that looks like this:
@@ -38,7 +38,7 @@ It also creates a dock.in file that looks like this:
 >\
 >END
 
-(in this example the ligands file under Ligands list is a file without extension that houses all of the .mol2 ligand files)\
+(Note: *You can change things like Number of binding poses if you want the program to run faster but be less effective.*)\
 The dock.in is used to run ledock. Ledock uses the file references in the dock.in to effectively get all the data.
 ledock uses that data to dock the given ligands and it returns a .dok file with the specified number of binding poses sorted
 on score(a lower number is a higher score).\
@@ -49,10 +49,9 @@ You can do this because this .dok file is just a .pdb made by ledock.
 
 ### voorbeeld commandline
 To get pictures out of the .pdb file you usually run:
->$ lepro XXXXX.pdb
->
->$ ledock dock.in
-> 
+>$ lepro XXXXX.pdb\
+>$ ledock dock.in\
+>*add the desired ligands to the pro.pdb*\
 >$ plip -f pro.pdb -p --peptides 1 2 3
 
 
