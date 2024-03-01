@@ -146,3 +146,6 @@ BioDock Visualiser integrates the following tools and libraries:
   - Description: library used for processing data from molecular modeling (required with PLIP). 
   - Repository: https://github.com/njzjz/openbabel-wheel
   - License: GNU General Public License v2.0
+
+## sources
+1. https://github.com/pharmai/plip/blob/master/DOCUMENTATION.md?plain=1
