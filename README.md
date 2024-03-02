@@ -15,9 +15,9 @@ Within a particular ecosystem, there may be a common way of installing things, s
 Before running the tools you must already have:
 - A .pdb file of the protein
 - A .mol2 file of the ligand
-- A ligand file without extensions that holds the filenames of all the .mol2 ligand files (here it is called ligands)
+- A ligand file without extensions that holds the filenames of all the .mol2 ligand files
 
-Lepro takes a .pdb file and creates a simplified copy called pro.pdb in which things like hydrogen atoms, ligands, ions and cofactors are removed.\
+Lepro takes a .pdb file and creates a copy called pro.pdb in which things like water molecules and ligands are removed and hydrogen atoms are added.\
 It also creates a dock.in file that looks like this:
 >Receptor\
 >pro.pdb\
@@ -26,19 +26,20 @@ It also creates a dock.in file that looks like this:
 >1.0\
 >\
 >Binding pocket\
->74.066 96.508\
->93.153 124.53\
->80.721 106.061\
+>x<sub>min</sub> x<sub>max</sub>\
+>y<sub>min</sub> y<sub>max</sub>\
+>z<sub>min</sub> z<sub>max</sub>\
 >\
 >Number of binding poses\
 >20\
 >\
 >Ligands list\
->ligands\
+>ligands_list\
 >\
 >END
 
-(Note: *You can change things like Number of binding poses if you want the program to run faster but be less effective.*)\
+You can change the dock.in. If you want ledock to run faster for example, you can make the Nuber of binding poses lower.
+This will cause ledock to run fewer iterations.\
 The dock.in is used to run ledock. Ledock uses the file references in the dock.in to effectively get all the data.
 ledock uses that data to dock the given ligands and it returns a .dok file with the specified number of binding poses sorted
 on score(a lower number is a higher score).\
