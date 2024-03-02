@@ -196,3 +196,7 @@ BioDock Visualiser integrates the following tools and libraries:
 
 ## sources
 1. https://github.com/pharmai/plip/blob/master/DOCUMENTATION.md?plain=1
+2. Docking (moleculair). (2024, 31 januari). Wikipedia. https://nl.wikipedia.org/wiki/Docking_(moleculair)#:~:text=Op%20het%20gebied%20van%20moleculair,vormt%20met%20een%20ander%20molecuul.
+3. Lephar Research. (z.d.). Tutorial for LeDock. 
+4. Ligand (biochemie). (2023, 23 juni). Wikipedia. https://nl.wikipedia.org/wiki/Ligand_(biochemie)
+5. Salentin, S. (2015). PLIP: fully automated protein–ligand interaction profiler. https://www.semanticscholar.org/paper/PLIP%3A-fully-automated-protein%E2%80%93ligand-interaction-Salentin-Schreiber/9fb2bf7b0fb083b764794b82486189b314e6e9ab/figure/0  
