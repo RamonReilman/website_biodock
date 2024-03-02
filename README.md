@@ -1,4 +1,9 @@
-## Biodock visualiser (v. 1.0)
+# Biodock
+### version 0.0.0
+### Authors: 
+    Ramon Reilman
+    Yamila Timmer
+    Stijn Vermeulen
 
 ## Description
 Understanding interactions between proteins and ligands is of great importance for various branches of molecular biology. Examples of its usage include, but are not limited to, developing new medicines or improving existing ones, as well as getting a better understanding of various biochemical processes.
@@ -54,9 +59,51 @@ To install plip on a bin computer, you will need to install it in a virtual envi
 ```
 plip can now be used within the venv. <br>
 ## gebruikershandleiding voor ontwikkelaar/programmeur
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Before running the tools you must already have:
+- A .pdb file of the protein
+- A .mol2 file of the ligand
+- A ligand file without extensions that holds the filenames of all the .mol2 ligand files
+
+Lepro takes a .pdb file and creates a copy called pro.pdb in which things like water molecules and ligands are removed and hydrogen atoms are added.\
+It also creates a dock.in file that looks like this:
+>Receptor\
+>pro.pdb\
+>\
+>RMSD\
+>1.0\
+>\
+>Binding pocket\
+>x<sub>min</sub> x<sub>max</sub>\
+>y<sub>min</sub> y<sub>max</sub>\
+>z<sub>min</sub> z<sub>max</sub>\
+>\
+>Number of binding poses\
+>20\
+>\
+>Ligands list\
+>ligands_list\
+>\
+>END
+
+You can change the dock.in. If you want ledock to run faster for example, you can make the Nuber of binding poses lower.
+This will cause ledock to run fewer iterations.\
+The dock.in is used to run ledock. Ledock uses the file references in the dock.in to effectively get all the data.
+ledock uses that data to dock the given ligands and it returns a .dok file with the specified number of binding poses sorted
+on score(a lower number is a higher score).\
+plip takes a .pdb file to create an image, in this case the .pdb file needs to have the protein and the appropriate ligands
+The best way to do this here is to take the appropriate ligands from the .dok file and put them in the pro.pdb.
+You can do this because this .dok file is just a .pdb made by ledock.
+
 
 ### voorbeeld commandline
+To get pictures out of the .pdb file you usually run:
+
+```bash
+~$ lepro XXXXX.pdb\
+~$ ledock dock.in\
+*add the desired ligands to the pro.pdb*\
+~$ plip -f pro.pdb -p --peptides 1 2 3
+```
 
 ## in/output data
 ### Input data
