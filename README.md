@@ -50,11 +50,13 @@ You can do this because this .dok file is just a .pdb made by ledock.
 
 ### voorbeeld commandline
 To get pictures out of the .pdb file you usually run:
->$ lepro XXXXX.pdb\
->$ ledock dock.in\
->*add the desired ligands to the pro.pdb*\
->$ plip -f pro.pdb -p --peptides 1 2 3
 
+```bash
+~$ lepro XXXXX.pdb\
+~$ ledock dock.in\
+*add the desired ligands to the pro.pdb*\
+~$ plip -f pro.pdb -p --peptides 1 2 3
+```
 
 ## in/output data
 
