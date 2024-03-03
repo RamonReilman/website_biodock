@@ -158,7 +158,7 @@ In case of any bugs or needed support, please send an email to one of the follow
 - y.timmer.2@st.hanze.nl
 
 
-## Authors and acknowledgments
+## Acknowledgments
 BioDock Visualiser integrates the following tools and libraries:
 
 - **LePro**
@@ -190,6 +190,7 @@ BioDock Visualiser integrates the following tools and libraries:
   - Description: library used for processing data from molecular modeling (required with PLIP). 
   - Repository: https://github.com/njzjz/openbabel-wheel
   - License: GNU General Public License v2.0
+
 
 ## Sources
 1. https://github.com/pharmai/plip/blob/master/DOCUMENTATION.md?plain=1
