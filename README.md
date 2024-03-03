@@ -1,9 +1,9 @@
 # Biodock
 ### version 0.0.0
 ### Authors: 
-    Ramon Reilman
-    Yamila Timmer
-    Stijn Vermeulen
+- Ramon Reilman (https://git.bioinf.nl/rreilman)
+- Stijn Vermeulen (https://git.bioinf.nl/svermeulen)
+- Yamila Timmer (https://git.bioinf.nl/ytimmer2)
 
 ## Description
 Understanding interactions between proteins and ligands is of great importance for various branches of molecular biology. Examples of its usage include, but are not limited to, developing new medicines or improving existing ones, as well as getting a better understanding of various biochemical processes.
@@ -58,7 +58,8 @@ To install plip on a bin computer, you will need to install it in a virtual envi
 ~$ pip3 install -r /path/to/requirements.txt --no-deps plip
 ```
 plip can now be used within the venv. <br>
-## gebruikershandleiding voor ontwikkelaar/programmeur
+
+## User's manual
 Before running the tools you must already have:
 - A .pdb file of the protein
 - A .mol2 file of the ligand
@@ -95,7 +96,7 @@ The best way to do this here is to take the appropriate ligands from the .dok fi
 You can do this because this .dok file is just a .pdb made by ledock.
 
 
-### voorbeeld commandline
+### Commandline example
 To get pictures out of the .pdb file you usually run:
 
 ```bash
@@ -105,7 +106,7 @@ To get pictures out of the .pdb file you usually run:
 ~$ plip -f pro.pdb -p --peptides 1 2 3
 ```
 
-## in/output data
+## In/output data
 ### Input data
 To use the tools you need:
 - A pdb file of a peptide <br>
@@ -147,22 +148,15 @@ Plip legend:
 | Metal Complex | [140, 64, 153] | violetpurple | dashed line |
 
 [1]
-## bekende bugs (optioneel)
 
-## Support (contactgegevens)
+## Support (contact details)
 Incase of any bugs, or needed support, please mail one of the following emails: <br>
 - r.reilman@st.hanze.nl
 - s.vermeulen@st.hanze.nl
 - y.timmer.2@st.hanze.nl
 
 ## Authors and acknowledgments
-Authors:
-- Ramon Reilman (github link)
-- Stijn Vermeulen (github link)
-- Yamila Timmer (https://git.bioinf.nl/ytimmer2)
-
 BioDock Visualiser integrates the following tools and libraries:
-
 
 - **LePro**
   - Description: program that removes/adds certain elements from the user-provided PDB-file, to simplify the docking-process.
@@ -194,7 +188,7 @@ BioDock Visualiser integrates the following tools and libraries:
   - Repository: https://github.com/njzjz/openbabel-wheel
   - License: GNU General Public License v2.0
 
-## sources
+## Sources
 1. https://github.com/pharmai/plip/blob/master/DOCUMENTATION.md?plain=1
 2. Docking (moleculair). (2024, 31 januari). Wikipedia. https://nl.wikipedia.org/wiki/Docking_(moleculair)#:~:text=Op%20het%20gebied%20van%20moleculair,vormt%20met%20een%20ander%20molecuul.
 3. Lephar Research. (z.d.). Tutorial for LeDock. 
