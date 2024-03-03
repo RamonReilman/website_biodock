@@ -1,15 +1,15 @@
-# Biodock
-### version 0.0.0
-### Authors: 
+# BioDock Visualiser (V. 1.0)
+
+## Authors: 
 - Ramon Reilman (https://git.bioinf.nl/rreilman)
 - Stijn Vermeulen (https://git.bioinf.nl/svermeulen)
 - Yamila Timmer (https://git.bioinf.nl/ytimmer2)
+
 
 ## Description
 Understanding interactions between proteins and ligands is of great importance for various branches of molecular biology. Examples of its usage include, but are not limited to, developing new medicines or improving existing ones, as well as getting a better understanding of various biochemical processes.
 
 BioDock Visualiser is a webtool that allows users to dock ligands onto proteins and visualise the result afterwards. The process of 'docking' refers to predicting the most likely configuration of a ligand when it attaches itself to a protein.
-
 
 ### Key-features
 - Docks selected ligand onto selected protein,
@@ -19,15 +19,15 @@ BioDock Visualiser is a webtool that allows users to dock ligands onto proteins 
 
 *This is based on the amount of kcal/mol that the ligand configuration gives when binding to a protein, the more kcal/mol, the more likely the configuration will be.
 
-## Installation and system requirements <br>
-### system requirements: <br>
+
+## System requirements and installation<br>
+### System requirements: <br>
 - OS, linux
 - Python 3.0 or higher
 - pip3
 
-
 ### Installing tools: <br>
-To install the tools ledock/lepro/lefrag:
+To install the tools LeDock/LePro:
 ```bash
 ~$ wget http://www.lephar.com/download/ledock_linux_x86
 
@@ -41,15 +41,15 @@ To install the tools ledock/lepro/lefrag:
 ```
 But you could also create an alias in the .bash_aliases or .bashrc files. <br>
 <br>
-Plip: <br>
-There are 2 ways to install plip, depending on if you're installing it on your own computer or the bin computers. <br>
+PLIP: <br>
+There are 2 ways to install PLIP, depending on if you're installing it on your own computer or the bin computers. <br>
 
 On your own laptop/computer:
 ```bash
 ~$ pip3 install -r /path/to/requirements.txt --no-deps plip
 ```
 
-To install plip on a bin computer, you will need to install it in a virtual enviroment. <br>
+To install PLIP on a bin computer, you will need to install it in a virtual enviroment. <br>
 ```bash
 ~$ python3 -m venv /path/to/newvenv --system-site-packages
 # Activate the venv
@@ -57,7 +57,8 @@ To install plip on a bin computer, you will need to install it in a virtual envi
 # Install package into the venv
 ~$ pip3 install -r /path/to/requirements.txt --no-deps plip
 ```
-plip can now be used within the venv. <br>
+PLIP can now be used within the venv. <br>
+
 
 ## User's manual
 Before running the tools you must already have:
@@ -65,7 +66,7 @@ Before running the tools you must already have:
 - A .mol2 file of the ligand
 - A ligand file without extensions that holds the filenames of all the .mol2 ligand files
 
-Lepro takes a .pdb file and creates a copy called pro.pdb in which things like water molecules and ligands are removed and hydrogen atoms are added.\
+LePro takes a .pdb file and creates a copy called pro.pdb in which things like water molecules and ligands are removed and hydrogen atoms are added.\
 It also creates a dock.in file that looks like this:
 >Receptor\
 >pro.pdb\
@@ -86,15 +87,14 @@ It also creates a dock.in file that looks like this:
 >\
 >END
 
-You can change the dock.in. If you want ledock to run faster for example, you can make the Nuber of binding poses lower.
-This will cause ledock to run fewer iterations.\
-The dock.in is used to run ledock. Ledock uses the file references in the dock.in to effectively get all the data.
-ledock uses that data to dock the given ligands and it returns a .dok file with the specified number of binding poses sorted
-on score(a lower number is a higher score).\
-plip takes a .pdb file to create an image, in this case the .pdb file needs to have the protein and the appropriate ligands
+You can change the dock.in. If you want LeDock to run faster for example, you can reduce the number of binding poses.
+This will cause LeDock to run fewer iterations.\
+The dock.in is used to run LeDock. LeDock uses the file references in the dock.in to effectively get all the data.
+LeDock uses that data to dock the given ligands and it returns a .dok file with the specified number of binding poses sorted
+on score (a lower number is a higher score).\
+PLIP takes a .pdb file to create an image, in this case the .pdb file needs to have the protein and the appropriate ligands
 The best way to do this here is to take the appropriate ligands from the .dok file and put them in the pro.pdb.
-You can do this because this .dok file is just a .pdb made by ledock.
-
+You can do this because this .dok file is just a .pdb made by LeDock.
 
 ### Commandline example
 To get pictures out of the .pdb file you usually run:
@@ -106,22 +106,23 @@ To get pictures out of the .pdb file you usually run:
 ~$ plip -f pro.pdb -p --peptides 1 2 3
 ```
 
+
 ## In/output data
 ### Input data
 To use the tools you need:
-- A pdb file of a peptide <br>
+- A .pdb file of a peptide <br>
     - This contains information about the peptide
-- A mol2 file of a ligand
-    - Molecular information about the ligand, can be used to render it in pymol for example.
+- A .mol2 file of a ligand
+    - Molecular information about the ligand, can be used to render it in PyMOL for example.
 
 ### Output data
-- a .dok file
+- A .dok file
     - This contains a number of position the ligand could be in, it is in an decreasing order. The first ligand has the most optimal position
     
 - Pictures of ligand in binding site
     - These pictures show how a ligand is fit into the binding site. There are also bonds formed and showed. PLIP is used for this and gives us a legend to use in said pictures.
 
-Plip legend:
+PLIP legend:
 
 | Description  | RGB | PyMOL color | Representation |
 | ------------ | --- | ------------| ---------------|
@@ -149,11 +150,13 @@ Plip legend:
 
 [1]
 
+
 ## Support (contact details)
-Incase of any bugs, or needed support, please mail one of the following emails: <br>
+In case of any bugs or needed support, please send an email to one of the following email addresses: <br>
 - r.reilman@st.hanze.nl
 - s.vermeulen@st.hanze.nl
 - y.timmer.2@st.hanze.nl
+
 
 ## Authors and acknowledgments
 BioDock Visualiser integrates the following tools and libraries:
