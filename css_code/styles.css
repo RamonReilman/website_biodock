@@ -1,0 +1,57 @@
+/* Header background, height and border*/
+header {
+  overflow: hidden;
+  background-color: #dde5f7;
+  border-bottom: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Styles all header links ('a'-elements)*/
+header a {
+  float: right;
+  font-family:Arial, Helvetica, sans-serif;
+  color: black;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 4px;
+  padding-right: 40px;
+  margin-top: 40px;
+  margin-right: 40px;
+}
+
+/* Changes background color on mouse hover*/
+header a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Gives active/current page blue color*/
+header a.active {
+  background-color: #9fb6e8;
+  color: white;
+}
+
+.boxes {
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 20px;
+  padding: 20px;
+
+}
+
+.file_upload_box {
+  float:left;
+  width: 600px;
+  height: 400px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.preferences_box {
+  float:right;
+  width: 400px;
+  height: 400px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
