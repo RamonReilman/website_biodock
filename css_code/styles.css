@@ -54,3 +54,16 @@ header a.active {
   border: 1px solid black;
   border-radius: 3px;
 }
+#copyright{
+  background-color: #dde5f7;
+  border-radius: 25px;
+  width: 50%;
+  height: 50px;
+  position: absolute;
+  left: 25%;
+  top: 94%;
+
+}
+#copyright_text{
+  text-align: center;
+}
