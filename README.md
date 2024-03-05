@@ -100,8 +100,8 @@ You can do this because this .dok file is just a .pdb made by LeDock.
 To get pictures out of the .pdb file you usually run:
 
 ```bash
-~$ lepro XXXXX.pdb\
-~$ ledock dock.in\
+~$ /path/to/lepro_linux_x8 XXXXX.pdb\
+~$ /path/to/ledock_linux_x8 dock.in\
 *add the desired ligands to the pro.pdb*\
 ~$ plip -f pro.pdb -p --peptides 1 2 3
 ```
@@ -152,10 +152,8 @@ PLIP legend:
 
 
 ## Support (contact details)
-In case of any bugs or needed support, please send an email to one of the following email addresses: <br>
-- r.reilman@st.hanze.nl
-- s.vermeulen@st.hanze.nl
-- y.timmer.2@st.hanze.nl
+In case of any bugs or needed support, open up an issue at our repo: <br>
+https://git.bioinf.nl/biodock_vis/website_biodock
 
 
 ## Acknowledgments
