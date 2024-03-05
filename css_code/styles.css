@@ -59,9 +59,9 @@ header a.active {
   border-radius: 25px;
   width: 50%;
   height: 50px;
-  position: absolute;
+  position: relative;
   left: 25%;
-  top: 94%;
+  top: 10%;
 
 }
 #copyright_text{
@@ -70,14 +70,14 @@ header a.active {
 
 /* styling of the columns that include the link to past projects */
 #link_column{
-  background-color: #dde5f7;
+  background-color: #f8f9fa;
   border: #ccc solid 2px;
   text-align: left;
 }
 /* styling of the columns that has the title of past project */
 #info_column
 {
-  background-color: #dde5f7;
+  background-color: #f8f9fa;
   text-align: left;
   border-top: #ccc solid 2px;
   border-right: #ccc solid 2px;
@@ -88,6 +88,8 @@ header a.active {
 #div_links{
   position: relative;
   top: 20px;
+  border-radius: 25px;
+  
 }
 
 /* Styling of the background of the history list */
@@ -101,4 +103,40 @@ header a.active {
   width: 1200px;
   height: 250px;
   top: 50px;
+}
+
+
+/* temp.html */
+
+#download_container{
+  background-color: #f1f4fb;
+  width: 1500px;
+  height: 1200px;
+  border:  #ccc solid 2px;
+  border-radius: 25px;
+  margin: 10px auto;
+}
+
+#download_button{
+  margin: 5px auto;
+  background-color: #f8f9fa;
+  border:  #ccc solid 2px;
+  text-align: center;
+  border-radius: 25px;
+}
+
+#pymol_foto{
+  width: 600px;
+  height: 400px;
+}
+
+#pymol_row{
+  text-align: center;
+  align-items: center;
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px black solid;
+  background-color: #f8f9fa;
+  border-radius: 25px;
 }
