@@ -67,3 +67,38 @@ header a.active {
 #copyright_text{
   text-align: center;
 }
+
+/* styling of the columns that include the link to past projects */
+#link_column{
+  background-color: #dde5f7;
+  border: #ccc solid 2px;
+  text-align: left;
+}
+/* styling of the columns that has the title of past project */
+#info_column
+{
+  background-color: #dde5f7;
+  text-align: left;
+  border-top: #ccc solid 2px;
+  border-right: #ccc solid 2px;
+  border-bottom: #ccc solid 2px;
+}
+
+/* Styling of the div that contains the rows and columns */
+#div_links{
+  position: relative;
+  top: 20px;
+}
+
+/* Styling of the background of the history list */
+#background_links{
+  background-color: #f1f4fb;
+  border:  #ccc solid 2px;
+  border-radius: 25px;
+  text-align: center;
+
+  position: relative;
+  width: 1200px;
+  height: 250px;
+  top: 50px;
+}
