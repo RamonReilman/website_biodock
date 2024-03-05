@@ -1,28 +1,31 @@
-/* Header background, height and border*/
-header {
-  overflow: hidden;
+/*Background color for entire webpage*/
+body {
+  background-color:#f8f9fa;
+
+}
+
+/*css for header color and header divider at bottom*/
+#header {
   background-color: #dde5f7;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid #9fb6e8;
   border-radius: 4px;
 }
 
 /* Styles all header links ('a'-elements)*/
 header a {
-  float: right;
   font-family:Arial, Helvetica, sans-serif;
   color: black;
-  padding: 12px;
+  padding: 20px;
   text-decoration: none;
   font-size: 18px;
   border-radius: 4px;
-  margin-top: 40px;
-  margin-right: 40px;
+  color: #7F91B9;
 }
 
 /* Changes background color on mouse hover*/
 header a:hover {
-  background-color: #ddd;
-  color: black;
+  background-color: #9fb6e8;
+  color: white;
 }
 
 /* Gives active/current page blue color*/
@@ -31,39 +34,54 @@ header a.active {
   color: white;
 }
 
+/* bg-color and height for both boxes*/
 .boxes {
-  margin-left: 50px;
-  margin-right: 50px;
-  margin-top: 20px;
-  padding: 20px;
-
+  background-color: #f1f4fb;
+  height: 75vh;
 }
 
-.file_upload_box {
-  float:left;
-  width: 600px;
-  height: 400px;
+/* css for box where user can upload files (left box)*/
+#file_upload_box {
   border: 1px solid black;
   border-radius: 3px;
+  height: 90%;
+  background-color: #f8f9fa;
+  font-family:Arial, Helvetica, sans-serif;
+  color: #7F91B9;
 }
 
-.preferences_box {
-  float:right;
-  width: 400px;
-  height: 400px;
+/* css for box where user can give preferences (right box)*/
+#preferences_box {
   border: 1px solid black;
   border-radius: 3px;
+  height: 90%;
+  background-color: #f8f9fa;
+  font-family:Arial, Helvetica, sans-serif;
+  color: #7F91B9;
 }
+
+/* makes heading in both boxes (upload_files & preferences) bold*/
+#files_heading {
+  font-weight: bold;
+}
+#preferences_heading {
+  font-weight: bold;
+}
+
+/* css for copyright box at the bottom of the page*/
 #copyright{
-  background-color: #dde5f7;
-  border-radius: 25px;
-  width: 50%;
-  height: 50px;
-  position: absolute;
-  left: 25%;
-  top: 94%;
+  background-color: #9fb6e8;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
 
 }
 #copyright_text{
   text-align: center;
+  color: white;
+  margin: 5;
+}
+
+#biodock_logo{
+
+  margin-right: 50px;
 }
