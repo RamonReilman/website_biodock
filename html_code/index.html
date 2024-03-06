@@ -25,34 +25,26 @@
 
 
 
-    <div class="container" >
+    <div class="container">
         <div class="row boxes justify-content-evenly">
-            <div class="col-sm-6 mt-4"><div class="p-3 border" id="file_upload_box">
-                <div class="row">
-                    <div class="col-12">
-                        <form action="action_page.php" method="GET">
-                            <p id="files_heading">Upload files:</p>
-                            <div class="col">
-                                <label for="pdb_file">Upload PDB-file:</label><br><br>
-                                <input type="file" id="pdb_file" name="pdb_file" required><br><br>
-                            </div> 
-                        </div>
-
-                        <div class="col-12">
-                            
-
-                            
+            <div class="col-sm-6 mt-4">
+                <div class="p-3 border" id="file_upload_box">
+                    <form action="action_page.php" method="GET">
+                        <p id="files_heading">Upload files:</p>
+                        <div class="col">
+                            <label for="pdb_file">Upload PDB-file:</label><br><br>
+                            <input type="file" id="pdb_file" name="pdb_file" required><br><br>
+                        </div> 
+                    
+                        <div class="col">
                             <label for="mol2_file">Upload mol2-file:</label><br><br>
                             <input type="file" id="mol2_file" name="mol2_file" required><br><br>
                         </div>
+                    
                         <div class="col-12 d-grid">
                             <input type="submit" class="btn btn-outline-primary btn-block" id="submit_button">
                         </div>
-                        <div>
-                        
-                            
-                        </div>
-                    </div>                
+                    </form>               
                 </div>
             </div>
                 <div class="col-sm-4 mt-4"><div class="p-3 border" id="preferences_box">
@@ -68,8 +60,6 @@
                         </div>
                         <div class="col-12">
                             Select RMSD-cutoff: 
-
-                        </form>
                     </div>
                 </div>
             </div></div>
