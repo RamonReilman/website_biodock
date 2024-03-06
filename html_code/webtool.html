@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8"/>	
     <title>BioDock Visualiser Webtool</title>
@@ -13,7 +13,7 @@
     <header>
         <div class="container">
             <div class="row justify-content-end" id="header">
-                <div class="col-sm-2 mx-auto"><img src="../img/BioDock_Visualiser_Logo.png" id="biodock_logo" alt="BioDock Visualiser Logo" width="220" height="100"></div>
+                <div class="col-sm-2 mx-auto my-auto"><img src="../img/BioDock_Visualiser_Logo.png" id="biodock_logo" alt="BioDock Visualiser Logo" width="220" height="100"></div>
                 <div class="col-sm-2 my-auto"><a class="active" href="webtool.html">Webtool</a></div>
                 <div class="col-sm-2 my-auto"><a href="index.html">About</a></div>
                 <div class="col-sm-2 my-auto"><a href="history.html">History</a></div>
@@ -32,9 +32,9 @@
                             <form action="" method="post" lan="en" enctype="multipart/form-data">
                             <label for="file1">Upload PDB-file:</label><br><br>
                             <input type="file" id="pdb_file" name="pdb_file"><br><br>
-                        </div>
-                        
+                        </div> 
                     </div>
+
                     <div class="col-12">
                         <label for="file2">Upload mol2-file:</label><br><br>
                         <input type="file" id="mol2_file" name="mol2_file"><br><br>
@@ -43,12 +43,9 @@
                         <button type="button" class="btn btn-outline-primary btn-block" id="submit_button">Submit</button>
                          </form>
                     </div>
-                </div>
-                
-                
-                
-                
-            </div></div>
+                </div>                
+            </div>
+        </div>
             <div class="col-sm-4 mt-4"><div class="p-3 border" id="preferences_box">
                 <div class="row">
                     <div class="col-12">
@@ -71,7 +68,8 @@
     
     <footer class="container">
         <div class="row">
-            <div class="col-sm-12 mx-auto pt-3" id="copyright"><p id="copyright_text">&#169 BioDock Visualiser</p></div>
+            <div class="col-sm-12" id="copyright">
+                <p id="copyright_text">&#169 BioDock Visualiser</p></div>
             </div>
         </div>
     </footer>

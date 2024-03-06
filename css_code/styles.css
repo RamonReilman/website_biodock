@@ -1,34 +1,41 @@
-/*Background color for entire webpage*/
+/* specifies width for all containers (header-middle part-footer), 
+makes width responsive to diff resolutions*/
+.container{
+  min-width: 95%;
+}
+
+/*Background color and fonts for all webpages*/
 body {
   background-color:#f8f9fa;
   font-family:Arial, Helvetica, sans-serif;
 
 }
 
-/*css for header color and header divider at bottom*/
+/*css for header height, color and header divider at bottom*/
 #header {
   background-color: #dde5f7;
   border-bottom: 2px solid #9fb6e8;
+
   border-radius: 4px;
+  height: 17vh;
 }
 
 /* Styles all header links ('a'-elements)*/
 header a {
-  color: black;
+  color: #7F91B9;
   padding: 20px;
   text-decoration: none;
   font-size: 18px;
   border-radius: 4px;
-  color: #7F91B9;
 }
 
-/* Changes background color on mouse hover*/
+/* Changes background color and text color on mouse hover*/
 header a:hover {
   background-color: #9fb6e8;
   color: white;
 }
 
-/* Gives active/current page blue color*/
+/* Gives active/current page blue color and changes text color*/
 header a.active {
   background-color: #9fb6e8;
   color: white;
@@ -42,8 +49,7 @@ header a.active {
 
 /* css for box where user can upload files (left box)*/
 #file_upload_box {
-  border: 1px solid black;
-  border-radius: 3px;
+  border-radius: 4px;
   height: 90%;
   background-color: #f8f9fa;
   color: #7F91B9;
@@ -64,8 +70,7 @@ header a.active {
 
 /* css for box where user can give preferences (right box)*/
 #preferences_box {
-  border: 1px solid black;
-  border-radius: 3px;
+  border-radius: 4px;
   height: 90%;
   background-color: #f8f9fa;
   color: #7F91B9;
@@ -88,11 +93,11 @@ header a.active {
   
 }
 #copyright_text{
+  height: 100%;
   text-align: center;
   color: white;
-  margin: 0;
-  padding: 0;
-  align-items: center;
+  line-height: 8vh;
+
 }
 
 
