@@ -27,16 +27,16 @@
             <div class="col-sm-6 mt-4">
                 <div class="p-3 border" id="file_upload_box">
 
-                    <form action="action_page.php" method="GET">
+                    <form action="../action_page.php" method="POST" enctype="multipart/form-data">
                         <p id="files_heading">Upload files:</p>
 
-                        <div class="col">
-                            <label for="pdb_file">Upload PDB-file:</label><br><br>
+                        <div class="col-12">
+                            <label for="pdb_file">Choose PDB-file:</label><br><br>
                             <input type="file" id="pdb_file" name="pdb_file" accept=".pdb" required><br><br>
                         </div> 
                     
-                        <div class="col">
-                            <label for="mol2_file">Upload mol2-file:</label><br><br>
+                        <div class="col-12">
+                            <label for="mol2_file">Choose MOL2-file:</label><br><br>
                             <input type="file" id="mol2_file" name="mol2_file" accept=".mol2" required><br><br>
                         </div>
                     
@@ -52,18 +52,27 @@
                     <div class="row">
 
                         <div class="col-12">
-                            <p id="preferences_heading">Settings/preferences</p><br><br>
+                            <p id="preferences_heading">Settings/preferences</p>
+                        </div>
+
+                        <div class="col-12">
+                            <p>Save file as:</p>
+                            <label for="name_file"></label>
+                            <input type="text" id="name_file" name="name_file" minlength="1" maxlength="100" required>
                         </div>
 
                         <div class="col-12 mt-3">
                             <div class="slide_container">
-                                <p>No. of docking poses: <span id="slider_output"></span></p>
-                                <input type="range" min="1" max="20" value="1" class="slider" id="slider_input"> 
+                                <p>No. of docking poses: <span id="dock_pose_output"></span></p>
+                                <input type="range" min="1" max="20" value="1" class="slider" id="dock_pose_input"> 
                             </div>
                         </div>
 
                         <div class="col-12">
-                            Select RMSD-cutoff: 
+                            <div class="slide_container">
+                                <p>RMSD-cutoff: <span id="RMSD_output"></span>Å</p>
+                                <input type="range" min="0.5" max="4.0" value="1" step="0.1" class="slider" id="RMSD_input"> 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -79,7 +88,7 @@
         </div>
     </footer>
 
-<script src="button.js"></script>
+<script src="../js/slider.js"></script>
 </body>
 </html>
 
