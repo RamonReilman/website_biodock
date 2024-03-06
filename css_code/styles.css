@@ -1,6 +1,7 @@
 /*Background color for entire webpage*/
 body {
   background-color:#f8f9fa;
+  font-family:Arial, Helvetica, sans-serif;
 
 }
 
@@ -78,7 +79,7 @@ header a.active {
 #copyright_text{
   text-align: center;
   color: white;
-  margin: 5;
+  margin: 5px;
 }
 
 #biodock_logo{
@@ -86,6 +87,7 @@ header a.active {
   margin-right: 50px;
 }
 
+/* History.html */
 /* styling of the columns that include the link to past projects */
 .history_links{
   background-color: #f1f4fb;
@@ -95,14 +97,14 @@ header a.active {
 {
   background-color: #f8f9fa;
   text-align: left;
-  border-top: #ccc solid 2px;
-  border-right: #ccc solid 2px;
-  border-bottom: #ccc solid 2px;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
 }
 .link_column{
   background-color: #f8f9fa;
   text-align: left;
-  border: solid 2px #ccc;
+  border: 1px solid black;
 }
 
 /* Styling of the div that contains the rows and columns */
@@ -125,7 +127,13 @@ header a.active {
   height: 250px;
   top: 50px;
 }
+#history_uitleg{
+  text-align: center;
+}
 
+.btn-primary{
+  background-color: #7F91B9 !important;
+}
 
 /* temp.html */
 
@@ -134,14 +142,11 @@ header a.active {
   background-color: #f1f4fb;
   width: 1500px;
   height: 1200px;
-  border:  #ccc solid 2px;
-  border-radius: 25px;
-  margin: 10px auto;
 }
 
 /* Gives styling to the download button for the dok file */
 #download_button{
-  margin: 5px auto;
+  margin: 10px auto;
   background-color: #f8f9fa;
   border:  #ccc solid 2px;
   text-align: center;
@@ -160,7 +165,7 @@ header a.active {
   align-items: center;
 
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   border: 2px black solid;
   background-color: #f8f9fa;
   border-radius: 25px;
