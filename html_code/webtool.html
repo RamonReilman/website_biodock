@@ -24,25 +24,46 @@
 
     <div class="container" >
         <div class="row boxes justify-content-evenly">
-            <div class="col-sm-6 mt-4"><div class="p-3 border" id="file_upload_box"><p id="files_heading">Upload files</p>
-                <form action="" method="post" lan="en" enctype="multipart/form-data">
-                    <label for="file1">Upload PDB-file:</label><br><br>
-                    <input type="file" id="pdb_file" name="pdb_file"><br><br>
-                    
-                    <label for="file2">Upload mol2-file:</label><br><br>
-                    <input type="file" id="mol2_file" name="mol2_file"><br><br>
-                  
-                    <input type="submit">
-                  </form>
-            </div></div>
-            <div class="col-sm-4 mt-4"><div class="p-3 border" id="preferences_box"><p id="preferences_heading">Settings/preferences</p><br><br>
+            <div class="col-sm-6 mt-4"><div class="p-3 border" id="file_upload_box">
                 <div class="row">
-                    Select number of docking poses: <div class="col-sm-4 mt-3">
+                    <div class="col-12">
+                        <p id="files_heading">Upload files</p>
+                        <div class="col">
+                            <form action="" method="post" lan="en" enctype="multipart/form-data">
+                            <label for="file1">Upload PDB-file:</label><br><br>
+                            <input type="file" id="pdb_file" name="pdb_file"><br><br>
+                        </div>
                         
-                    </div> <input type="text"><br>
-                    Select RMSD-cutoff: <input type="text">
+                    </div>
+                    <div class="col-12">
+                        <label for="file2">Upload mol2-file:</label><br><br>
+                        <input type="file" id="mol2_file" name="mol2_file"><br><br>
+                    </div>
+                    <div class="col-12 d-grid">
+                        <button type="button" class="btn btn-outline-primary btn-block" id="submit_button">Submit</button>
+                         </form>
+                    </div>
                 </div>
                 
+                
+                
+                
+            </div></div>
+            <div class="col-sm-4 mt-4"><div class="p-3 border" id="preferences_box">
+                <div class="row">
+                    <div class="col-12">
+                        <p id="preferences_heading">Settings/preferences</p><br><br>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <div class="slide_container">
+                            <p>No. of docking poses: <span id="slider_output"></span></p>
+                            <input type="range" min="1" max="20" value="1" class="slider" id="slider_input"> 
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        Select RMSD-cutoff: 
+                    </div>
+                </div>
             </div></div>
         </div>
     </div>
@@ -50,10 +71,10 @@
     
     <footer class="container">
         <div class="row">
-            <div class="col-sm-12 mx-auto" id="copyright"><p id="copyright_text">&#169 BioDock Visualiser</p></div>
+            <div class="col-sm-12 mx-auto pt-3" id="copyright"><p id="copyright_text">&#169 BioDock Visualiser</p></div>
             </div>
         </div>
     </footer>
-
+    <script src="button.js"></script>
 </body>
 </html>
