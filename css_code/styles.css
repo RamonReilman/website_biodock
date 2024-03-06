@@ -107,16 +107,9 @@ header a.active {
   border: 1px solid black;
 }
 
-/* Styling of the div that contains the rows and columns */
-#div_links{
-  position: relative;
-  top: 20px;
-  border-radius: 25px;
-  
-}
 
 /* Styling of the background of the history list */
-#background_links{
+/* #background_links{
   background-color: #f1f4fb;
   border:  #ccc solid 2px;
   border-radius: 25px;
@@ -126,7 +119,7 @@ header a.active {
   width: 1200px;
   height: 250px;
   top: 50px;
-}
+} */
 #history_uitleg{
   text-align: center;
 }
@@ -138,10 +131,10 @@ header a.active {
 /* temp.html */
 
 /* Gives styling to the background of the page */
-#download_container{
+#download_container, .imgs_container{
   background-color: #f1f4fb;
-  width: 1500px;
-  height: 1200px;
+  /* width: 1500px;
+  height: 1200px; */
 }
 
 /* Gives styling to the download button for the dok file */
@@ -164,8 +157,8 @@ header a.active {
   text-align: center;
   align-items: center;
 
-  margin-top: 10px;
-  margin-bottom: 5px;
+  /* margin-top: 10px;
+  margin-bottom: 5px; */
   border: 2px black solid;
   background-color: #f8f9fa;
   border-radius: 25px;
@@ -174,4 +167,9 @@ header a.active {
 /* Styles download button under pymol image */
 .pymol_download_btn{
   margin: 5px auto;
+}
+
+.container{
+  min-width: 92%;
+  
 }
