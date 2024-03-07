@@ -1,7 +1,7 @@
 /*Background color for entire webpage*/
 body {
   background-color:#f8f9fa;
-
+  font-family:Arial, Helvetica, sans-serif
 }
 
 /*css for header color and header divider at bottom*/
@@ -84,4 +84,14 @@ header a.active {
 #biodock_logo{
 
   margin-right: 50px;
+}
+
+/*Start css about.html*/
+
+h3 {
+  text-align: center;
+}
+
+.border_test{
+  border: solid black 2px ;
 }
