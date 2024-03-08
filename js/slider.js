@@ -1,20 +1,19 @@
-var slider = document.getElementById("dock_pose_input");
-var output = document.getElementById("dock_pose_output");
-output.innerHTML = slider.value; // Display the default slider value
+var DockPoseSlider = document.getElementById("dock_pose_input");
+var DockPoseOutput = document.getElementById("dock_pose_output");
+DockPoseOutput.innerHTML = DockPoseSlider.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
-  output.innerHTML = this.value;
+DockPoseSlider.oninput = function() {
+  DockPoseOutput.innerHTML = this.value;
 }
 
-
-var slider = document.getElementById("RMSD_input");
-var output = document.getElementById("RMSD_output");
-output.innerHTML = slider.value; // Display the default slider value
+var RMSDSlider = document.getElementById("RMSD_input");
+var RMSDOutput = document.getElementById("RMSD_output");
+RMSDOutput.innerHTML = RMSDSlider.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
-  output.innerHTML = this.value;
+RMSDSlider.oninput = function() {
+  RMSDOutput.innerHTML = this.value;
 }
 
 

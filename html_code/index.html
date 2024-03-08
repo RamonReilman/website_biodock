@@ -15,7 +15,7 @@
             <div class="row justify-content-evenly" id="header">
                 <div class="col-sm-2 my-auto"><img src="../img/BioDock_Visualiser_Logo.png" id="biodock_logo" alt="BioDock Visualiser Logo" width="220" height="100"></div>
                 <div class="col-sm-2 my-auto"><a class="active" href="webtool.html">Webtool</a></div>
-                <div class="col-sm-2 my-auto"><a href="index.html">About</a></div>
+                <div class="col-sm-2 my-auto"><a href="about.html">About</a></div>
                 <div class="col-sm-2 my-auto"><a href="history.html">History</a></div>
                 <div class="col-sm-2 my-auto"><a href="our_team.html">Our Team</a></div>
             </div>
@@ -24,7 +24,7 @@
 
     <div class="container">
         <div class="row boxes justify-content-evenly">
-            <div class="col-sm-6 my-auto">
+            <div class="col-sm-6 mt-5">
                 <div class="p-3 border" id="file_upload_box">
                     <form action="../action_page.php" method="POST" enctype="multipart/form-data">
                     <div class="col-12 files_heading">
@@ -40,11 +40,7 @@
                             <label for="mol2_file">Choose MOL2-file:</label><br><br>
                             <input type="file" id="mol2_file" name="mol2_file" accept=".mol2" required><br><br>
                         </div>
-                    
-                        <div class="col-12 d-grid">
-                            <input type="submit" class="btn btn-outline-primary btn-block" id="submit_button">
-                        </div>
-
+                
                     </form>   
 
                 </div>
@@ -57,7 +53,7 @@
                         </div>
 
 
-                        <div class="col-12 mt-3">
+                        <div class="col-12 mt-3 mb-3">
                             <div class="slide_container">
                                 <p>No. of docking poses: <span id="dock_pose_output"></span></p>
                                 <input type="range" min="1" max="20" value="1" class="slider" id="dock_pose_input"> 
@@ -78,6 +74,12 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div class="col-12 d-grid">
+                    <input type="submit" class="btn btn-outline-primary btn-block" id="submit_button" value="Submit">
+                </div>
+
             </div>
         </div>
     </div>

@@ -5,61 +5,42 @@ body {
 
 }
 
-/* css for header height, color and header divider at bottom*/
-#header {
-  background-color: #dde5f7;
-  border-bottom: 2px solid #9fb6e8;
-
-  border-radius: 4px;
-  height: 17vh;
-}
-
-
-/* Styles all header links ('a'-elements)*/
-header a {
-  color: #7F91B9;
-  padding: 20px;
-  text-decoration: none;
-  font-size: 18px;
-  border-radius: 4px;
-}
-
-/* Changes background color and text color on mouse hover*/
-header a:hover {
-  background-color: #9fb6e8;
-  color: white;
-}
-
-/* Gives active/current page blue color and changes text color*/
-header a.active {
-  background-color: #9fb6e8;
-  color: white;
-}
-
 /* specifies width for all containers (header-middle part-footer), 
 makes width responsive to diff resolutions*/
 .container{
   min-width: 95%;
 }
 
+/*---------------------------HEADER------------------------------------------*/
+/* css for header height, color and header divider at bottom*/
+#header {
+  background-color: #dde5f7;
+  border-bottom: 2px solid #9fb6e8;
+  border-radius: 4px;
+  height: 17vh;
+}
+
+/* Styles all header links ('a'-elements)*/
+header a {
+  color: #7F91B9;
+  padding: 20px;
+  text-decoration: none;
+  font-size: 1.125em;
+  border-radius: 4px;
+}
+
+/* Changes background color and text color on mouse hover and on active state*/
+header a:hover,
+header a.active {
+  background-color: #9fb6e8;
+  color: white;
+}
+
+/*-----------------------CONTENT FOR INDEX.HTML-------------------------*/
 /* bg-color and height for both boxes*/
 .boxes {
   background-color: #f1f4fb;
   height: 75vh;
-}
-
-/* For screens with a height between 501px and 1080px */
-@media screen and (min-height: 400px) and (max-height: 730px) {
-  .file_input {
-    margin: 5%;
-  }
-}
-
-/* For screens with a height greater than 1080px */
-@media screen and (min-height: 731px) {
-  .file_input {
-    margin: 10%;
-  }
 }
 
 /* css for box where user can upload files (left box)*/
@@ -68,6 +49,23 @@ makes width responsive to diff resolutions*/
   height: 90%;
   background-color: #f8f9fa;
   color: #7F91B9;
+}
+
+/* css for box where user can give preferences (right box)*/
+#preferences_box,
+#file_upload_box {
+  border-radius: 4px;
+  height: 90%;
+  background-color: #f8f9fa;
+  color: #7F91B9;
+}
+
+#preferences_box {
+  text-align: center;
+}
+
+.file_input {
+  margin: 6%;
 }
 
 /* css for submit button*/
@@ -84,20 +82,18 @@ makes width responsive to diff resolutions*/
   color: #9fb6e8;
 }
 
-/* css for box where user can give preferences (right box)*/
-#preferences_box {
-  border-radius: 4px;
-  height: 90%;
-  background-color: #f8f9fa;
-  color: #7F91B9;
+/* makes heading in both boxes (upload_files & preferences) bold*/
+.files_heading,
+.preferences_heading{
+  font-weight: bold;
+}
+
+/* centers heading in upload_files box*/
+.files_heading {
   text-align: center;
 }
 
-.preferences_heading{
-  font-weight: bold;
-
-}
-/* css for text inpu for file name*/
+/* css for text input for file name*/
 #name_file {
   border-color:#9fb6e8;
   border-radius: 4px;
@@ -105,13 +101,23 @@ makes width responsive to diff resolutions*/
   width: 80%;
 }
 
-/* makes heading in both boxes (upload_files & preferences) bold*/
-.files_heading {
-  font-weight: bold;
-  text-align: center;
+/* Ensures that style looks the same for screens with a height greater than 730px */
+@media screen and (min-height: 730px) {
+  .file_input {
+    margin: 12%;
+  }
+
+  #file_upload_box,
+  #preferences_box {
+    font-size: 1.4em;
+  }
+
+  header a {
+    font-size: 1.45em;
+  }
 }
 
-
+/*-----------------------------------FOOTER------------------------------*/
 /* css for copyright box at the bottom of the page*/
 #copyright{
   background-color: #9fb6e8;
@@ -119,6 +125,7 @@ makes width responsive to diff resolutions*/
   border-bottom-right-radius: 4px;
   height: 8vh; 
 }
+
 /* css for text in copyright box*/
 #copyright_text{
   height: 100%;
@@ -126,5 +133,3 @@ makes width responsive to diff resolutions*/
   color: white;
   line-height: 8vh;
 }
-
-
