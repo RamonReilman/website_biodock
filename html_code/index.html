@@ -12,8 +12,8 @@
 
     <header>
         <div class="container">
-            <div class="row justify-content-end" id="header">
-                <div class="col-sm-2 mx-auto my-auto"><img src="../img/BioDock_Visualiser_Logo.png" id="biodock_logo" alt="BioDock Visualiser Logo" width="220" height="100"></div>
+            <div class="row justify-content-evenly" id="header">
+                <div class="col-sm-2 my-auto"><img src="../img/BioDock_Visualiser_Logo.png" id="biodock_logo" alt="BioDock Visualiser Logo" width="220" height="100"></div>
                 <div class="col-sm-2 my-auto"><a class="active" href="webtool.html">Webtool</a></div>
                 <div class="col-sm-2 my-auto"><a href="index.html">About</a></div>
                 <div class="col-sm-2 my-auto"><a href="history.html">History</a></div>
@@ -24,18 +24,19 @@
 
     <div class="container">
         <div class="row boxes justify-content-evenly">
-            <div class="col-sm-6 mt-4">
+            <div class="col-sm-6 my-auto">
                 <div class="p-3 border" id="file_upload_box">
-
                     <form action="../action_page.php" method="POST" enctype="multipart/form-data">
-                        <p id="files_heading">Upload files:</p>
+                    <div class="col-12 files_heading">
+                        <p>Upload files:</p>
+                    </div>
 
-                        <div class="col-12">
+                        <div class="col-12 file_input">
                             <label for="pdb_file">Choose PDB-file:</label><br><br>
                             <input type="file" id="pdb_file" name="pdb_file" accept=".pdb" required><br><br>
                         </div> 
                     
-                        <div class="col-12">
+                        <div class="col-12 file_input">
                             <label for="mol2_file">Choose MOL2-file:</label><br><br>
                             <input type="file" id="mol2_file" name="mol2_file" accept=".mol2" required><br><br>
                         </div>
@@ -48,18 +49,13 @@
 
                 </div>
             </div>
-                <div class="col-sm-4 mt-4"><div class="p-3 border" id="preferences_box"> 
+                <div class="col-sm-4 my-auto"><div class="p-3 border" id="preferences_box"> 
                     <div class="row">
 
-                        <div class="col-12">
-                            <p id="preferences_heading">Settings/preferences</p>
+                        <div class="col-12 preferences_heading">
+                            <p>Settings:</p>
                         </div>
 
-                        <div class="col-12">
-                            <p>Save file as:</p>
-                            <label for="name_file"></label>
-                            <input type="text" id="name_file" name="name_file" minlength="1" maxlength="100" required>
-                        </div>
 
                         <div class="col-12 mt-3">
                             <div class="slide_container">
@@ -73,6 +69,12 @@
                                 <p>RMSD-cutoff: <span id="RMSD_output"></span>Å</p>
                                 <input type="range" min="0.5" max="4.0" value="1" step="0.1" class="slider" id="RMSD_input"> 
                             </div>
+                        </div>
+
+                        <div class="col-12">
+                            <p>Save file as:</p>
+                            <label for="name_file"></label>
+                            <input type="text" id="name_file" name="name_file" minlength="1" maxlength="100" required>
                         </div>
                     </div>
                 </div>

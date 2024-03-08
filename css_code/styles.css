@@ -1,17 +1,11 @@
-/* specifies width for all containers (header-middle part-footer), 
-makes width responsive to diff resolutions*/
-.container{
-  min-width: 95%;
-}
-
-/*Background color and fonts for all webpages*/
+/* Background color and fonts for all webpages*/
 body {
   background-color:#f8f9fa;
   font-family:Arial, Helvetica, sans-serif;
 
 }
 
-/*css for header height, color and header divider at bottom*/
+/* css for header height, color and header divider at bottom*/
 #header {
   background-color: #dde5f7;
   border-bottom: 2px solid #9fb6e8;
@@ -19,6 +13,7 @@ body {
   border-radius: 4px;
   height: 17vh;
 }
+
 
 /* Styles all header links ('a'-elements)*/
 header a {
@@ -41,10 +36,30 @@ header a.active {
   color: white;
 }
 
+/* specifies width for all containers (header-middle part-footer), 
+makes width responsive to diff resolutions*/
+.container{
+  min-width: 95%;
+}
+
 /* bg-color and height for both boxes*/
 .boxes {
   background-color: #f1f4fb;
   height: 75vh;
+}
+
+/* For screens with a height between 501px and 1080px */
+@media screen and (min-height: 400px) and (max-height: 730px) {
+  .file_input {
+    margin: 5%;
+  }
+}
+
+/* For screens with a height greater than 1080px */
+@media screen and (min-height: 731px) {
+  .file_input {
+    margin: 10%;
+  }
 }
 
 /* css for box where user can upload files (left box)*/
@@ -60,7 +75,7 @@ header a.active {
   border-color: #9fb6e8;
   color: white;
   background-color: #9fb6e8;
-  margin-top: 10%;
+  margin-top: 5vh;
 }
 
 /* css for when mouse hovers over submit_button*/
@@ -75,22 +90,27 @@ header a.active {
   height: 90%;
   background-color: #f8f9fa;
   color: #7F91B9;
+  text-align: center;
 }
 
+.preferences_heading{
+  font-weight: bold;
+
+}
 /* css for text inpu for file name*/
 #name_file {
   border-color:#9fb6e8;
   border-radius: 4px;
   border-style: solid;
+  width: 80%;
 }
 
 /* makes heading in both boxes (upload_files & preferences) bold*/
-#files_heading {
+.files_heading {
   font-weight: bold;
+  text-align: center;
 }
-#preferences_heading {
-  font-weight: bold;
-}
+
 
 /* css for copyright box at the bottom of the page*/
 #copyright{
