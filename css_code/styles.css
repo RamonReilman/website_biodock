@@ -11,6 +11,11 @@ makes width responsive to diff resolutions*/
   min-width: 95%;
 }
 
+h1 {
+  font-size: 1.2em;
+  color: #6a7ca2;
+}
+
 /*---------------------------HEADER------------------------------------------*/
 /* css for header height, color and header divider at bottom*/
 #header {
@@ -43,7 +48,8 @@ header a.active {
   height: 75vh;
 }
 
-/* css for box where user can upload files (left box)*/
+/* css for both boxes, where user can upload files and select settingsS*/
+#settings_box,
 #file_upload_box {
   border-radius: 4px;
   height: 90%;
@@ -51,16 +57,7 @@ header a.active {
   color: #7F91B9;
 }
 
-/* css for box where user can give preferences (right box)*/
-#preferences_box,
-#file_upload_box {
-  border-radius: 4px;
-  height: 90%;
-  background-color: #f8f9fa;
-  color: #7F91B9;
-}
-
-#preferences_box {
+#settings_box {
   text-align: center;
 }
 
@@ -80,12 +77,6 @@ header a.active {
 #submit_button:hover {
   background-color: white;
   color: #9fb6e8;
-}
-
-/* makes heading in both boxes (upload_files & preferences) bold*/
-.files_heading,
-.preferences_heading{
-  font-weight: bold;
 }
 
 /* centers heading in upload_files box*/
@@ -108,7 +99,7 @@ header a.active {
   }
 
   #file_upload_box,
-  #preferences_box {
+  #settings_box {
     font-size: 1.4em;
   }
 
