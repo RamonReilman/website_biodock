@@ -3,25 +3,69 @@
 <head>
     <meta charset="utf-8"/>	
     <title>BioDock Visualiser History</title>
+    <link rel="icon" href="../img/BDV_icon.png" type="image/icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../css_code/styles.css">
 </head>
 
 <body>
 
     <header>
-        <img src="../img/BioDock_Visualiser_Logo.png" alt="BioDock Visualiser Logo" width="220" height="100"></a>
-        
-        
-        <a href="our_team.html">Our Team</a>
-        <a class="active" href="history.html">History</a>
-        <a href="webtool.html">Webtool</a>
-        <a href="index.html">Home</a>
+        <div class="container">
+            <div class="row justify-content-end" id="header">
+                <div class="col-sm-2 m-auto"><img src="../img/BioDock_Visualiser_Logo.png" id="biodock_logo" alt="BioDock Visualiser Logo" width="220" height="100"></div>
+                <div class="col-sm-2 my-auto"><a href="index.html">Home</a></div>
+                <div class="col-sm-2 my-auto"><a class="active" href="webtool.html">Webtool</a></div>
+                <div class="col-sm-2 my-auto"><a href="history.html">History</a></div>
+                <div class="col-sm-2 my-auto"><a href="our_team.html">Our Team</a></div>
+            </div>
+        </div>  
     </header>
 
 
-    <div id="copyright">
-        <p id="copyright_text">&#169 BioDock Visualiser</p>
+    <div class="container">
+
+        <div class="row history_links justify-content-center">
+
+            <div class="row" id="history_uitleg">
+                <div class="col mt-4">
+                <p>This is the history page. <br>
+                    The histroy page is used to store the last 5 times you used the tool. <br>
+                    You can clear the history page by pressing the "clear me" button. <br>
+                </p>
+                <button type="button" class="btn btn-primary pymol_download_btn">Clear me</button>
+                </div>
+            </div>
+
+            <div class="col-sm-1 mt-4 mb-4 link_column">
+
+                <div class="row ">
+                    <a href="history/4zel.pdb/temp.html">4zel.pdb</a>
+                </div>
+                Project 2
+                Project 3
+                Project 4
+                Project 5
+            </div>
+
+            <div class="col-sm-6 mt-4 mb-4 info_column">
+                Title: 4zel.pdb, Path: ~/Documents/kwartaal_3/html/history/4zel.pdb/temp.html <br>
+                Title: Project x, Path: ~/Path<br>
+                Title: Project x, Path: ~/Path<br>
+                Title: Project x, Path: ~/Path<br>
+                Title: Project x, Path: ~/Path<br>
+            </div>
+        </div>
     </div>
+
+ 
+    <footer class="container">
+        <div class="row">
+            <div class="col-sm-12 mx-auto" id="copyright"><p id="copyright_text">&#169; BioDock Visualiser</div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>
 </html>
