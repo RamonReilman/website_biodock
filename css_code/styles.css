@@ -173,5 +173,19 @@ header a.active {
 
 .container{
   min-width: 92%;
-  
+
+}
+
+
+/* For our team file */
+.our_team{
+  background-color: #f1f4fb;
+
+}
+
+.team_text{
+  text-align: center;
+  background-color: #f8f9fa;
+  border: 2px black solid;
+  border-radius: 25px;
 }
