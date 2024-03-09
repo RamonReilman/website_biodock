@@ -137,33 +137,13 @@ header a.active {
   background-color: #f1f4fb;
 }
 /* styling of the columns that has the title of past project */
-.info_column
-{
+.column_history{
   background-color: #f8f9fa;
   text-align: left;
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-}
-.link_column{
-  background-color: #f8f9fa;
-  text-align: left;
-  border: 1px solid black;
+
 }
 
 
-/* Styling of the background of the history list */
-/* #background_links{
-  background-color: #f1f4fb;
-  border:  #ccc solid 2px;
-  border-radius: 25px;
-  text-align: center;
-
-  position: relative;
-  width: 1200px;
-  height: 250px;
-  top: 50px;
-} */
 #history_uitleg{
   text-align: center;
 }
@@ -177,8 +157,6 @@ header a.active {
 /* Gives styling to the background of the page */
 #download_container, .imgs_container{
   background-color: #f1f4fb;
-  /* width: 1500px;
-  height: 1200px; */
 }
 
 /* Gives styling to the download button for the dok file */
@@ -213,9 +191,9 @@ header a.active {
   margin: 5px auto;
 }
 
+/* Changes white borders around the edge of the screen */
 .container{
   min-width: 92%;
-
 }
 
 
