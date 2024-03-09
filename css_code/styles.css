@@ -131,7 +131,7 @@ header a.active {
   margin-right: 50px;
 }
 
-/* History.html */
+/*-------------------------------CONTENT FOR HISTORY.HTML-----------------------*/
 /* styling of the columns that include the link to past projects */
 .history_links{
   background-color: #f1f4fb;
@@ -219,20 +219,27 @@ header a.active {
 }
 
 
-/* For our team file */
+/*-------------------CONTENT FOR OUR_TEAM.HTML-------------------*/
 .our_team{
   background-color: #f1f4fb;
-
 }
 
-.team_text{
-  text-align: center;
+.team_text
+{
+  border-radius: 15px;
+  height: 90%;
   background-color: #f8f9fa;
-  border: 2px black solid;
-  border-radius: 25px;
+  color: #7F91B9;
+  text-align: center;
 }
 
-/*Start css about.html*/
+@media screen and (min-height: 730px) {
+  .team_text {
+    font-size: 1.4em;
+  }
+}
+
+/*----------------------CONTENT FOR ABOUT.HTML-----------------------*/
 
 h3 {
   text-align: center;
