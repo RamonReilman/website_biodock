@@ -17,6 +17,10 @@ h1 {
   text-align: center;
 }
 
+h2 {
+  font-size: 1.15em;
+  color: #6a7ca2;
+}
 /*---------------------------HEADER------------------------------------------*/
 /* css for header height, color and header divider at bottom*/
 #header {
@@ -251,14 +255,14 @@ header a.active {
 
 .row_container {
   border-radius: 15px;
-  height: 90%;
+  height: auto;
   background-color: #f8f9fa;
   color: #7F91B9;
   text-align: center;
 }
 
 .panel_container {
-  height:45%;
+  height: auto;
   border-radius: 15px;
   background-color: #f8f9fa;
   color: #7F91B9;
@@ -268,9 +272,11 @@ header a.active {
 .about {
   background-color: #f1f4fb;
 }
+
+
 @media screen and (min-height: 730px) {
   .row_container,
   .panel_container {
-    font-size: 1.4em;
+    font-size: 1.3em;
   }
 }
