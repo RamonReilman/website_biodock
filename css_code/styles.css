@@ -231,3 +231,20 @@ header a.active {
   border: 2px black solid;
   border-radius: 25px;
 }
+
+/*Start css about.html*/
+
+h3 {
+  text-align: center;
+}
+
+.row_border {
+  border: solid black 2px ;;
+  border-radius: 25px;
+}
+
+.panel_border {
+  border: solid black 2px ;
+  padding: 10px ;
+  border-radius: 25px;
+}
