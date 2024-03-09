@@ -92,6 +92,13 @@ h3 {
   text-align: center;
 }
 
-.border_test{
+.row_border {
   border: solid black 2px ;;
+  border-radius: 25px;
+}
+
+.panel_border {
+  border: solid black 2px ;
+  padding: 10px ;
+  border-radius: 25px;
 }
