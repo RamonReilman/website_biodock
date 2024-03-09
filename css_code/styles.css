@@ -14,6 +14,7 @@ makes width responsive to diff resolutions*/
 h1 {
   font-size: 1.2em;
   color: #6a7ca2;
+  text-align: center;
 }
 
 /*---------------------------HEADER------------------------------------------*/
@@ -79,10 +80,6 @@ header a.active {
   color: #9fb6e8;
 }
 
-/* centers heading in upload_files box*/
-.files_heading {
-  text-align: center;
-}
 
 /* css for text input for file name*/
 #name_file {
@@ -127,7 +124,6 @@ header a.active {
 }
 
 #biodock_logo{
-
   margin-right: 50px;
 }
 
@@ -172,7 +168,7 @@ header a.active {
   background-color: #7F91B9 !important;
 }
 
-/* temp.html */
+/*----------------------CONTENT FOR TEMP.HTML---------------------*/
 
 /* Gives styling to the background of the page */
 #download_container, .imgs_container{
@@ -233,6 +229,18 @@ header a.active {
   text-align: center;
 }
 
+#yamila_logo {
+  height: 40%;
+  width: 40%;
+}
+
+#ramon_logo {
+  height: 35%;
+  width: 35%;
+  padding-bottom: 3%;
+  padding-top: 1%;
+}
+
 @media screen and (min-height: 730px) {
   .team_text {
     font-size: 1.4em;
@@ -241,17 +249,28 @@ header a.active {
 
 /*----------------------CONTENT FOR ABOUT.HTML-----------------------*/
 
-h3 {
+.row_container {
+  border-radius: 15px;
+  height: 90%;
+  background-color: #f8f9fa;
+  color: #7F91B9;
   text-align: center;
 }
 
-.row_border {
-  border: solid black 2px ;;
-  border-radius: 25px;
+.panel_container {
+  height:45%;
+  border-radius: 15px;
+  background-color: #f8f9fa;
+  color: #7F91B9;
+  text-align: center;
 }
 
-.panel_border {
-  border: solid black 2px ;
-  padding: 10px ;
-  border-radius: 25px;
+.about {
+  background-color: #f1f4fb;
+}
+@media screen and (min-height: 730px) {
+  .row_container,
+  .panel_container {
+    font-size: 1.4em;
+  }
 }
