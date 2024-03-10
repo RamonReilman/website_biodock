@@ -116,7 +116,16 @@ header a.active {
 }
 
 /*-------------------------------CONTENT FOR HISTORY.HTML-----------------------*/
-/* Styling of the columns that include the link to past projects */
+/* Styling of the background of the history list */
+.history_explanation{
+  height: auto;
+  border-radius: 15px;
+  background-color: #f8f9fa;
+  color: #7F91B9;
+  text-align: center;
+}
+
+/* Gives history.html a background color. */
 .history_containers{
   background-color: #f1f4fb;
 }
@@ -141,14 +150,7 @@ td {
   color: #7F91B9;
 }
 
-/* Styling of the background of the history list */
-.history_explanation{
-  height: auto;
-  border-radius: 15px;
-  background-color: #f8f9fa;
-  color: #7F91B9;
-  text-align: center;
-}
+
 
 /* Styles the "clear me"-button*/
 .btn-primary{
@@ -168,40 +170,49 @@ td {
 /*----------------------CONTENT FOR TEMP.HTML---------------------*/
 
 /* Gives styling to the background of the page */
-#download_container, .imgs_container{
+.download_container, .imgs_container{
   background-color: #f1f4fb;
+  border-radius: 15px;
+  text-align: center;
 }
 
 /* Gives styling to the download button for the dok file */
 #download_button{
-  margin: 10px auto;
+  height: auto;
+  border-radius: 15px;
   background-color: #f8f9fa;
-  border:  #ccc solid 2px;
+  color: #7F91B9;
   text-align: center;
-  border-radius: 25px;
 }
 
 /* Changes scale for pymol images */
 .pymol_foto{
-  width: 600px;
-  height: 400px;
+  width: 80%;
+  height: auto;
 }
 
 /* Gives styling to the pymol image rows */
 .pymol_row{
-  text-align: center;
   align-items: center;
-
-  /* margin-top: 10px;
-  margin-bottom: 5px; */
-  border: 2px black solid;
+  height: auto;
+  border-radius: 15px;
   background-color: #f8f9fa;
-  border-radius: 25px;
+  color: #7F91B9;
+  text-align: center;
 }
 
 /* Styles download button under pymol image */
 .pymol_download_btn{
   margin: 5px auto;
+  
+}
+
+/* Changes font-size and height for bigger screens */
+@media screen and (min-height: 730px) {
+  .download_container,
+  .imgs_container {
+    font-size: 1.3em;
+  }
 }
 
 /*-------------------CONTENT FOR OUR_TEAM.HTML-------------------*/

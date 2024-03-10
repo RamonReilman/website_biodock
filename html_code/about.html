@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8"/>	
+    <meta charset="utf-8">
     <title>BioDock Visualiser Webtool</title>
-    <link rel="icon" href="../img/BDV_icon.png" type="image/icon type">
+    <link rel="icon" href="../img/BDV_icon.png" type="image/icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../css_code/styles.css">
 </head>
@@ -32,24 +33,25 @@
                     You can obtain the protein file by downloading it from the <a href="https://www.rcsb.org/">Protein Data Bank</a> 
                     as PDB-file and the ligand MOL2-file can be obtained from the <a href="https://zinc.docking.org/">ZINC database</a>.
                     What each of the files should look like is described in detail in here:
-                    
+                </p>
                         <ul class="file_info">
                             <li><a href="https://www.biostat.jhsph.edu/~iruczins/teaching/260.655/links/pdbformat.pdf">PDB</a></li>
                             <li><a href="https://www.structbio.vanderbilt.edu/archives/amber-archive/2007/att-1568/01-mol2_2pg_113.pdf">MOL2</a><br></li>
                         </ul>
-                    
+                <p>
                     You can also specify the number of binding poses and the RMSD-cutoff.
                     The number of binding poses is the number of times there is attempted to dock. So if you lower the number the website
                     will run faster but the output will be worse. The number of binding poses is limited to 20, because anything higher
                     will take too long and is in a vast majority of cases unnecessary.<br><br>
-                    <b>RMSD</b> or Root Mean Square Division is the measure of average distance between atoms of molecules and atoms of ligand configurations (Root-mean-square Deviation Of Atomic Positions, 2023).
-                    It is measured in Ångström (Å).
-                    Decreasing this value will give higher accuracy but the docking process will take longer
-                    and higher values will give lower accuracy and a faster docking process.<br>
+                    <b>RMSD</b> or Root Mean Square Division is the measure of average distance between atoms of 
+                    molecules and atoms of ligand configurations.
+                    It is measured in Ångström (Å). Decreasing this value will give higher accuracy but the docking process 
+                    will take longer and higher values will give lower accuracy and a faster docking process.<br>
                     As output you will get a dok file that houses all of the calculated binding poses and three images
                     of the three most optimal calculated binding poses. Those look like this:<br><br>
-                    <img src="../img/PRO_PROTEIN_LIG_A_0.png" alt="protein-lig_dok_example" width="240" height="160">
                 </p>
+                <img src="../img/PRO_PROTEIN_LIG_A_0.png" alt="protein-lig_dok_example" width="240" height="160">
+                
             </div>
         
             <div class="col-sm-5">
@@ -62,8 +64,8 @@
                         ligand onto the protein, and if the pose works the AI calculates the score, and then it repeats this process.
                         Finally, the outcomes are put in a file in decreasing order based on score and this webtool visualises the top 3 binding-poses using PLIP.
                     </p>
-                    <div class="docking_image mt-5 mb-3">
-                        <img src="../img/Protein-Protein-Docking.png" alt="Docking_image">
+                    <div class="docking_image mt-4 mb-3">
+                        <img src="../img/protein-ligand-docking.png" alt="Docking_image">
                     </div>
                     
                 </div>
@@ -81,8 +83,8 @@
             <div class="row mt-5 pl-3">
                 <h2>Sources</h2>
                 <ol>
-                    <li><i>Root-mean-square deviation of atomic positions.</i> (2023, 11 december). Wikipedia. <a href="https://en.wikipedia.org/wiki/Root-mean-square_deviation_of_atomic_positions">https://en.wikipedia.org/wiki/Root-mean-square_deviation_of_atomic_positions</a></li>
-                    <li><i>Protein–Protein docking - Profacgen. (n.d.).</i><a href = https://www.profacgen.com/protein-protein-docking.htm>https://www.profacgen.com/protein-protein-docking.htm</a></li>
+                    <li>Wikipedia contributors. (2023, 11 december). <i>Root-mean-square deviation of atomic positions.</i> (2023, 11 december). <a href="https://en.wikipedia.org/wiki/Root-mean-square_deviation_of_atomic_positions">https://en.wikipedia.org/wiki/Root-mean-square_deviation_of_atomic_positions</a></li>
+                    <li>Wikipedia contributors. (2024, februari 5). <i>Docking (molecular).</i><a href = https://en.wikipedia.org/wiki/Docking_%28molecular%29>https://en.wikipedia.org/wiki/Docking_%28molecular%29</a></li>
                 </ol>
             </div>
         </div>
@@ -91,7 +93,7 @@
 
     <footer class="container">
         <div class="row">
-            <div class="col-sm-12 mx-auto" id="copyright"><p id="copyright_text">&#169 BioDock Visualiser</p></div>
+            <div class="col-sm-12 mx-auto" id="copyright"><p id="copyright_text">&#169; BioDock Visualiser</p></div>
             </div>
     </footer>
 
