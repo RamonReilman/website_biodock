@@ -282,6 +282,11 @@ is larger because the img itself is smaller)*/
   text-align: center;
 }
 
+#docking_image {
+  width: 100%;
+  height: auto;
+}
+
 /* Changes font size on big screens, to make the text bigger*/
 @media screen and (min-height: 730px) {
   .row_container,
