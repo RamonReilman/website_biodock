@@ -15,8 +15,8 @@
         <!-- HTML containing the header -->
     <header>
         <div class="container">
-            <div class="row justify-content-end" id="header">
-                <div class="col-sm-2 mx-auto"><img src="../img/BioDock_Visualiser_Logo.png" id="biodock_logo" alt="BioDock Visualiser Logo" width="220" height="100"></div>
+            <div class="row justify-content-evenly" id="header">
+                <div class="col-sm-2 my-auto"><img src="../img/BioDock_Visualiser_Logo.png" id="biodock_logo" alt="BioDock Visualiser Logo" width="220" height="100"></div>
                 <div class="col-sm-2 my-auto"><a href="index.html">Webtool</a></div>
                 <div class="col-sm-2 my-auto"><a href="about.html">About</a></div>
                 <div class="col-sm-2 my-auto"><a class="active" href="history.html">History</a></div>
@@ -28,40 +28,42 @@
     <!-- Container for the stuff between header and footer -->
     <div class="container">
 
-        <div class="row history_links justify-content-center">
+        <div class="row history_containers">
 
-            <div class="row" id="history_uitleg">
-                <!-- Information about the page -->
-                <div class="col mt-4">
+            <div class="row justify-content-center">
+                <div class="col-sm-6 history_explanation mt-5 p-3 border">
                 <p>This is the history page. <br>
-                    The histroy page is used to store the last 5 times you used the tool. <br>
-                    You can clear the history page by pressing the "clear me" button. <br>
+                    This page is used to store the last 5 times you used the tool. <br>
+                    You can clear the history by pressing the "clear me" button. <br>
                 </p>
                 <!-- Button to clear the history -->
                 <button type="button" class="btn btn-primary pymol_download_btn">Clear me</button>
                 </div>
             </div>
 
-            
-            <div class="col-sm-1 mt-4 mb-4 column_history border">
-
-                <!-- Holds past files -->
-                <div class="row ">
-                    <a href="history/4zel.pdb/temp.html">4zel.pdb</a>
-                </div>
-                Project 2
-                Project 3
-                Project 4
-                Project 5
-            </div>
-
-            <!-- Temporary showcase of how it gets stored -->
-            <div class="col-sm-6 mt-4 mb-4 column_history border">
-                Title: 4zel.pdb, Path: ~/Documents/kwartaal_3/html/history/4zel.pdb/temp.html <br>
-                Title: Project x, Path: ~/Path<br>
-                Title: Project x, Path: ~/Path<br>
-                Title: Project x, Path: ~/Path<br>
-                Title: Project x, Path: ~/Path<br>
+            <div class="col-sm-7 mx-auto mt-5 mb-5 info_column">
+                <table class="table">
+                    <tr>
+                      <td><a href="history/4zel.pdb/temp.html">4zel.pdb</a></td>
+                      <td>Title: 4zel.pdb, Path: ~/Documents/kwartaal_3/html/history/4zel.pdb/temp.html <br></td>
+                    </tr>
+                    <tr>
+                      <td>Project 2</td>
+                      <td>Title: Project x, Path: ~/Path</td>
+                    </tr>
+                    <tr>
+                      <td>Project 3</td>
+                      <td>Title: Project x, Path: ~/Path</td>
+                    </tr>
+                    <tr>
+                      <td>Project 4</td>
+                      <td>Title: Project x, Path: ~/Path</td>
+                    </tr>
+                    <tr>
+                      <td>Project 5</td>
+                      <td>Title: Project x, Path: ~/Path</td>
+                    </tr>
+                  </table>
             </div>
         </div>
     </div>
