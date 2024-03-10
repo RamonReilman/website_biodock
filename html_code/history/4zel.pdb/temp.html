@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8"/>	
+    <meta charset="utf-8">	
     <title>BioDock Visualiser Webtool</title>
     <link rel="icon" href="../img/BDV_icon.png" type="image/icon">
 
@@ -13,45 +14,42 @@
 <body>
 
     
-    <!-- Container for the stuff between header and footer -->
+    <!-- Container for the elements between header and footer -->
     <header>
         <div class="container">
-            <div class="row justify-content-end" id="header">
-                <div class="col-sm-2 mx-auto"><img src="../../../img/BioDock_Visualiser_Logo.png" id="biodock_logo" alt="BioDock Visualiser Logo" width="220" height="100"></div>
+            <div class="row justify-content-evenly" id="header">
+                <div class="col-sm-2 my-auto"><img src="../../../img/BioDock_Visualiser_Logo.png" id="biodock_logo" alt="BioDock Visualiser Logo" width="220" height="100"></div>
                 <div class="col-sm-2 my-auto"><a href="../../index.html">Webtool</a></div>
                 <div class="col-sm-2 my-auto"><a href="../../about.html">About</a></div>
-                <div class="col-sm-2 my-auto"><a class="active" href="../../history.html">History</a></div>
+                <div class="col-sm-2 my-auto"><a href="../../history.html">History</a></div>
                 <div class="col-sm-2 my-auto"><a href="../../our_team.html">Our Team</a></div>
             </div>
         </div>  
     </header>
 
-    <!-- Create the download button -->
-    <div class="container" id="download_container">
-        <div class="row">
-            <div class="col-sm-2 offset-sm-5" id="download_button">
-                <p>Press this button to download .dok file.</p>
-                <button type="button" class="btn btn-primary pymol_download_btn">this button</button>
+    <!-- Download button + explanation -->
+    <div class="container">
+        <div class="row download_container justify-content-center">
+            <div class="col-sm-4 mt-5 border p-3" id="download_button">
+                <p>Press the button below to download the .dok file.</p>
+                <button type="button" class="btn btn-primary pymol_download_btn">Download file</button>
             </div>
         </div>
     </div>
 
 
-        <!-- Create pymol pictures -->
+    <!-- Creates containers which store the previously generated PyMOL images -->
     <div class="container imgs_container">
-        <div class="row">
-            <div class="col-sm-4 mx-auto my-3 pymol_row">
+        <div class="row justify-content-evenly">
+            <div class="col-sm-4 mt-5 mb-4 border pymol_row">
                 <img class="pymol_foto" src="imgs/PRO_PROTEIN_PeptideChain1.png" alt="">
-                <p>Cluster   1 of Poses:  1 Score:<br> -2.84 kcal/mol</p>
-                <button type="button" class="btn btn-dark pymol_download_btn">Download image</button>
+                <p>Cluster   1 of Poses:  1 <br> Score: -2.84 kcal/mol</p>
+                <button type="button" class="btn btn-primary pymol_download_btn mb-4">Download image</button>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-4 mx-auto mb-3 pymol_row">
-                <img class="pymol_foto m-auto" src="imgs/PRO_PROTEIN_PeptideChain2.png" alt="">
-                <p>Cluster   2 of Poses:  1 Score:<br> -2.82 kcal/mol</p>
-                <button type="button" class="btn btn-dark pymol_download_btn">Download image</button>
+            <div class="col-sm-4 mt-5 mb-4 border pymol_row">
+                <img class="pymol_foto" src="imgs/PRO_PROTEIN_PeptideChain2.png" alt="">
+                <p>Cluster   2 of Poses:  1 <br> Score: -2.82 kcal/mol</p>
+                <button type="button" class="btn btn-primary pymol_download_btn mb-4">Download image</button>
             </div>
         </div>
     </div>
