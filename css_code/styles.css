@@ -5,12 +5,13 @@ body {
 
 }
 
-/* specifies width for all containers (header-middle part-footer), 
+/* Specifies width for all containers (header-middle part-footer), 
 makes width responsive to diff resolutions*/
 .container{
   min-width: 95%;
 }
 
+/* Styling for headings */
 h1 {
   font-size: 1.2em;
   color: #6a7ca2;
@@ -46,8 +47,13 @@ header a.active {
   color: white;
 }
 
+/* Moves the logo in the header to the left, to make sure its centered */
+#biodock_logo{
+  margin-right: 50px;
+}
+
 /*-----------------------CONTENT FOR INDEX.HTML-------------------------*/
-/* bg-color and height for both boxes*/
+/* Bg-color and height for both boxes*/
 .boxes {
   background-color: #f1f4fb;
   height: 75vh;
@@ -109,67 +115,54 @@ header a.active {
   }
 }
 
-/*-----------------------------------FOOTER------------------------------*/
-/* css for copyright box at the bottom of the page*/
-#copyright{
-  background-color: #9fb6e8;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  height: 8vh;
-
-}
-
-/* css for text in copyright box*/
-#copyright_text{
-  height: 100%;
-  text-align: center;
-  color: white;
-  margin: 5px;
-}
-
-#biodock_logo{
-  margin-right: 50px;
-}
-
 /*-------------------------------CONTENT FOR HISTORY.HTML-----------------------*/
-/* styling of the columns that include the link to past projects */
-.history_links{
+/* Styling of the columns that include the link to past projects */
+.history_containers{
   background-color: #f1f4fb;
 }
-/* styling of the columns that has the title of past project */
-.info_column
-{
+
+/* Styles the columns of table data (<td>)*/
+td {
   background-color: #f8f9fa;
+  border: 1px solid #9fb6e8;
   text-align: left;
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-}
-.link_column{
-  background-color: #f8f9fa;
-  text-align: left;
-  border: 1px solid black;
+  padding: 8px;
 }
 
+/* Styles the odd rows of the table */
+.table tbody tr:nth-child(odd) {
+  background-color: #e3eafd;
+  color: #7F91B9;
+}
+
+/* Styles the even rows of the table */
+.table tbody tr:nth-child(even) {
+  background-color: #f1f7fc;
+  color: #7F91B9;
+}
 
 /* Styling of the background of the history list */
-/* #background_links{
-  background-color: #f1f4fb;
-  border:  #ccc solid 2px;
-  border-radius: 25px;
-  text-align: center;
-
-  position: relative;
-  width: 1200px;
-  height: 250px;
-  top: 50px;
-} */
-#history_uitleg{
+.history_explanation{
+  height: auto;
+  border-radius: 15px;
+  background-color: #f8f9fa;
+  color: #7F91B9;
   text-align: center;
 }
 
+/* Styles the "clear me"-button*/
 .btn-primary{
   background-color: #7F91B9 !important;
+}
+
+/* Changes font-size and height for bigger screens */
+@media screen and (min-height: 730px) {
+  .history_explanation,
+  .table {
+    font-size: 1.3em;
+    margin-top: 3%;
+    margin-bottom: 3%;
+  }
 }
 
 /*----------------------CONTENT FOR TEMP.HTML---------------------*/
@@ -213,46 +206,57 @@ header a.active {
   margin: 5px auto;
 }
 
-.container{
-  min-width: 92%;
-
-}
-
-
 /*-------------------CONTENT FOR OUR_TEAM.HTML-------------------*/
+/* Gives background color to our_team-page*/
 .our_team{
   background-color: #f1f4fb;
 }
 
-.team_text
-{
+/* Styles all text/containers on our_team-page*/
+.team_heading,
+.team_text {
   border-radius: 15px;
-  height: 90%;
   background-color: #f8f9fa;
   color: #7F91B9;
   text-align: center;
 }
 
-#yamila_logo {
-  height: 40%;
-  width: 40%;
+/* Determines height for containers */
+.team_text
+{height: 70vh;
 }
 
-#ramon_logo {
+/* Styling for all character logo's (height for yamila_logo 
+is larger because the img itself is smaller)*/
+#yamila_logo {
+  height: 36%;
+  width: auto;
+}
+
+#ramon_logo,
+#stijn_logo {
   height: 35%;
-  width: 35%;
+  width: auto;
   padding-bottom: 3%;
   padding-top: 1%;
 }
 
+/* Changes font-size and height for bigger screens */
 @media screen and (min-height: 730px) {
   .team_text {
     font-size: 1.4em;
+    height: 58vh;
   }
+  
 }
 
 /*----------------------CONTENT FOR ABOUT.HTML-----------------------*/
+/* Gives background to about page*/
+.about {
+  background-color: #f1f4fb;
+}
 
+/* Styles left container */
 .row_container {
   border-radius: 15px;
   height: auto;
@@ -261,6 +265,7 @@ header a.active {
   text-align: center;
 }
 
+/*Styles the two right containers*/
 .panel_container {
   height: auto;
   border-radius: 15px;
@@ -269,14 +274,27 @@ header a.active {
   text-align: center;
 }
 
-.about {
-  background-color: #f1f4fb;
-}
-
-
+/* Changes font size on big screens, to make the text bigger*/
 @media screen and (min-height: 730px) {
   .row_container,
   .panel_container {
     font-size: 1.3em;
   }
+}
+
+/*-----------------------------------FOOTER------------------------------*/
+/* css for copyright box at the bottom of the page*/
+#copyright{
+  background-color: #9fb6e8;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  height: 7vh;
+}
+
+/* css for text in copyright box*/
+#copyright_text{
+  height: 100%;
+  text-align: center;
+  color: white;
+  margin-top: 1%;
 }
