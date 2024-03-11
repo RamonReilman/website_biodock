@@ -15,7 +15,7 @@ def history():
     if request.method == "GET":
         path = "templates/history"
         dir_list = os.listdir(path)
-        return render_template("history.html", files=dir_list)
+        return render_template("history.html", files=dir_list, history_active=True)
     
     elif request.method == "POST":
         file_wanted = list(request.form.keys())
