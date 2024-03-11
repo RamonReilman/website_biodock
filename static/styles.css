@@ -32,7 +32,8 @@ h2 {
 }
 
 /* Styles all header links ('a'-elements)*/
-header a {
+header a,
+header a.False {
   color: #7F91B9;
   padding: 20px;
   text-decoration: none;
@@ -42,7 +43,7 @@ header a {
 
 /* Changes background color and text color on mouse hover and on active state*/
 header a:hover,
-header a.active {
+header a.True {
   background-color: #9fb6e8;
   color: white;
 }
