@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect, flash
 import os
+from flask import Flask, render_template, request, redirect
 from used_functions.functions_hist_page import clear_me
 app = Flask(__name__)
 
