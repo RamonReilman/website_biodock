@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-from flask import Flask, render_template, request
-=======
 import os
 from flask import Flask, render_template, request, redirect
 from used_functions.functions_hist_page import clear_me
->>>>>>> bf0e3e9a34857a4c24a3b4c0da41300950d7250e
+
 app = Flask(__name__)
 
 
