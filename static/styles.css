@@ -201,12 +201,6 @@ td {
   text-align: center;
 }
 
-/* Styles download button under pymol image */
-.pymol_download_btn{
-  margin: 5px auto;
-  
-}
-
 /* Changes font-size and height for bigger screens */
 @media screen and (min-height: 730px) {
   .download_container,
