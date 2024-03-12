@@ -9,9 +9,23 @@ def webtool():
 
 @app.route("/template")
 def template():
-    if request.form['button_button'] == "Download":
-        return redirect()
-    return render_template("history/4zel.pdb/temp.html", webtool_active=True)
+    file_wanted = "4zel.pdb"
+    foto_path = f"static/history/{file_wanted}"
+    fotos = []
+    w=os.walk(foto_path)
+    temp_foto = []
+    for index, (dirpath, dirnames, filenames) in enumerate(w):
+        for filename in filenames:
+            temp_foto.append(filename)
+            if len(temp_foto) == 2:
+                fotos.append(temp_foto)
+                temp_foto = []
+        if len(filenames) % 2 == 1:
+            fotos.append([filenames[-1]])
+    print(fotos)
+    # if request.form['file_download'] == "Download":
+    #     return redirect('../../../static/history/{{ fileName }}/PRO_PROTEIN_PeptideChain1.png')
+    return render_template("history/4zel.pdb/temp.html", webtool_active=True, fotos=fotos, file_wanted=file_wanted)
 
 @app.route("/ourteam")
 def our_team():

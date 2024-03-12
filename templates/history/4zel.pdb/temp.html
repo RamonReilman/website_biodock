@@ -7,26 +7,38 @@
         <div class="row download_container justify-content-center">
             <div class="col-sm-4 mt-5 border p-3" id="download_button">
                 <p>Press the button below to download the .dok file.</p>
-                <button type="button" class="btn btn-primary pymol_download_btn">Download file</button>
+                <button type="button" name="file_download" class="btn btn-primary pymol_download_btn" value="Download">Download file</button>
             </div>
         </div>
     </div>
 
 
     <!-- Creates containers which store the previously generated PyMOL images -->
+    {% for foto in fotos %}
     <div class="container imgs_container">
-        <div class="row justify-content-evenly">
-            <div class="col-sm-4 mt-5 mb-4 border pymol_row">
-                <img class="pymol_foto" src="../../../static/history/4zel.pdb/PRO_PROTEIN_PeptideChain1.png" alt="">
-                <p>Cluster   1 of Poses:  1 <br> Score: -2.84 kcal/mol</p>
-                <button type="button" class="btn btn-primary pymol_download_btn mb-4" value="Download">Download image</button>
+        {% if foto|length == 1 %}
+            <div class="row justify-content-evenly">
+                <div class="col-sm-4 mt-5 mb-4 border pymol_row">
+                    <img class="pymol_foto" src="../../../static/history/{{ file_wanted }}/{{ foto[0] }}" alt="">
+                    <p>{{ foto[0] }}<br> Score: -2.84 kcal/mol</p>
+                    <button type="button" name="" class="btn btn-primary pymol_download_btn mb-4" value="Download">Download image</button>
+                </div>
             </div>
-            <div class="col-sm-4 mt-5 mb-4 border pymol_row">
-                <img class="pymol_foto" src="../../../static/history/4zel.pdb/PRO_PROTEIN_PeptideChain2.png" alt="">
-                <p>Cluster   2 of Poses:  1 <br> Score: -2.82 kcal/mol</p>
-                <button type="button" class="btn btn-primary pymol_download_btn mb-4" value="Download">Download image</button>
+        {% else %}
+            <div class="row justify-content-evenly">
+                <div class="col-sm-4 mt-5 mb-4 border pymol_row">
+                    <img class="pymol_foto" src="../../../static/history/{{ file_wanted }}/{{ foto[0] }}" alt="">
+                    <p>{{ foto[0] }}<br> Score: -2.84 kcal/mol</p>
+                    <button type="button" name="" class="btn btn-primary pymol_download_btn mb-4" value="Download">Download image</button>
+                </div>
+                <div class="col-sm-4 mt-5 mb-4 border pymol_row">
+                    <img class="pymol_foto" src="../../../static/history/{{ file_wanted }}/{{ foto[1] }}" alt="">
+                    <p>{{ foto[1] }}<br> Score: -2.82 kcal/mol</p>
+                    <button type="button" class="btn btn-primary pymol_download_btn mb-4" value="Download">Download image</button>
+                </div>
             </div>
-        </div>
+        {% endif %}
     </div>
+    {% endfor %}
 
 {% endblock %}
