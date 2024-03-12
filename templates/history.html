@@ -10,36 +10,30 @@
             <div class="row justify-content-center">
                 <div class="col-sm-6 history_explanation mt-5 p-3 border">
                 <p>This is the history page. <br>
-                    This page is used to store the last 5 times you used the tool. <br>
+                    This page is used to store the files you get from the tool. <br>
                     You can clear the history by pressing the "clear me" button. <br>
                 </p>
                 <!-- Button to clear the history -->
-                <button type="button" class="btn btn-primary pymol_download_btn">Clear me</button>
+                <form action="" method="post">
+                    <button type="submit" name="clear_me" class="btn btn-primary">Clear me</button>
+                </form>
                 </div>
             </div>
 
             <div class="col-sm-7 mx-auto mt-5 mb-5 info_column">
                 <table class="table">
+                    {% for file in files %}
                     <tr>
-                      <td><a href="history/4zel.pdb/temp.html">4zel.pdb</a></td>
-                      <td>Title: 4zel.pdb, Path: ~/Documents/kwartaal_3/html/history/4zel.pdb/temp.html <br></td>
+                        <form action="" method="post">
+                            <td>
+                                <center>
+                                    <button type="submit" name='{{ file }}' class="btn btn-primary">Open</button>
+                                </center>
+                            </td>
+                        </form>
+                      <td>Title: {{ file }}, Path: /website_biodock/templates/history/{{ file }} <br></td>
                     </tr>
-                    <tr>
-                      <td>Project 2</td>
-                      <td>Title: Project x, Path: ~/Path</td>
-                    </tr>
-                    <tr>
-                      <td>Project 3</td>
-                      <td>Title: Project x, Path: ~/Path</td>
-                    </tr>
-                    <tr>
-                      <td>Project 4</td>
-                      <td>Title: Project x, Path: ~/Path</td>
-                    </tr>
-                    <tr>
-                      <td>Project 5</td>
-                      <td>Title: Project x, Path: ~/Path</td>
-                    </tr>
+                    {% endfor %}
                   </table>
             </div>
         </div>
