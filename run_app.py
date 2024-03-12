@@ -1,9 +1,15 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 app = Flask(__name__)
 
 @app.route("/")
 def webtool():
     return render_template("index.html", webtool_active=True)
+
+@app.route("/template")
+def template():
+    if request.form['button_button'] == "Download":
+        return redirect()
+    return render_template("history/4zel.pdb/temp.html", webtool_active=True)
 
 @app.route("/ourteam")
 def our_team():
