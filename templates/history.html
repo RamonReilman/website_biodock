@@ -10,11 +10,13 @@
             <div class="row justify-content-center">
                 <div class="col-sm-6 history_explanation mt-5 p-3 border">
                 <p>This is the history page. <br>
-                    This page is used to store the last 5 times you used the tool. <br>
+                    This page is used to store the files you get from the tool. <br>
                     You can clear the history by pressing the "clear me" button. <br>
                 </p>
                 <!-- Button to clear the history -->
-                <button type="button" class="btn btn-primary pymol_download_btn">Clear me</button>
+                <form action="" method="post">
+                    <button type="submit" name="clear_me" class="btn btn-primary">Clear me</button>
+                </form>
                 </div>
             </div>
 
@@ -24,7 +26,7 @@
                     <tr>
                         <form action="" method="post">
                             <td>
-                                <button type="submit" name='{{ file }}'>Open</button>
+                                <button type="submit" name='{{ file }}' class="btn btn-primary">Open</button>
                             </td>
                         </form>
                       <td>Title: {{ file }}, Path: /website_biodock/templates/history/{{ file }} <br></td>
