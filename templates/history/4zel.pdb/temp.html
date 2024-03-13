@@ -10,6 +10,11 @@
                 <button type="button" name="file_download" class="btn btn-primary pymol_download_btn" value="Download">Download file</button>
             </div>
         </div>
+        <div class="row justify-content-center download_container">
+            <div class="col-sm-4">
+                <img src="../../../static/img/Legenda_website-ai-brush-removebg-50fl65xo.png" class="border m-3 p-3" id="legend" alt="Legend of images">
+            </div>
+        </div>
     </div>
 
 
@@ -38,7 +43,8 @@
                 </div>
             </div>
         {% endif %}
+        {% endfor %}
     </div>
-    {% endfor %}
+
 
 {% endblock %}
