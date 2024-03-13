@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, abort
 from used_functions.functions_hist_page import clear_me
 
 app = Flask(__name__)
@@ -21,10 +21,19 @@ def webtool():
         }
 
         # checks if both files (pdb and mol2) have been given by user
-        # and checks if files are within file limit (turned off while in development)
-        # app.config['MAX_CONTENT_LENGTH'] = 1024
+        # and checks if files are within file limit
+        app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
+        # sets allowed upload file extensions to .pdb and .mol2, will give an 400 error 
+        # if user uploads file with other extension
+        app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
         pdb_file = request.files['pdb_file']
         mol2_file = request.files['mol2_file']
+        pdb_file_ext = os.path.splitext(pdb_file.filename)[1]
+        mol2_file_ext = os.path.splitext(mol2_file.filename)[1]
+        if pdb_file_ext not in app.config['UPLOAD_EXTENSIONS'] or mol2_file_ext not in app.config:
+            abort(400)
+
+            
         if pdb_file.filename and mol2_file.filename != '':
 
             # creates directory with the name that the user chose for the session
