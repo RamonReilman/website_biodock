@@ -21,6 +21,8 @@ def webtool():
         }
 
         # checks if both files (pdb and mol2) have been given by user
+        # and checks if files are within file limit (turned off while in development)
+        # app.config['MAX_CONTENT_LENGTH'] = 1024
         pdb_file = request.files['pdb_file']
         mol2_file = request.files['mol2_file']
         if pdb_file.filename and mol2_file.filename != '':
@@ -28,7 +30,7 @@ def webtool():
             # creates directory with the name that the user chose for the session
             save_dir = os.path.join("templates", "history", kwargs['name_file'])
             os.makedirs(save_dir, exist_ok=True)
-            
+
             # saves both files in the newly created directory
             pdb_file.save(os.path.join(save_dir, pdb_file.filename))
             mol2_file.save(os.path.join(save_dir, mol2_file.filename))
