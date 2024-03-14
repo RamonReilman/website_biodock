@@ -33,7 +33,7 @@ def webtool():
         if pdb_file_ext not in app.config['UPLOAD_EXTENSIONS'] or mol2_file_ext not in app.config:
             abort(400)
 
-            
+
         if pdb_file.filename and mol2_file.filename != '':
 
             # creates directory with the name that the user chose for the session
@@ -48,8 +48,9 @@ def webtool():
         return render_template('form_POST.html', **kwargs)
 
 @app.route("/template", methods=["POST", "GET"])
-def template():
-    file_wanted = "4zel.pdb"
+def template(file_wanted):
+    redirect("/template")
+    print(f"lol, {file_wanted}")
     foto_path = f"static/history/{file_wanted}"
     fotos = []
     w=os.walk(foto_path)
@@ -72,14 +73,16 @@ def template():
     if request.method == "POST":
         if "Download_picture" in request.form:
             image = request.form["Download_picture"]
+            print(request.form)
             file_to_download = os.path.join(foto_path, image)
+            
             return send_file(file_to_download, as_attachment=True)
             # return send_from_directory(f"{foto_path}", path)
         elif "file_download" in request.form:
             dok_file = request.form["file_download"]
             file_to_download = os.path.join(foto_path, dok_file)
             return send_file(file_to_download, as_attachment=True)
-    return render_template("history/4zel.pdb/temp.html", webtool_active=True, fotos=fotos, file_wanted=file_wanted, dok_file=dok_file)
+    return render_template("history/4zel.pdb/temp.html", history_active=True, fotos=fotos, file_wanted=file_wanted, dok_file=dok_file)
 
 @app.route("/ourteam")
 def our_team():
@@ -105,7 +108,8 @@ def history():
             return redirect("/")
 
         else:
-            return render_template(f"history/{file_wanted}/temp.html")
+            # send wanted file to template url and function
+            return template(file_wanted)
 
 @app.route("/about")
 def about():
