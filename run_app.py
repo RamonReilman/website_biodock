@@ -1,11 +1,51 @@
 import os
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, abort
 from used_functions.functions_hist_page import clear_me
+
 app = Flask(__name__)
 
-@app.route("/")
+
+@app.route('/', methods=['POST', 'GET'])
 def webtool():
-    return render_template("index.html", webtool_active=True)
+    if request.method == 'GET':
+        # default response when a form is called, renders index.html
+        return render_template("index.html", webtool_active=True)
+
+    elif request.method == 'POST':
+        # response when the submit button is clicked in index.html
+        # packs the variables in dictionary 'kwargs'
+        kwargs = {
+            'dock_slider': request.form['dock_slider'],
+            'RMSD_slider': request.form['RMSD_slider'],
+            'name_file': request.form['name_file'],
+        }
+
+        # checks if both files (pdb and mol2) have been given by user
+        # and checks if files are within file limit
+        app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
+        # sets allowed upload file extensions to .pdb and .mol2, will give an 400 error 
+        # if user uploads file with other extension
+        app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
+        pdb_file = request.files['pdb_file']
+        mol2_file = request.files['mol2_file']
+        pdb_file_ext = os.path.splitext(pdb_file.filename)[1]
+        mol2_file_ext = os.path.splitext(mol2_file.filename)[1]
+        if pdb_file_ext not in app.config['UPLOAD_EXTENSIONS'] or mol2_file_ext not in app.config:
+            abort(400)
+
+            
+        if pdb_file.filename and mol2_file.filename != '':
+
+            # creates directory with the name that the user chose for the session
+            save_dir = os.path.join("templates", "history", kwargs['name_file'])
+            os.makedirs(save_dir, exist_ok=True)
+
+            # saves both files in the newly created directory
+            pdb_file.save(os.path.join(save_dir, pdb_file.filename))
+            mol2_file.save(os.path.join(save_dir, mol2_file.filename))
+
+        # render the 'form_POST.html' with the variables collected from the form in index.html
+        return render_template('form_POST.html', **kwargs)
 
 @app.route("/ourteam")
 def our_team():

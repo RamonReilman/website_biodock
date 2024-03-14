@@ -226,7 +226,7 @@ td {
 
 /* Determines height for containers */
 .team_text
-{height: 70vh;
+{height: 83vh;
 }
 
 /* Styling for all character logo's (height for yamila_logo 
@@ -242,6 +242,11 @@ is larger because the img itself is smaller)*/
   width: auto;
   padding-bottom: 3%;
   padding-top: 1%;
+}
+
+#gitlab_logo {
+  width: 20%;
+  height: auto;
 }
 
 /* Changes font-size and height for bigger screens */
@@ -278,6 +283,11 @@ is larger because the img itself is smaller)*/
 }
 
 #docking_image {
+  width: 100%;
+  height: auto;
+}
+
+#protein-lig_dok_example {
   width: 100%;
   height: auto;
 }
