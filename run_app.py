@@ -49,39 +49,49 @@ def webtool():
 
 @app.route("/template", methods=["POST", "GET"])
 def template():
+    # get the directory that was given in history
     project_name = request.args["project"]
-    print(project_name)
-    foto_path = f"static/history/{project_name}"
-    fotos = []
-    w=os.walk(foto_path)
+    # get the path to the static files
+    photo_path = f"static/history/{project_name}"
+    photos = []
+    # make the filenames accessible for looping
+    w = os.walk(photo_path)
     temp_foto = []
     for index, (dirpath, dirnames, filenames) in enumerate(w):
         for filename in filenames:
+            # get the .dok file and make sure it is not displayed as a picture
             if ".dok" in filename:
                 dok_file = filename
             else:
+                # make groups of 2 to display next to each other
                 temp_foto.append(filename)
                 if len(temp_foto) == 2:
-                    fotos.append(temp_foto)
+                    photos.append(temp_foto)
                     temp_foto = []
+        # if there is a leftover file it will still be displayed
         if len(filenames) % 2 == 0:
+            # make sure the .dok file is not displayed as a leftover picture
             if ".dok" not in filenames[-1]:
-                fotos.append([filenames[-1]])
+                photos.append([filenames[-1]])
             else:
-                fotos.append([filenames[-2]])
-    # print(fotos)
+                photos.append([filenames[-2]])
     if request.method == "POST":
+        # check which kind of button is pressed
         if "Download_picture" in request.form:
+            # get the wanted file
             image = request.form["Download_picture"]
-            file_to_download = os.path.join(foto_path, image)
+            # get file path
+            file_to_download = os.path.join(photo_path, image)
+            # get the system to download the file
             return send_file(file_to_download, as_attachment=True)
-            # return send_from_directory(f"{foto_path}", path)
-
         elif "file_download" in request.form:
+            # get the wanted .dok file
             dok_file = request.form["file_download"]
-            file_to_download = os.path.join(foto_path, dok_file)
+            # git the path to the file
+            file_to_download = os.path.join(photo_path, dok_file)
+            # make system download the file
             return send_file(file_to_download, as_attachment=True)
-    return render_template("history/4zel.pdb/temp.html", history_active=True, fotos=fotos, file_wanted=project_name, dok_file=dok_file)
+    return render_template(f"history/{project_name}/temp.html", history_active=True, fotos=photos, file_wanted=project_name, dok_file=dok_file)
 
 @app.route("/ourteam")
 def our_team():
