@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect, abort
+from flask import Flask, render_template, request, redirect, abort, send_file
 from used_functions.functions_hist_page import clear_me
 
 app = Flask(__name__)
