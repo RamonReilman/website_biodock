@@ -7,7 +7,9 @@
         <div class="row download_container justify-content-center">
             <div class="col-sm-4 mt-5 border p-3" id="download_button">
                 <p>Press the button below to download the .dok file.</p>
-                <button type="button" name="file_download" class="btn btn-primary pymol_download_btn" value="Download">Download file</button>
+                <form action="" method="post">
+                    <button type="submit" name="file_download" class="btn btn-primary pymol_download_btn" value="{{dok_file}}">Download file</button>
+                </form>
             </div>
         </div>
     </div>
@@ -21,7 +23,9 @@
                 <div class="col-sm-4 mt-5 mb-4 border pymol_row">
                     <img class="pymol_foto" src="../../../static/history/{{ file_wanted }}/{{ foto[0] }}" alt="">
                     <p>{{ foto[0] }}<br> Score: -2.84 kcal/mol</p>
-                    <button type="button" name="" class="btn btn-primary pymol_download_btn mb-4" value="Download">Download image</button>
+                    <form action="" method="post">
+                        <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ foto[0] }}">Download image</button>
+                    </form>
                 </div>
             </div>
         {% else %}
@@ -29,12 +33,16 @@
                 <div class="col-sm-4 mt-5 mb-4 border pymol_row">
                     <img class="pymol_foto" src="../../../static/history/{{ file_wanted }}/{{ foto[0] }}" alt="">
                     <p>{{ foto[0] }}<br> Score: -2.84 kcal/mol</p>
-                    <button type="button" name="" class="btn btn-primary pymol_download_btn mb-4" value="Download">Download image</button>
+                    <form action="" method="post">
+                        <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ foto[0] }}">Download image</button>
+                    </form>
                 </div>
                 <div class="col-sm-4 mt-5 mb-4 border pymol_row">
                     <img class="pymol_foto" src="../../../static/history/{{ file_wanted }}/{{ foto[1] }}" alt="">
                     <p>{{ foto[1] }}<br> Score: -2.82 kcal/mol</p>
-                    <button type="button" class="btn btn-primary pymol_download_btn mb-4" value="Download">Download image</button>
+                    <form action="" method="post">
+                        <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ foto[1] }}">Download image</button>
+                    </form>
                 </div>
             </div>
         {% endif %}

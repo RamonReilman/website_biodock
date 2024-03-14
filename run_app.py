@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, send_file
 from used_functions.functions_hist_page import clear_me
 app = Flask(__name__)
 
@@ -7,7 +7,7 @@ app = Flask(__name__)
 def webtool():
     return render_template("index.html", webtool_active=True)
 
-@app.route("/template")
+@app.route("/template", methods=["POST", "GET"])
 def template():
     file_wanted = "4zel.pdb"
     foto_path = f"static/history/{file_wanted}"
@@ -16,16 +16,30 @@ def template():
     temp_foto = []
     for index, (dirpath, dirnames, filenames) in enumerate(w):
         for filename in filenames:
-            temp_foto.append(filename)
-            if len(temp_foto) == 2:
-                fotos.append(temp_foto)
-                temp_foto = []
-        if len(filenames) % 2 == 1:
-            fotos.append([filenames[-1]])
-    print(fotos)
-    # if request.form['file_download'] == "Download":
-    #     return redirect('../../../static/history/{{ fileName }}/PRO_PROTEIN_PeptideChain1.png')
-    return render_template("history/4zel.pdb/temp.html", webtool_active=True, fotos=fotos, file_wanted=file_wanted)
+            if ".dok" in filename:
+                dok_file = filename
+            else:
+                temp_foto.append(filename)
+                if len(temp_foto) == 2:
+                    fotos.append(temp_foto)
+                    temp_foto = []
+        if len(filenames) % 2 == 0:
+            if ".dok" not in filenames[-1]:
+                fotos.append([filenames[-1]])
+            else:
+                fotos.append([filenames[-2]])
+    # print(fotos)
+    if request.method == "POST":
+        if "Download_picture" in request.form:
+            image = request.form["Download_picture"]
+            file_to_download = os.path.join(foto_path, image)
+            return send_file(file_to_download, as_attachment=True)
+            # return send_from_directory(f"{foto_path}", path)
+        elif "file_download" in request.form:
+            dok_file = request.form["file_download"]
+            file_to_download = os.path.join(foto_path, dok_file)
+            return send_file(file_to_download, as_attachment=True)
+    return render_template("history/4zel.pdb/temp.html", webtool_active=True, fotos=fotos, file_wanted=file_wanted, dok_file=dok_file)
 
 @app.route("/ourteam")
 def our_team():
