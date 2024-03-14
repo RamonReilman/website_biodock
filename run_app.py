@@ -30,7 +30,7 @@ def webtool():
         mol2_file = request.files['mol2_file']
         pdb_file_ext = os.path.splitext(pdb_file.filename)[1]
         mol2_file_ext = os.path.splitext(mol2_file.filename)[1]
-        if pdb_file_ext not in app.config['UPLOAD_EXTENSIONS'] or mol2_file_ext not in app.config:
+        if pdb_file_ext not in app.config['UPLOAD_EXTENSIONS'] or mol2_file_ext not in app.config['UPLOAD_EXTENSIONS']:
             abort(400)
 
             
