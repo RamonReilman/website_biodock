@@ -47,6 +47,40 @@ def webtool():
         # render the 'form_POST.html' with the variables collected from the form in index.html
         return render_template('form_POST.html', **kwargs)
 
+@app.route("/template", methods=["POST", "GET"])
+def template():
+    file_wanted = "4zel.pdb"
+    foto_path = f"static/history/{file_wanted}"
+    fotos = []
+    w=os.walk(foto_path)
+    temp_foto = []
+    for index, (dirpath, dirnames, filenames) in enumerate(w):
+        for filename in filenames:
+            if ".dok" in filename:
+                dok_file = filename
+            else:
+                temp_foto.append(filename)
+                if len(temp_foto) == 2:
+                    fotos.append(temp_foto)
+                    temp_foto = []
+        if len(filenames) % 2 == 0:
+            if ".dok" not in filenames[-1]:
+                fotos.append([filenames[-1]])
+            else:
+                fotos.append([filenames[-2]])
+    # print(fotos)
+    if request.method == "POST":
+        if "Download_picture" in request.form:
+            image = request.form["Download_picture"]
+            file_to_download = os.path.join(foto_path, image)
+            return send_file(file_to_download, as_attachment=True)
+            # return send_from_directory(f"{foto_path}", path)
+        elif "file_download" in request.form:
+            dok_file = request.form["file_download"]
+            file_to_download = os.path.join(foto_path, dok_file)
+            return send_file(file_to_download, as_attachment=True)
+    return render_template("history/4zel.pdb/temp.html", webtool_active=True, fotos=fotos, file_wanted=file_wanted, dok_file=dok_file)
+
 @app.route("/ourteam")
 def our_team():
     return render_template("our_team.html", ourteam_active=True)

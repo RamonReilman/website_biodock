@@ -209,6 +209,13 @@ td {
   }
 }
 
+#legend{
+  width: 60%;
+  height: auto;
+  background-color: #f8f9fa;
+  border-radius: 25px;
+}
+
 /*-------------------CONTENT FOR OUR_TEAM.HTML-------------------*/
 /* Gives background color to our_team-page*/
 .our_team{
