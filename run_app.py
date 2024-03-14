@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect, abort, send_file
+from flask import Flask, render_template, request, redirect, abort, send_file, url_for
 from used_functions.functions_hist_page import clear_me
 
 app = Flask(__name__)
@@ -48,10 +48,10 @@ def webtool():
         return render_template('form_POST.html', **kwargs)
 
 @app.route("/template", methods=["POST", "GET"])
-def template(file_wanted):
-    redirect("/template")
-    print(f"lol, {file_wanted}")
-    foto_path = f"static/history/{file_wanted}"
+def template():
+    project_name = request.args["project"]
+    print(project_name)
+    foto_path = f"static/history/{project_name}"
     fotos = []
     w=os.walk(foto_path)
     temp_foto = []
@@ -73,16 +73,15 @@ def template(file_wanted):
     if request.method == "POST":
         if "Download_picture" in request.form:
             image = request.form["Download_picture"]
-            print(request.form)
             file_to_download = os.path.join(foto_path, image)
-            
             return send_file(file_to_download, as_attachment=True)
             # return send_from_directory(f"{foto_path}", path)
+
         elif "file_download" in request.form:
             dok_file = request.form["file_download"]
             file_to_download = os.path.join(foto_path, dok_file)
             return send_file(file_to_download, as_attachment=True)
-    return render_template("history/4zel.pdb/temp.html", history_active=True, fotos=fotos, file_wanted=file_wanted, dok_file=dok_file)
+    return render_template("history/4zel.pdb/temp.html", history_active=True, fotos=fotos, file_wanted=project_name, dok_file=dok_file)
 
 @app.route("/ourteam")
 def our_team():
@@ -108,8 +107,8 @@ def history():
             return redirect("/")
 
         else:
-            # send wanted file to template url and function
-            return template(file_wanted)
+            # send wanted file to template url
+            return redirect(url_for("template", project=file_wanted, **request.args))
 
 @app.route("/about")
 def about():
