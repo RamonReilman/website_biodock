@@ -14,7 +14,7 @@
                     You can clear the history by pressing the "clear me" button. <br>
                 </p>
                 <!-- Button to clear the history -->
-                <form action="" method="post">
+                <form method="post">
                     <button type="submit" name="clear_me" class="btn btn-primary">Clear me</button>
                 </form>
                 </div>
@@ -24,19 +24,17 @@
                 <table class="table">
                     {% for file in files %}
                     <tr>
-                        <form action="" method="post">
-                            <td>
-                                <center>
-                                    <button type="submit" name='{{ file }}' class="btn btn-primary">Open</button>
-                                </center>
-                            </td>
-                        </form>
+                        <td>
+                            <form method="post">
+                                <button type="submit" name='{{ file }}' class="btn btn-primary">Open</button>
+                            </form>
+                        </td>
                       <td>Title: {{ file }}, Path: /website_biodock/templates/history/{{ file }} <br></td>
                     </tr>
                     {% endfor %}
-                  </table>
-            </div>
-        </div>
+                </table>
+         </div>
     </div>
+</div>
 
 {% endblock %}
