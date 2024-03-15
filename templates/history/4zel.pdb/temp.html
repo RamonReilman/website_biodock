@@ -7,7 +7,7 @@
         <div class="row download_container justify-content-center">
             <div class="col-sm-4 mt-5 border p-3" id="download_button">
                 <p>Press the button below to download the .dok file.</p>
-                <form action="" method="post">
+                <form method="post">
                     <button type="submit" name="file_download" class="btn btn-primary pymol_download_btn" value="{{dok_file}}">Download file</button>
                 </form>
             </div>
@@ -32,7 +32,7 @@
                     <!-- Do not forget to changes this line later -->
                     <p>{{ foto[0] }}<br> Score: -2.84 kcal/mol</p>
                     <!-- Download button for image -->
-                    <form action="" method="post">
+                    <form method="post">
                         <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ foto[0] }}">Download image</button>
                     </form>
                 </div>
@@ -45,7 +45,7 @@
                     <!-- Do not forget to changes this line later -->
                     <p>{{ foto[0] }}<br> Score: -2.84 kcal/mol</p>
                     <!-- Download button image -->
-                    <form action="" method="post">
+                    <form method="post">
                         <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ foto[0] }}">Download image</button>
                     </form>
                 </div>
@@ -55,7 +55,7 @@
                     <!-- Do not forget to changes this line later -->
                     <p>{{ foto[1] }}<br> Score: -2.82 kcal/mol</p>
                     <!-- Download button image -->
-                    <form action="" method="post">
+                    <form method="post">
                         <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ foto[1] }}">Download image</button>
                     </form>
                 </div>
@@ -63,6 +63,6 @@
         {% endif %}
         {% endfor %}
     </div>
-
+</div>
 
 {% endblock %}
