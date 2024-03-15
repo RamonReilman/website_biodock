@@ -251,9 +251,10 @@ is larger because the img itself is smaller)*/
   padding-top: 1%;
 }
 
-#gitlab_logo {
+.gitlab_logo {
   width: 20%;
   height: auto;
+  padding-bottom: 6%;
 }
 
 /* Changes font-size and height for bigger screens */
