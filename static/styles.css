@@ -254,6 +254,7 @@ is larger because the img itself is smaller)*/
 .gitlab_logo {
   width: 20%;
   height: auto;
+  
   padding-bottom: 6%;
 }
 
@@ -261,7 +262,7 @@ is larger because the img itself is smaller)*/
 @media screen and (min-height: 730px) {
   .team_text {
     font-size: 1.4em;
-    height: 58vh;
+    height: 70vh;
   }
   
 }
