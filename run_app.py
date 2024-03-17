@@ -160,7 +160,17 @@ def our_team():
 @app.route("/history", methods=["POST", "GET"])
 def history():
     """
-
+    handles the back end of the history page (history.html) and form request.
+    When a GET-request is recieved it will render the normal history.html page.
+    This page includes a table with past projects.
+    When a POST-request is recieved it will redirect to the url of the temp.html route.
+    
+    Returns:
+        - Incase of GET-request
+            Renders the history.html template
+            
+        - Incase of POST-request
+            redirects to the url of the temp.html with project name in url.
     
     """
     # Path of history folder and lists all dirs in this path
