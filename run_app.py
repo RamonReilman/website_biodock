@@ -33,7 +33,6 @@ def webtool():
         if pdb_file_ext not in app.config['UPLOAD_EXTENSIONS'] or mol2_file_ext not in app.config['UPLOAD_EXTENSIONS']:
             abort(400)
 
-
         if pdb_file.filename and mol2_file.filename != '':
 
             # creates directory with the name that the user chose for the session
@@ -46,6 +45,7 @@ def webtool():
 
         # render the 'form_POST.html' with the variables collected from the form in index.html
         return render_template('form_POST.html', **kwargs)
+
 
 @app.route("/template", methods=["POST", "GET"])
 def template():
@@ -60,7 +60,7 @@ def template():
     w = os.walk(photo_path)
     temp_photo = []
 
-    for index, (dirpath, dirnames, filenames) in enumerate(w):
+    for (dirpath, dirnames, filenames) in w:
         for filename in filenames:
 
             # get the .dok file and make sure it is not displayed as a picture
@@ -107,11 +107,14 @@ def template():
             # make system download the file
             return send_file(file_to_download, as_attachment=True)
 
-    return render_template(f"history/{project_name}/temp.html", history_active=True, fotos=photos, file_wanted=project_name, dok_file=dok_file)
+    return render_template(f"history/{project_name}/temp.html", history_active=True, fotos=photos,
+                           file_wanted=project_name, dok_file=dok_file)
+
 
 @app.route("/ourteam")
 def our_team():
     return render_template("our_team.html", ourteam_active=True)
+
 
 @app.route("/history", methods=["POST", "GET"])
 def history():
@@ -141,9 +144,11 @@ def history():
             # send wanted file to template url
             return redirect(url_for("template", project=file_wanted, **request.args))
 
+
 @app.route("/about")
 def about():
     return render_template("about.html", about_active=True)
+
 
 if __name__ == "__main__":
     app.debug = True
