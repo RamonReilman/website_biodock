@@ -1,54 +1,82 @@
+"""
+MODULE DOCSTRING 
+
+
+"""
 import os
 from flask import Flask, render_template, request, redirect, abort, send_file, url_for
 from used_functions.functions_hist_page import clear_me
+
 
 app = Flask(__name__)
 
 
 @app.route('/', methods=['POST', 'GET'])
 def webtool():
+    """
+    Handles GET and POST requests for the webtool page (index.html) 
+    and form functionality. When a GET-request is received, it renders the
+    index.html template. When a POST-request is received (so when a form is submitted), 
+    it handles the form data. 
+
+    Returns:
+        - In case of a GET-request:
+            Renders the index.html template
+        - In case of a POST-request with invalid files:
+            Aborts with a 400 error code
+        - In case of a POST-request with valid files:
+            Renders form_POST.html with submitted data 
+            Saves a directory (with a user-specified name) with the uploaded files
+    """
     if request.method == 'GET':
         # default response when a form is called, renders index.html
         return render_template("index.html", webtool_active=True)
 
-    elif request.method == 'POST':
-        # response when the submit button is clicked in index.html
-        # packs the variables in dictionary 'kwargs'
-        kwargs = {
-            'dock_slider': request.form['dock_slider'],
-            'RMSD_slider': request.form['RMSD_slider'],
-            'name_file': request.form['name_file'],
-        }
+    # response when the submit button is clicked in index.html
+    # packs the variables in dictionary 'kwargs'
+    kwargs = {
+        'dock_slider': request.form['dock_slider'],
+        'RMSD_slider': request.form['RMSD_slider'],
+        'name_file': request.form['name_file'],
+    }
 
-        # checks if both files (pdb and mol2) have been given by user
-        # and checks if files are within file limit
-        app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
-        # sets allowed upload file extensions to .pdb and .mol2, will give an 400 error 
-        # if user uploads file with other extension
-        app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
-        pdb_file = request.files['pdb_file']
-        mol2_file = request.files['mol2_file']
-        pdb_file_ext = os.path.splitext(pdb_file.filename)[1]
-        mol2_file_ext = os.path.splitext(mol2_file.filename)[1]
-        if pdb_file_ext not in app.config['UPLOAD_EXTENSIONS'] or mol2_file_ext not in app.config['UPLOAD_EXTENSIONS']:
+    # checks if both files (pdb and mol2) have been given by user
+    # and checks if files are within file limit
+    app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
+
+    # sets allowed upload file extensions to .pdb and .mol2, will give an 400 error
+    # if user uploads file with other extension
+    app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
+    pdb_file = request.files['pdb_file']
+    mol2_file = request.files['mol2_file']
+    pdb_file_ext = os.path.splitext(pdb_file.filename)[1]
+    mol2_file_ext = os.path.splitext(mol2_file.filename)[1]
+
+    # checks if both files got uploaded, otherwise the input will be equal to ''
+    if pdb_file.filename and mol2_file.filename != '':
+
+        # checks if uploaded files have the correct extension, else returns an error
+        if pdb_file_ext not in app.config['UPLOAD_EXTENSIONS'] \
+        or mol2_file_ext not in app.config['UPLOAD_EXTENSIONS']:
             abort(400)
 
-        if pdb_file.filename and mol2_file.filename != '':
+        # creates directory with the name that the user chose for the session
+        save_dir = os.path.join("templates", "history", kwargs['name_file'])
+        os.makedirs(save_dir, exist_ok=True)
 
-            # creates directory with the name that the user chose for the session
-            save_dir = os.path.join("templates", "history", kwargs['name_file'])
-            os.makedirs(save_dir, exist_ok=True)
+        # saves both files in the newly created directory
+        pdb_file.save(os.path.join(save_dir, pdb_file.filename))
+        mol2_file.save(os.path.join(save_dir, mol2_file.filename))
 
-            # saves both files in the newly created directory
-            pdb_file.save(os.path.join(save_dir, pdb_file.filename))
-            mol2_file.save(os.path.join(save_dir, mol2_file.filename))
-
-        # render the 'form_POST.html' with the variables collected from the form in index.html
-        return render_template('form_POST.html', **kwargs)
+    # render the 'form_POST.html' with the variables collected from the form in index.html
+    return render_template('form_POST.html', **kwargs)
 
 
 @app.route("/template", methods=["POST", "GET"])
 def template():
+    """
+    
+    """
     # get the directory that was given in history
     project_name = request.args["project"]
 
@@ -97,11 +125,11 @@ def template():
             # get the system to download the file
             return send_file(file_to_download, as_attachment=True)
 
-        elif "file_download" in request.form:
+        if "file_download" in request.form:
             # get the wanted .dok file
             dok_file = request.form["file_download"]
 
-            # git the path to the file
+            # get the path to the file
             file_to_download = os.path.join(photo_path, dok_file)
 
             # make system download the file
@@ -113,11 +141,22 @@ def template():
 
 @app.route("/ourteam")
 def our_team():
+    """
+    Renders the our_team.html template
+
+    Returns:
+        our_team.html template
+    
+    """
     return render_template("our_team.html", ourteam_active=True)
 
 
 @app.route("/history", methods=["POST", "GET"])
 def history():
+    """
+
+    
+    """
     # Path of history folder and lists all dirs in this path
     path = "templates/history"
     dir_list = os.listdir(path)
@@ -127,26 +166,30 @@ def history():
         return render_template("history.html", files=dir_list, history_active=True)
 
     # If button is pressed, see what user wants
-    elif request.method == "POST":
-        file_wanted = list(request.form.keys())
-        file_wanted = str(file_wanted).replace("[", "").replace("]", "").replace("'", "")
+    file_wanted = list(request.form.keys())
+    file_wanted = str(file_wanted).replace("[", "").replace("]", "").replace("'", "")
 
-        # Delete history
-        if file_wanted == "clear_me":
-            print("Everything has been deleted")
+    # Delete history
+    if file_wanted == "clear_me":
+        print("Everything has been deleted")
 
-            # uncomment to enable deleting
-            # clear_me()
-            return redirect("/")
+        # uncomment to enable deleting
+        # clear_me()
+        return redirect("/")
 
-        # Redirect to fitting temp_url
-        else:
-            # send wanted file to template url
-            return redirect(url_for("template", project=file_wanted, **request.args))
+    # Redirect to fitting temp_url
+    return redirect(url_for("template", project=file_wanted, **request.args))
 
 
 @app.route("/about")
 def about():
+    """
+    Renders the about.html template
+
+    Returns:
+        about.html template
+    
+    """
     return render_template("about.html", about_active=True)
 
 
