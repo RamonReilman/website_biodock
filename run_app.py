@@ -99,16 +99,20 @@ def our_team():
 
 @app.route("/history", methods=["POST", "GET"])
 def history():
+    # Path of history folder and lists all dirs in this path
     path = "templates/history"
     dir_list = os.listdir(path)
 
+    # Render history page with the files in dir_list
     if request.method == "GET":
         return render_template("history.html", files=dir_list, history_active=True)
 
+    # If button is pressed, see what user wants
     elif request.method == "POST":
         file_wanted = list(request.form.keys())
         file_wanted = str(file_wanted).replace("[", "").replace("]", "").replace("'", "")
 
+        # Delete history
         if file_wanted == "clear_me":
             print("Everything has been deleted")
 
@@ -116,6 +120,7 @@ def history():
             # clear_me()
             return redirect("/")
 
+        # Redirect to fitting temp_url
         else:
             # send wanted file to template url
             return redirect(url_for("template", project=file_wanted, **request.args))
