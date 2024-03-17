@@ -75,7 +75,13 @@ def webtool():
 @app.route("/template", methods=["POST", "GET"])
 def template():
     """
-    
+    Displays the images and dok file created from the webtool or selected in history. The user can download the files
+    on this page.
+
+    Returns:
+        Renders the correct temp.html template
+        In case of a POST-request:
+            Downloads the file that matches the clicked button
     """
     # get the directory that was given in history
     project_name = request.args["project"]
@@ -85,10 +91,10 @@ def template():
     photos = []
 
     # make the filenames accessible for looping
-    w = os.walk(photo_path)
+    static_path = os.walk(photo_path)
     temp_photo = []
 
-    for (dirpath, dirnames, filenames) in w:
+    for (dirpath, dirnames, filenames) in static_path:
         for filename in filenames:
 
             # get the .dok file and make sure it is not displayed as a picture
