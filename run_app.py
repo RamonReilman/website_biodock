@@ -18,7 +18,7 @@ Commandline usage:
 import os
 from flask import Flask, render_template, request, redirect, abort, send_file, url_for
 from used_functions.functions_hist_page import clear_me, save_settings, load_settings
-
+from used_functions.classes.plip_tool import Plip
 
 app = Flask(__name__)
 # sets max. file limit to be uploaded by the user
@@ -182,7 +182,7 @@ def history():
     Returns:
         - Incase of GET-request
             Renders the history.html template
-            
+
         - Incase of POST-request
             redirects to the url of the temp.html with project name in url.
     
