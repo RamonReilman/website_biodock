@@ -1,7 +1,19 @@
 """
-MODULE DOCSTRING 
+Flask Application for BioDock Visualiser Webtool
+    - Authors: Ramon Reilman, Stijn Vermeulen, Yamila Timmer
 
+This Flask application handles the back-end for the webtool. It includes routes for
+functionalities such as:
+    - Submitting forms (with files in it)
+    - Displaying images
+    - Retrieving previous user-sessions of webtool (including files and imgs)
 
+Usage:
+    Run this script (run_app.py) to start up the Flask web application. 
+    Access the webtool through the URL displayed in the terminal.
+
+Commandline usage: 
+    - python3 run_app.py
 """
 import os
 from flask import Flask, render_template, request, redirect, abort, send_file, url_for
@@ -9,6 +21,10 @@ from used_functions.functions_hist_page import clear_me
 
 
 app = Flask(__name__)
+# sets max. file limit to be uploaded by the user
+app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
+# sets allowed file extensions for user uploads
+app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -40,13 +56,8 @@ def webtool():
         'name_file': request.form['name_file'],
     }
 
-    # checks if both files (pdb and mol2) have been given by user
-    # and checks if files are within file limit
-    app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
-
     # sets allowed upload file extensions to .pdb and .mol2, will give an 400 error
     # if user uploads file with other extension
-    app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
     pdb_file = request.files['pdb_file']
     mol2_file = request.files['mol2_file']
     pdb_file_ext = os.path.splitext(pdb_file.filename)[1]
@@ -87,37 +98,34 @@ def template():
     project_name = request.args["project"]
 
     # get the path to the static files
-    photo_path = f"static/history/{project_name}"
-    photos = []
+    img_path = f"static/history/{project_name}"
+    imgs = []
 
     # make the filenames accessible for looping
-    static_path = os.walk(photo_path)
-    temp_photo = []
+    static_path = os.walk(img_path)
+    temp_img = []
 
     for (_dirpath, _dirnames, filenames) in static_path:
+
         for filename in filenames:
 
             # get the .dok file and make sure it is not displayed as a picture
-            if filename[-4:] == ".dok":
+            if filename.endswith(".dok"):
                 dok_file = filename
 
             else:
+                # adds pictures to temp_img
+                temp_img.append(filename)
+
                 # make groups of 2 to display next to each other
-                temp_photo.append(filename)
+                if len(temp_img) == 2:
+                    imgs.append(temp_img)
+                    temp_img = []
 
-                if len(temp_photo) == 2:
-                    photos.append(temp_photo)
-                    temp_photo = []
+        # adds left-over image
+        if temp_img:
+            imgs.append(temp_img)
 
-        # if there is a leftover file it will still be displayed
-        if len(filenames) % 2 == 0:
-
-            # make sure the .dok file is not displayed as a leftover picture
-            if ".dok" not in filenames[-1]:
-                photos.append([filenames[-1]])
-
-            else:
-                photos.append([filenames[-2]])
 
     if request.method == "POST":
         # check which kind of button is pressed
@@ -126,7 +134,7 @@ def template():
             image = request.form["Download_picture"]
 
             # get file path
-            file_to_download = os.path.join(photo_path, image)
+            file_to_download = os.path.join(img_path, image)
 
             # get the system to download the file
             return send_file(file_to_download, as_attachment=True)
@@ -136,12 +144,12 @@ def template():
             dok_file = request.form["file_download"]
 
             # get the path to the file
-            file_to_download = os.path.join(photo_path, dok_file)
+            file_to_download = os.path.join(img_path, dok_file)
 
             # make system download the file
             return send_file(file_to_download, as_attachment=True)
 
-    return render_template(f"history/{project_name}/temp.html", history_active=True, fotos=photos,
+    return render_template(f"history/{project_name}/temp.html", history_active=True, imgs=imgs,
                            file_wanted=project_name, dok_file=dok_file)
 
 

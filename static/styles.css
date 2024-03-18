@@ -186,7 +186,7 @@ td {
 }
 
 /* Changes scale for pymol images */
-.pymol_foto{
+.pymol_img{
   width: 80%;
   height: auto;
 }

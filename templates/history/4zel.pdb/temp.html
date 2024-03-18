@@ -21,19 +21,19 @@
 
 
     <!-- for loop to loop through all the images -->
-    {% for foto in fotos %}
+    {% for img in imgs %}
     <div class="container imgs_container">
         <!-- if statement to check if the list contains 1 or 2 images -->
-        {% if foto|length == 1 %}
+        {% if img|length == 1 %}
             <!-- display for image -->
             <div class="row justify-content-evenly">
                 <div class="col-sm-4 mt-5 mb-4 border pymol_row">
-                    <img class="pymol_foto" src="../../../static/history/{{ file_wanted }}/{{ foto[0] }}" alt="">
+                    <img class="pymol_img" src="../../../static/history/{{ file_wanted }}/{{ img[0] }}" alt="">
                     <!-- Do not forget to changes this line later -->
-                    <p>{{ foto[0] }}<br> Score: -2.84 kcal/mol</p>
+                    <p>{{ img[0] }}<br> Score: -2.84 kcal/mol</p>
                     <!-- Download button for image -->
                     <form method="post">
-                        <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ foto[0] }}">Download image</button>
+                        <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ img[0] }}">Download image</button>
                     </form>
                 </div>
             </div>
@@ -41,22 +41,22 @@
             <div class="row justify-content-evenly">
                 <!-- image display -->
                 <div class="col-sm-4 mt-5 mb-4 border pymol_row">
-                    <img class="pymol_foto" src="../../../static/history/{{ file_wanted }}/{{ foto[0] }}" alt="">
+                    <img class="pymol_img" src="../../../static/history/{{ file_wanted }}/{{ img[0] }}" alt="">
                     <!-- Do not forget to changes this line later -->
-                    <p>{{ foto[0] }}<br> Score: -2.84 kcal/mol</p>
+                    <p>{{ img[0] }}<br> Score: -2.84 kcal/mol</p>
                     <!-- Download button image -->
                     <form method="post">
-                        <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ foto[0] }}">Download image</button>
+                        <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ img[0] }}">Download image</button>
                     </form>
                 </div>
                 <!-- image display -->
                 <div class="col-sm-4 mt-5 mb-4 border pymol_row">
-                    <img class="pymol_foto" src="../../../static/history/{{ file_wanted }}/{{ foto[1] }}" alt="">
+                    <img class="pymol_img" src="../../../static/history/{{ file_wanted }}/{{ img[1] }}" alt="">
                     <!-- Do not forget to changes this line later -->
-                    <p>{{ foto[1] }}<br> Score: -2.82 kcal/mol</p>
+                    <p>{{ img[1] }}<br> Score: -2.82 kcal/mol</p>
                     <!-- Download button image -->
                     <form method="post">
-                        <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ foto[1] }}">Download image</button>
+                        <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ img[1] }}">Download image</button>
                     </form>
                 </div>
             </div>
