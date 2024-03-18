@@ -12,5 +12,5 @@ class Plip():
         path = f"static/history/{self.project_name}/pro.pdb"
         subprocess.run(["python3", f"{self.path_to_venv}/lib/python3.11/site-packages/plip/plipcmd.py", "-f", path, "-p", "--peptides", "1","2", "3", "-o", f"static/history/{self.project_name}"])
 
-
-
+    def __str__(self):
+        return f"Creates images using the {self.path_to_pro} file, and saves these images in static/history/{self.project_name}"
