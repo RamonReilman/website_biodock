@@ -154,7 +154,7 @@ def template():
             # make system download the file
             return send_file(file_to_download, as_attachment=True)
 
-    return render_template(f"history/{project_name}/temp.html", history_active=True, imgs=imgs,
+    return render_template("temp.html", history_active=True, imgs=imgs,
                            file_wanted=project_name, dok_file=dok_file, RMSD_slider = settings["RMSD_slider"], 
                            dock_slider = settings["dock_slider"])
 
@@ -188,7 +188,7 @@ def history():
     
     """
     # Path of history folder and lists all dirs in this path
-    path = "templates/history"
+    path = "static/history"
     dir_list = os.listdir(path)
 
     # Render history page with the files in dir_list
