@@ -17,7 +17,7 @@ Commandline usage:
 """
 import os
 from flask import Flask, render_template, request, redirect, abort, send_file, url_for
-from used_functions.functions_hist_page import clear_me
+from used_functions.functions_hist_page import clear_me, save_settings, load_settings
 
 
 app = Flask(__name__)
@@ -72,12 +72,15 @@ def webtool():
             abort(400)
 
         # creates directory with the name that the user chose for the session
-        save_dir = os.path.join("templates", "history", kwargs['name_file'])
+        save_dir = os.path.join("static", "history", kwargs['name_file'])
         os.makedirs(save_dir, exist_ok=True)
+
 
         # saves both files in the newly created directory
         pdb_file.save(os.path.join(save_dir, pdb_file.filename))
         mol2_file.save(os.path.join(save_dir, mol2_file.filename))
+
+        save_settings(save_dir, **kwargs)
 
     # render the 'form_POST.html' with the variables collected from the form in index.html
     return render_template('form_POST.html', **kwargs)
@@ -94,9 +97,11 @@ def template():
         In case of a POST-request:
             Downloads the file that matches the clicked button
     """
+
     # get the directory that was given in history
     project_name = request.args["project"]
-
+    save_dir = os.path.join("static", "history", project_name)
+    settings = load_settings(save_dir)
     # get the path to the static files
     img_path = f"static/history/{project_name}"
     imgs = []
@@ -109,18 +114,18 @@ def template():
 
         for filename in filenames:
 
-            # get the .dok file and make sure it is not displayed as a picture
-            if filename.endswith(".dok"):
-                dok_file = filename
-
-            else:
-                # adds pictures to temp_img
+            if filename.endswith(".png"):
+            # adds pictures to temp_img
                 temp_img.append(filename)
 
                 # make groups of 2 to display next to each other
                 if len(temp_img) == 2:
                     imgs.append(temp_img)
                     temp_img = []
+
+            # get the .dok file and make sure it is not displayed as a picture
+            elif filename.endswith(".dok"):
+                dok_file = filename
 
         # adds left-over image
         if temp_img:
@@ -150,7 +155,8 @@ def template():
             return send_file(file_to_download, as_attachment=True)
 
     return render_template(f"history/{project_name}/temp.html", history_active=True, imgs=imgs,
-                           file_wanted=project_name, dok_file=dok_file)
+                           file_wanted=project_name, dok_file=dok_file, RMSD_slider = settings["RMSD_slider"], 
+                           dock_slider = settings["dock_slider"])
 
 
 @app.route("/ourteam")

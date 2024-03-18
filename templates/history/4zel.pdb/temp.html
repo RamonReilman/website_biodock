@@ -21,23 +21,23 @@
                
                 <!-- Displays used settings for earlier session -->
                 <div class="col p-3 border" id="settings_history">
-                    <p><b>Settings used for {{ name_file }}:</b></p>
+                    <p><b>Settings used for {{ file_wanted }}:</b></p>
                     <table class="table mx-auto" id="settings_table">
                         <tr>
                             <td>PDB-file:</td>
-                            <td>text</td>
+                            <td>{{}}</td>
                         </tr>
                         <tr>
                             <td>Mol2-file:</td>
-                            <td>text</td>
+                            <td>{{}}</td>
                         </tr>
                         <tr>
                             <td>No. of docking poses:</td>
-                            <td>text {{ dock_slider }}</td>
+                            <td>{{ dock_slider }}</td>
                         </tr>
                         <tr>
                             <td>RMSD-cutoff:</td>
-                            <td>text {{ RMSD_slider }}</td>
+                            <td>{{ RMSD_slider }}</td>
                         </tr>
                     </table>
                 </div>
