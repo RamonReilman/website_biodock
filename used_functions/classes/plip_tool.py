@@ -1,13 +1,16 @@
 import subprocess
-
+from time import sleep
+import os
 class Plip():
-    def __init__(self, path_to_plip, path_to_pro):
-        self.path_to_plip = path_to_plip
+    def __init__(self, venv_path, path_to_pro, project_name):
+        self.path_to_venv = venv_path
         self.path_to_pro = path_to_pro
+        self.project_name = project_name
+        
 
     def run(self):
-        path = "../../static/history/4zel.pdb/pro.pdb"
-        subprocess.run(["python", "../../venv_website/lib/python3.10/site-packages/plip/plipcmd.py", "-f", path, "-p", "--peptides", "1 2 3"])
+        path = f"static/history/{self.project_name}/pro.pdb"
+        subprocess.run(["python3", f"{self.path_to_venv}/lib/python3.11/site-packages/plip/plipcmd.py", "-f", path, "-p", "--peptides", "1","2", "3", "-o", f"static/history/{self.project_name}"])
 
-plip = Plip("pass", "lol")
-plip.run()
+
+
