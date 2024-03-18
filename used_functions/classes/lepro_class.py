@@ -14,13 +14,13 @@ class LePro:
         """
         method docstring
         """
-        pdb_path = f"static/history/{self.name_file}/{self.pdb_file_name}"
+        pdb_path = f"website_biodock/static/history/{self.name_file}/{self.pdb_file_name}"
         #pdb_path = f"static/history/{self.name_file}/{self.pdb_file_name}"
         lepro_path = subprocess.run(["find", "-name", "lepro_linux_x86"], check=True,
                                     capture_output=True, text=True)
         lepro_path = lepro_path.stdout.strip()
         print(lepro_path, pdb_path)
-        print(subprocess.run([lepro_path, pdb_path], check=True, capture_output=True).stdout)
+        subprocess.run([lepro_path, pdb_path], check=True, capture_output=True)
 
 
     def __str__(self):

@@ -18,7 +18,7 @@ Commandline usage:
 import os
 from flask import Flask, render_template, request, redirect, abort, send_file, url_for
 from used_functions.functions_hist_page import clear_me, save_settings, load_settings
-
+from used_functions.classes.lepro_class import LePro
 
 app = Flask(__name__)
 # sets max. file limit to be uploaded by the user
@@ -72,15 +72,22 @@ def webtool():
             abort(400)
 
         # creates directory with the name that the user chose for the session
-        save_dir = os.path.join("static", "history", kwargs['name_file'])
+        save_dir = os.path.join(app.root_path, "static", "history", kwargs['name_file'])
         os.makedirs(save_dir, exist_ok=True)
 
 
         # saves both files in the newly created directory
-        pdb_file.save(os.path.join(save_dir, pdb_file.filename))
-        mol2_file.save(os.path.join(save_dir, mol2_file.filename))
+        pdb_file_name = pdb_file.filename
+        mol2_file_name = mol2_file.filename
+
+        pdb_file.save(os.path.join(save_dir, pdb_file_name))
+        mol2_file.save(os.path.join(save_dir, mol2_file_name))
 
         save_settings(save_dir, **kwargs)
+
+        lepro_instance = LePro(pdb_file_name=pdb_file_name, **kwargs)
+        lepro_instance.run()
+
 
     # render the 'form_POST.html' with the variables collected from the form in index.html
     return render_template('form_POST.html', **kwargs)
