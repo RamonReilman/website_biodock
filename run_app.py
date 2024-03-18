@@ -71,6 +71,11 @@ def webtool():
         or mol2_file_ext not in app.config['UPLOAD_EXTENSIONS']:
             abort(400)
 
+        # checks the size of the mol2 file, returns an error of it exceeds the size limit
+        mol2_size = mol2_file.seek(0, os.SEEK_END)
+        if mol2_size > 2000: #TEST change this to the correct number
+            abort(400)
+
         # creates directory with the name that the user chose for the session
         save_dir = os.path.join("templates", "history", kwargs['name_file'])
         os.makedirs(save_dir, exist_ok=True)
