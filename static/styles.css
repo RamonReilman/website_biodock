@@ -176,13 +176,35 @@ td {
   text-align: center;
 }
 
-/* Gives styling to the download button for the dok file */
 #download_button{
-  height: auto;
+  align-self: start;
+}
+/* Gives styling to the download button for the dok file */
+#download_button,
+#settings_history{
   border-radius: 15px;
   background-color: #f8f9fa;
   color: #7F91B9;
   text-align: center;
+}
+
+#settings_table{
+  width:80%;
+}
+#legend,
+#settings_history{
+  background-color: #f8f9fa;
+  border-radius: 12px;
+}
+
+#legend{
+  width: 100%;
+  height: auto;
+}
+
+#settings_history{
+  width:auto;
+  align-self: end;
 }
 
 /* Changes scale for pymol images */
@@ -201,19 +223,13 @@ td {
   text-align: center;
 }
 
+
 /* Changes font-size and height for bigger screens */
 @media screen and (min-height: 730px) {
   .download_container,
   .imgs_container {
     font-size: 1.3em;
   }
-}
-
-#legend{
-  width: 60%;
-  height: auto;
-  background-color: #f8f9fa;
-  border-radius: 25px;
 }
 
 /*-------------------CONTENT FOR OUR_TEAM.HTML-------------------*/
