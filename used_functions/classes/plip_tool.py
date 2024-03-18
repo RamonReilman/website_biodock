@@ -9,8 +9,13 @@ class Plip():
         
 
     def run(self):
+        
+        plip_path = subprocess.run(["find", "-name", "plipcmd.py"], check=True, capture_output=True, text=True)
         path = f"static/history/{self.project_name}/pro.pdb"
-        subprocess.run(["python3", f"{self.path_to_venv}/lib/python3.11/site-packages/plip/plipcmd.py", "-f", path, "-p", "--peptides", "1","2", "3", "-o", f"static/history/{self.project_name}"])
+        subprocess.run(["python3",plip_path, "-f", path, "-p", "--peptides", "1","2", "3", "-o", f"static/history/{self.project_name}"], check=True)
 
     def __str__(self):
         return f"Creates images using the {self.path_to_pro} file, and saves these images in static/history/{self.project_name}"
+    
+plip = Plip(1,"static/history/4zel.pdb/pro.pdb","4zel.pdb")
+plip.run()
