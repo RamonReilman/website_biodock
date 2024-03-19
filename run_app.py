@@ -17,14 +17,9 @@ Commandline usage:
 """
 import os
 from flask import Flask, render_template, request, redirect, abort, send_file, url_for
-from used_functions.functions_hist_page import clear_me, save_settings, load_settings
+from used_functions.functions_hist_page import clear_me, save_settings, load_settings, parse_config
 
 app = Flask(__name__)
-# sets max. file limit to be uploaded by the user
-app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
-# sets allowed file extensions for user uploads
-app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
-
 
 @app.route('/', methods=['POST', 'GET'])
 def webtool():
@@ -71,7 +66,7 @@ def webtool():
             abort(400)
 
         # creates directory with the name that the user chose for the session
-        save_dir = os.path.join("static", "history", kwargs['name_file'])
+        save_dir = os.path.join(img_path, kwargs['name_file'])
         os.makedirs(save_dir, exist_ok=True)
 
 
@@ -99,10 +94,10 @@ def template():
 
     # get the directory that was given in history
     project_name = request.args["project"]
-    save_dir = os.path.join("static", "history", project_name)
+    save_dir = os.path.join(img_path, project_name)
     settings = load_settings(save_dir)
     # get the path to the static files
-    img_path = f"static/history/{project_name}"
+    output_path = f"{img_path}{project_name}"
     imgs = []
 
     # make the filenames accessible for looping
@@ -187,15 +182,13 @@ def history():
     
     """
     # Path of history folder and lists all dirs in this path
-    path = "static/history"
-    dir_list = os.listdir(path)
+    dir_list = os.listdir(img_path)
 
     # Render history page with the files in dir_list
     if request.method == "GET":
         return render_template("history.html", files=dir_list, history_active=True)
 
     if request.method == "POST":
-        print(request.form.values())
         # Delete history
         user_input = request.form["user_input"]
         if user_input == "clear_me":
@@ -223,5 +216,14 @@ def about():
 
 
 if __name__ == "__main__":
+    # sets max. file limit to be uploaded by the user
+    app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
+    # sets allowed file extensions for user uploads
+    app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
+
+    config_path = parse_config()
+    print(config_path.sections())
+    img_path = config_path['paths']['img_path']
+
     app.debug = True
     app.run()

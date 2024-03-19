@@ -1,6 +1,6 @@
 import os, json
 from shutil import rmtree
-
+import configparser
 def clear_me():
     rmtree("templates/history")
     os.mkdir("templates/history")
@@ -19,3 +19,8 @@ def load_settings(save_dir):
     with open(f'{save_dir}/settings.json', "r") as settings_file:
         data = json.load(settings_file)
         return data
+
+def parse_config():
+    parser = configparser.ConfigParser()
+    parser.read("used_functions/config.ini")
+    return parser
