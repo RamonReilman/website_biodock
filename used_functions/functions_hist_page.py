@@ -8,4 +8,4 @@ def clear_me():
     rmtree("static/history")
     os.mkdir("static/history")
 
-def merge_dok_pdb():
+# def merge_dok_pdb():
