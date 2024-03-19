@@ -22,9 +22,18 @@ from used_functions.classes.lepro_class import LePro
 
 app = Flask(__name__)
 # sets max. file limit to be uploaded by the user
-app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
+app.config['MAX_CONTENT_LENGTH'] = 1024
 # sets allowed file extensions for user uploads
 app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
+
+@app.errorhandler(413)
+def exceeds_capacity_limit(error):
+    """
+    Function to catch and handle the 413 errors
+    :param error:
+    :return: rendered own defined 413.html
+    """
+    return render_template('error_templates/413.html'), 413
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -54,6 +63,7 @@ def webtool():
         'dock_slider': request.form['dock_slider'],
         'RMSD_slider': request.form['RMSD_slider'],
         'name_file': request.form['name_file'],
+
     }
 
     # sets allowed upload file extensions to .pdb and .mol2, will give an 400 error
@@ -69,17 +79,17 @@ def webtool():
         # checks if uploaded files have the correct extension, else returns an error
         if pdb_file_ext not in app.config['UPLOAD_EXTENSIONS'] \
         or mol2_file_ext not in app.config['UPLOAD_EXTENSIONS']:
-            abort(400)
+            abort(413)
 
         # creates directory with the name that the user chose for the session
         save_dir = os.path.join(app.root_path, "static", "history", kwargs['name_file'])
         os.makedirs(save_dir, exist_ok=True)
 
-        # saves both files in the newly created directory
+        # variables for the names of the files
         pdb_file_name = pdb_file.filename
         mol2_file_name = mol2_file.filename
 
-        # saves input files to specified path
+        # saves both files in the newly created directory
         pdb_file.save(os.path.join(save_dir, pdb_file_name))
         mol2_file.save(os.path.join(save_dir, mol2_file_name))
 
@@ -87,6 +97,7 @@ def webtool():
         save_settings(save_dir, **kwargs)
 
         pdb_save_path = os.path.join(save_dir, pdb_file_name)
+
         # creates instance for LePro-class
         lepro_instance = LePro(pdb_save_path=pdb_save_path, pdb_file_name=pdb_file_name,
                                **kwargs)
@@ -102,6 +113,7 @@ def webtool():
 
     # render the 'form_POST.html' with the variables collected from the form in index.html
     return render_template('form_POST.html', **kwargs)
+
 
 
 @app.route("/template", methods=["POST", "GET"])

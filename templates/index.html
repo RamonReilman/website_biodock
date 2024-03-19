@@ -7,7 +7,7 @@
             <div class="row boxes justify-content-evenly">
                 <!-- HTML containing the file_upload_box, in which the user is asked to upload a PDB-file and MOL2-file -->
                 <div class="col-sm-6 mt-5">
-                    <div class="p-3 border" id="file_upload_box">
+                    <div class="settings_box p-3 border">
 
                             <!-- heading for upload_files box -->
                             <h1 class="files_heading">Upload files:</h1>
@@ -22,15 +22,17 @@
                             <!-- file input where user is asked to upload a MOL2-file. Only .mol2 files are accepted
                             and the input is marked as 'required', not allowing user to submit before choosing a file-->
                             <div class="col-12 file_input">
-                                <label for="mol2_file">Choose MOL2-file:</label><br><br>
+                                <label for="mol2_file">Choose MOL2-file:</label><br>
+                                max. size: ..kb<br>
                                 <input type="file" id="mol2_file" name="mol2_file" accept=".mol2" required><br><br>
                             </div>
 
                     </div>
                 </div>
 
-                    <!-- HTML containing the settings_box, in which the user can select the settings -->
-                    <div class="col-sm-4 my-auto"><div class="p-3 border" id="settings_box"> 
+                <!-- HTML containing the settings_box, in which the user can select the settings -->
+                <div class="col-sm-4 my-auto">
+                    <div class="box p-3 border" id="settings_box"> 
                         <div class="row">
 
                             <!-- heading for settings box -->
@@ -67,8 +69,8 @@
 
                     <!-- submit button that is used to send all the users data to the server, can only be pressed once all required 
                         fields (2 file inputs and 1 text input) have been fulfilled -->
-                    <div class="col-12 d-grid">
-                        <input type="submit" class="btn btn-outline-primary btn-block" id="submit_button" value="Submit">
+                    <div class="col-12 d-grid mt-4">
+                        <input type="submit" class="btn btn-outline-primary btn-block" value="Submit">
                     </div>
 
                 </div>
