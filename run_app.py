@@ -85,9 +85,17 @@ def webtool():
 
         save_settings(save_dir, **kwargs)
 
-        lepro_instance = LePro(pdb_file_name=pdb_file_name, **kwargs)
+        pdb_save_path = os.path.join(save_dir, pdb_file_name)
+        lepro_instance = LePro(pdb_save_path=pdb_save_path, pdb_file_name=pdb_file_name, **kwargs)
         lepro_instance.run()
+        lepro_instance.mv_files()
+        #lepro_instance.dock_settings()
+        #lepro_instance.dock_settings()
+        print(lepro_instance)
+        
+        
 
+#output moet in static/history/{project_name}/
 
     # render the 'form_POST.html' with the variables collected from the form in index.html
     return render_template('form_POST.html', **kwargs)
