@@ -262,3 +262,8 @@ is larger because the img itself is smaller)*/
   color: white;
   margin-top: 1%;
 }
+/*----------------------------ERROR_TEMPLATES-----------------------------*/
+#error_box{
+  height: 30vh;
+  
+}
