@@ -17,7 +17,7 @@ Commandline usage:
 """
 import os
 from flask import Flask, render_template, request, redirect, abort, send_file, url_for
-from used_functions.functions_hist_page import clear_me, save_settings, load_settings
+from used_functions.functions_hist_page import clear_me, save_settings, load_settings, settings_dok_file
 from used_functions.classes.lepro_class import LePro
 
 app = Flask(__name__)
@@ -75,27 +75,30 @@ def webtool():
         save_dir = os.path.join(app.root_path, "static", "history", kwargs['name_file'])
         os.makedirs(save_dir, exist_ok=True)
 
-
         # saves both files in the newly created directory
         pdb_file_name = pdb_file.filename
         mol2_file_name = mol2_file.filename
 
+        # saves input files to specified path
         pdb_file.save(os.path.join(save_dir, pdb_file_name))
         mol2_file.save(os.path.join(save_dir, mol2_file_name))
 
+        # creates json file and saves user-specified settings to it
         save_settings(save_dir, **kwargs)
 
         pdb_save_path = os.path.join(save_dir, pdb_file_name)
-        lepro_instance = LePro(pdb_save_path=pdb_save_path, pdb_file_name=pdb_file_name, **kwargs)
+        # creates instance for LePro-class
+        lepro_instance = LePro(pdb_save_path=pdb_save_path, pdb_file_name=pdb_file_name,
+                               **kwargs)
+        
+        # runs run-method to activate LePro and moves output files to correct folder
         lepro_instance.run()
         lepro_instance.mv_files()
-        #lepro_instance.dock_settings()
-        #lepro_instance.dock_settings()
-        print(lepro_instance)
-        
-        
 
-#output moet in static/history/{project_name}/
+        new_save_path_dock = os.path.join("static/history/", kwargs['name_file'], "dock.in")
+    
+        # runs settings_dok_file-function which transfers the user input from kwargs dict to dock.in file
+        settings_dok_file(new_save_path_dock, kwargs['RMSD_slider'], kwargs['dock_slider'])
 
     # render the 'form_POST.html' with the variables collected from the form in index.html
     return render_template('form_POST.html', **kwargs)
@@ -117,6 +120,7 @@ def template():
     project_name = request.args["project"]
     save_dir = os.path.join("static", "history", project_name)
     settings = load_settings(save_dir)
+
     # get the path to the static files
     img_path = f"static/history/{project_name}"
     imgs = []
@@ -148,8 +152,10 @@ def template():
 
 
     if request.method == "POST":
+
         # check which kind of button is pressed
         if "Download_picture" in request.form:
+
             # get the wanted file
             image = request.form["Download_picture"]
 
