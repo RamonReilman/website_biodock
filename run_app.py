@@ -19,7 +19,6 @@ import os
 from flask import Flask, render_template, request, redirect, abort, send_file, url_for
 from used_functions.functions_hist_page import clear_me, save_settings, load_settings
 
-
 app = Flask(__name__)
 # sets max. file limit to be uploaded by the user
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
@@ -195,20 +194,20 @@ def history():
     if request.method == "GET":
         return render_template("history.html", files=dir_list, history_active=True)
 
-    # If button is pressed, see what user wants
-    file_wanted = list(request.form.keys())
-    file_wanted = str(file_wanted).replace("[", "").replace("]", "").replace("'", "")
+    if request.method == "POST":
+        print(request.form.values())
+        # Delete history
+        user_input = request.form["user_input"]
+        if user_input == "clear_me":
+            print("Everything has been deleted")
 
-    # Delete history
-    if file_wanted == "clear_me":
-        print("Everything has been deleted")
+            # uncomment to enable deleting
+            # clear_me()
+            return redirect("/")
 
-        # uncomment to enable deleting
-        # clear_me()
-        return redirect("/")
-
-    # Redirect to fitting temp_url
-    return redirect(url_for("template", project=file_wanted, **request.args))
+        else:
+            # Redirect to fitting temp_url
+            return redirect(url_for("template", project=user_input, **request.args))
 
 
 @app.route("/about")

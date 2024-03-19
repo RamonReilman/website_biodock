@@ -15,7 +15,7 @@
                 </p>
                 <!-- Button to clear the history -->
                 <form method="post">
-                    <button type="submit" name="clear_me" class="btn btn-primary">Clear me</button>
+                    <button type="submit" name="user_input" value="clear_me" class="btn btn-primary">Clear me</button>
                 </form>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <tr>
                         <td>
                             <form method="post">
-                                <button type="submit" name='{{ file }}' class="btn btn-primary">Open</button>
+                                <button type="submit" name='user_input' value="{{ file }}" class="btn btn-primary">Open</button>
                             </form>
                         </td>
                       <td>Title: {{ file }}, Path: /website_biodock/templates/history/{{ file }} <br></td>
