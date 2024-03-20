@@ -17,11 +17,6 @@ class LePro:
         method docstring
         """
         subprocess.run([self.lepro_path, self.pdb_save_path], check=True)
-
-    def mv_files(self):
-        """
-        method docstring
-        """
         subprocess.run(["mv", "dock.in", self.new_save_path_dock], check=True)
         subprocess.run(["mv", "pro.pdb", self.new_save_path_pro], check=True)
 
@@ -33,6 +28,17 @@ class LePro:
                 f'Generated pro.pdb location: {self.new_save_path_pro}\n')
 
 if __name__ == "__main__":
-    lepro_instance = LePro("2BSM.pdb", name_file="webtool_test")
+    lepro_path = "./venv/lepro_linux_x86"
+    save_dir = os.path.join(app.root_path, "static", "history", kwargs['name_file'])
+    pdb_file_name = "2BSM.pdb"
+    name_file = "webtool_test"
+    new_save_path_dock = os.path.join("static/history/", name_file, "dock.in")
+    new_save_path_pro = os.path.join("static/history/", name_file, "pro.pdb")
+    
+    lepro_instance = LePro(pdb_save_path=os.path.join(save_dir, pdb_file_name),
+                           name_file=name_file,
+                           new_save_path_dock=new_save_path_dock,)
+    
     print(lepro_instance)
     lepro_instance.run()
+

@@ -101,7 +101,6 @@ def webtool():
         
         # runs run-method to activate LePro and moves output files to correct folder
         lepro_instance.run()
-        lepro_instance.mv_files()
 
         # gives __str__ output with info about the running proces
         print(lepro_instance)
