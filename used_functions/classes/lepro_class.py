@@ -4,12 +4,12 @@ class LePro:
     """
     class docstring
     """
-    def __init__(self, pdb_save_path, name_file):
+    def __init__(self, pdb_save_path, name_file, new_save_path_dock):
         self.name_file = name_file
         self.pdb_save_path = pdb_save_path
         self.lepro_path = subprocess.run(["find", "-name", "lepro_linux_x86"], check=True,
                                     capture_output=True, text=True).stdout.strip()
-        self.new_save_path_dock = os.path.join("static/history/", self.name_file, "dock.in")
+        self.new_save_path_dock = new_save_path_dock
         self.new_save_path_pro = os.path.join("static/history/", self.name_file, "pro.pdb")
 
     def run(self):
