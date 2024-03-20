@@ -22,7 +22,7 @@ from used_functions.classes.lepro_class import LePro
 
 app = Flask(__name__)
 # sets max. file limit to be uploaded by the user
-app.config['MAX_CONTENT_LENGTH'] = 1024
+app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
 # sets allowed file extensions for user uploads
 app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
 
