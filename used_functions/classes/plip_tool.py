@@ -7,10 +7,10 @@ class Plip():
 
     Attributes
     ----------
-    path_to_pro : str
-        path to pro.pdb file
-    project_name : str
-        project name, given for history
+    output_lccation : str
+        path to where images will be saved
+    pro_pdb : str
+        The path to pro.pdb file
 
     Methods
     -------
@@ -24,10 +24,9 @@ class Plip():
 
         Parameters
         ----------
-        pro_pdb : str
-            path to pro.pdb file
-        output_location : str
-            path for the output of the tool
+        project_name : str
+            project name, given for history
+
         """
 
         self.output_location = f"static/history/{project_name}"
