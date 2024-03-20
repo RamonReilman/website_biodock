@@ -181,7 +181,7 @@ def history():
     Returns:
         - Incase of GET-request
             Renders the history.html template
-            
+
         - Incase of POST-request
             redirects to the url of the temp.html with project name in url.
     

@@ -19,3 +19,4 @@ def load_settings(save_dir):
     with open(f'{save_dir}/settings.json', "r") as settings_file:
         data = json.load(settings_file)
         return data
+
