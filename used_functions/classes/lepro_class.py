@@ -2,7 +2,29 @@ import subprocess
 import os
 class LePro:
     """
-    class docstring
+    Class that represents the 'LePro'-tool
+
+    ...
+
+    Attributes
+    ----------
+    pdb_save_path : str
+        path to user-submitted .pdb file
+    name_file : str
+        user given session name, used for history
+    new_save_path_dock: str
+        path that dock.in gets moved to, after it gets created in same dir as LePro
+    new_save_path_pro: str
+        path that pro.pdb gets moved to, after it gets created in same dir as LePro
+    lepro_path: str
+        path to LePro installation on PC
+    
+
+    Methods
+    -------
+    run():
+        runs LePro and moves generated files to new location
+
     """
     def __init__(self, pdb_save_path, name_file, new_save_path_dock):
         self.name_file = name_file
@@ -14,31 +36,18 @@ class LePro:
 
     def run(self):
         """
-        method docstring
+        Runs LePro with the specified lepro installation path and the .pdb file path and 
+        moves the generated files to the specified locations.
+        
         """
         subprocess.run([self.lepro_path, self.pdb_save_path], check=True)
         subprocess.run(["mv", "dock.in", self.new_save_path_dock], check=True)
         subprocess.run(["mv", "pro.pdb", self.new_save_path_pro], check=True)
 
     def __str__(self):
-
         return (f'LePro installation detected: {self.lepro_path}\n'
                 f'PDB file received by LePro:{self.pdb_save_path}, located in session: {self.name_file}.\n'
                 f'Generated dock.in location: {self.new_save_path_dock}\n'
-                f'Generated pro.pdb location: {self.new_save_path_pro}\n')
-
-if __name__ == "__main__":
-    lepro_path = "./venv/lepro_linux_x86"
-    save_dir = os.path.join(app.root_path, "static", "history", kwargs['name_file'])
-    pdb_file_name = "2BSM.pdb"
-    name_file = "webtool_test"
-    new_save_path_dock = os.path.join("static/history/", name_file, "dock.in")
-    new_save_path_pro = os.path.join("static/history/", name_file, "pro.pdb")
+                f'Generated pro.pdb location: {self.new_save_path_pro}\n'
+                f'type name_file:{self.lepro_path}{type(self.lepro_path)}')
     
-    lepro_instance = LePro(pdb_save_path=os.path.join(save_dir, pdb_file_name),
-                           name_file=name_file,
-                           new_save_path_dock=new_save_path_dock,)
-    
-    print(lepro_instance)
-    lepro_instance.run()
-
