@@ -78,7 +78,7 @@ header a.True {
 }
 
 /* css for submit button*/
-#submit_button {
+.submit_button {
   border-color: #9fb6e8;
   color: white;
   background-color: #9fb6e8;

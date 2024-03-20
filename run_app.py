@@ -46,7 +46,7 @@ def webtool():
     """
     if request.method == 'GET':
         # default response when a form is called, renders index.html
-        return render_template("index.html", webtool_active=True)
+        return render_template("index.html", webtool_active=True, confirm=False)
 
     # response when the submit button is clicked in index.html
     # packs the variables in dictionary 'kwargs'
@@ -55,6 +55,15 @@ def webtool():
         'RMSD_slider': request.form['RMSD_slider'],
         'name_file': request.form['name_file'],
     }
+    print(type(kwargs['name_file']))
+    if kwargs['name_file'] in os.listdir('static/history'):
+        print(os.listdir("true"))
+        if "Submit" in request.form:
+            return render_template("index.html", webtool_active=True, confirm=True)
+        else:
+            pass
+
+    print(os.listdir('static/history'))
 
     # sets allowed upload file extensions to .pdb and .mol2, will give an 400 error
     # if user uploads file with other extension
@@ -73,7 +82,7 @@ def webtool():
 
         # checks the size of the mol2 file, returns an error of it exceeds the size limit
         mol2_size = mol2_file.seek(0, os.SEEK_END)
-        if mol2_size > 2000: #TEST change this to the correct number
+        if mol2_size > 3000: #TEST change this to the correct number
             abort(400)
 
         # creates directory with the name that the user chose for the session
