@@ -66,34 +66,6 @@ h2 {
 }
 
 
-/* Changes font size on big screens, to make the text bigger*/
-@media screen and (min-height: 730px) {
-  .container {
-    font-size: 1.35em;
-
-  }
-  .team_text{
-    height: 80vh;
-  }
-  .btn{
-    font-size: 1.2em;
-  }
-  .slider{
-    width: 40%;
-    height: 100%;
-  }
-  .download_container,
-  .imgs_container {
-    font-size: 1.2em;
-    }
-  .file_input {
-    margin: 12%;
-  }
-
-  header a {
-    font-size: 1.45em;
-  }
-}
 
 
 /*---------------------------HEADER------------------------------------------*/
@@ -194,7 +166,7 @@ header a.True {
 /* Determines height for containers */
 .team_text {
   font-size: 1.15em;
-  height: 75vh;
+  height: 100vh;
 }
 
 /* Styling for all character logo's (height for yamila_logo 
@@ -247,4 +219,32 @@ is larger because the img itself is smaller)*/
 #error_box{
   height: 30vh;
   
+}
+/* Changes font size on big screens, to make the text bigger*/
+@media screen and (min-height: 730px) {
+  .container {
+    font-size: 1.35em;
+
+  }
+  .team_text{
+    height: 80vh;
+  }
+  .btn{
+    font-size: 1.2em;
+  }
+  .slider{
+    width: 40%;
+    height: 100%;
+  }
+  .download_container,
+  .imgs_container {
+    font-size: 1.2em;
+    }
+  .file_input {
+    margin: 12%;
+  }
+
+  header a {
+    font-size: 1.45em;
+  }
 }
