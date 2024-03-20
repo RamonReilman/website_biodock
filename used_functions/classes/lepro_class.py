@@ -8,17 +8,12 @@ class LePro:
 
     Attributes
     ----------
-    pdb_save_path : str
+    - pdb_save_path : str
         path to user-submitted .pdb file
-    name_file : str
+    - name_file : str
         user given session name, used for history
-    new_save_path_dock: str
+    - new_save_path_dock: str
         path that dock.in gets moved to, after it gets created in same dir as LePro
-    new_save_path_pro: str
-        path that pro.pdb gets moved to, after it gets created in same dir as LePro
-    lepro_path: str
-        path to LePro installation on PC
-    
 
     Methods
     -------
@@ -39,6 +34,19 @@ class LePro:
         Runs LePro with the specified lepro installation path and the .pdb file path and 
         moves the generated files to the specified locations.
         
+            Parameters
+            ----------
+        - pdb_save_path : str
+            path to user-submitted .pdb file
+        - name_file : str
+            user given session name, used for history
+        - new_save_path_dock: str
+            path that dock.in gets moved to, after it gets created in same dir as LePro
+        - new_save_path_pro: str
+            path that pro.pdb gets moved to, after it gets created in same dir as LePro
+        - lepro_path: str
+            path to LePro installation on PC
+
         """
         subprocess.run([self.lepro_path, self.pdb_save_path], check=True)
         subprocess.run(["mv", "dock.in", self.new_save_path_dock], check=True)
@@ -46,8 +54,7 @@ class LePro:
 
     def __str__(self):
         return (f'LePro installation detected: {self.lepro_path}\n'
-                f'PDB file received by LePro:{self.pdb_save_path}, located in session: {self.name_file}.\n'
+                f'PDB file received by LePro:{self.pdb_save_path}, \
+                    located in session: {self.name_file}.\n'
                 f'Generated dock.in location: {self.new_save_path_dock}\n'
-                f'Generated pro.pdb location: {self.new_save_path_pro}\n'
-                f'type name_file:{self.lepro_path}{type(self.lepro_path)}')
-    
+                f'Generated pro.pdb location: {self.new_save_path_pro}\n')

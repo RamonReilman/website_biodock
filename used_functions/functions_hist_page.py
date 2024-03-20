@@ -35,28 +35,29 @@ def load_settings(save_dir):
 
 def settings_dok_file(new_save_path_dock, rmsd_slider, dock_slider):
     """
-    Function that saves user-supplied settings from the form in 
+    Function that saves user-supplied settings from the webtool form in 
     index.html, to the dock.in file.
-    :param new_save_path_dock:  (str)
-    :param rmsd_slider: ()
-    :param dock_slider: ()
-    type, explanation, and the default value if set), and the return value (type and explanation).
-    FUNCTION DOCSTRING
+    :param new_save_path_dock: path to dock.in (str)
+    :param rmsd_slider: rmsd cutoff (dock.in setting) submitted by user in webtool form (str)
+    :param dock_slider: no. of docking poses (dock.in setting) submitted by user in webtool form (str)
+
     """
+    # opens original dock.in file and reads all lines 
     with open(new_save_path_dock, 'r+', encoding="utf-8") as dock_file:
         lines = dock_file.readlines()
 
     with open(new_save_path_dock, 'w', encoding="utf-8") as dock_file_write:
+        # iterates through each line of original dock.in file
         for i, line in enumerate(lines):
 
             if i == 4:
+                # replaces line 5 with user-input for rmsd_slider
                 dock_file_write.write(rmsd_slider + '\n')
-                print(type(dock_slider))
-                print(type(rmsd_slider))
-                print(type(new_save_path_dock))
 
             elif i == 12:
+                # replaces line 13 with user-input for no. of docking poses
                 dock_file_write.write(dock_slider + '\n')
 
             else:
+                # writes out lines from original dock.in file
                 dock_file_write.write(line)
