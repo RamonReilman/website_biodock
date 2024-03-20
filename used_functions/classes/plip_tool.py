@@ -18,20 +18,20 @@ class Plip():
         runs the plip
 
     """
-    def __init__(self, path_to_pro, project_name):
+    def __init__(self, project_name):
         """
         Constructs all the necessary attributes for the tool
 
         Parameters
         ----------
-        path_to_pro : str
+        pro_pdb : str
             path to pro.pdb file
-        project_name : str
-            project name, given for history
+        output_location : str
+            path for the output of the tool
         """
 
-        self.path_to_pro = path_to_pro
-        self.project_name = project_name
+        self.output_location = f"static/history/{project_name}"
+        self.pro_pdb = f"static/history/{project_name}/pro.pdb"
     def run(self):
         """
         Runs the plip tool via command line
@@ -44,11 +44,9 @@ class Plip():
         plip_path = subprocess.run(["find", "-name", "plipcmd.py"],
                                    check=True, capture_output=True, text=True)
         plip_path = plip_path.stdout.strip()
-        path = f"static/history/{self.project_name}/pro.pdb"
-        print(path, plip_path)
-        subprocess.run(["python3", plip_path, "-f", path, "-p", "--peptides",
-                        "1","2", "3", "-o", f"static/history/{self.project_name}"], check=True)
+        subprocess.run(["python3", plip_path, "-f", self.pro_pdb, "-p", "--peptides",
+                        "1", "2", "3", "-o", self.output_location], check=True)
 
     def __str__(self):
-        return f"""Creates images using the {self.path_to_pro} file,
-                and saves these images in static/history/{self.project_name}"""
+        return f"""Creates images using the {self.pro_pdb} file,
+                and saves these images in {self.output_location}"""

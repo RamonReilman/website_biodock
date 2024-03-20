@@ -1,5 +1,15 @@
-import string
+"""
+    Script used to merge a .dok file and pro.pdb file,
+    This is needed to get the plip tool working
+    - Authors: Ramon Reilman, Stijn Vermeulen, Yamila Timmer
 
+    This script merges the information about different ligand positions
+    with the pdb file of the protein.
+    It also gives each ligand a number so it's optional for plip to generate an image.
+
+Usage:
+    Import into run_app.py
+"""
 def process_lig_file(path_to_lig, amount_ligands):
     """
     Opens ligand file and readies it to be merged with pro.pdb
@@ -12,7 +22,6 @@ def process_lig_file(path_to_lig, amount_ligands):
     """
     string_with_ligand =""
     amount_ends = 0
-    alfabet = list(string.ascii_lowercase)
     # Opens ligand file
     with open(path_to_lig, 'r', encoding='utf-8') as ligand_file:
         for line in ligand_file:
