@@ -105,6 +105,7 @@ def webtool():
         # runs run-method to activate LePro and moves output files to correct folder
         lepro_instance.run()
         lepro_instance.mv_files()
+        print(lepro_instance)
 
         new_save_path_dock = os.path.join("static/history/", kwargs['name_file'], "dock.in")
     
