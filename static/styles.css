@@ -38,14 +38,9 @@ makes width responsive to diff resolutions*/
 td {
   background-color: #f8f9fa;
   border: 1px solid #9fb6e8;
-  text-align: left;
-  padding: 8px;
+  
 }
 
-/* Sets table width for all table elements*/
-.table{
-  width:100%;
-}
 /* Styles the odd rows of the table */
 .table tbody tr:nth-child(odd) {
   background-color: #e3eafd;
@@ -75,9 +70,28 @@ h2 {
 @media screen and (min-height: 730px) {
   .container {
     font-size: 1.35em;
+
   }
-  #team_text{
+  .team_text{
     height: 80vh;
+  }
+  .btn{
+    font-size: 1.2em;
+  }
+  .slider{
+    width: 40%;
+    height: 100%;
+  }
+  .download_container,
+  .imgs_container {
+    font-size: 1.2em;
+    }
+  .file_input {
+    margin: 12%;
+  }
+
+  header a {
+    font-size: 1.45em;
   }
 }
 
@@ -138,26 +152,8 @@ header a.True {
   width: 80%;
 }
 
-/* Ensures that style looks the same for screens with a height greater than 730px */
-@media screen and (min-height: 730px) {
-  .file_input {
-    margin: 12%;
-  }
-
-  header a {
-    font-size: 1.45em;
-  }
-}
-
 /*-------------------------------CONTENT FOR HISTORY.HTML-----------------------*/
-/* Changes font-size and height for bigger screens */
-@media screen and (min-height: 730px) {
-  .table {
-    height: 100%;
-    margin-top: 3%;
-    margin-bottom: 3%;
-  }
-}
+
 
 /*----------------------CONTENT FOR TEMP.HTML---------------------*/
 /* Gives styling to the background of the page */
@@ -194,18 +190,11 @@ header a.True {
   text-align: center;
 }
 
-/* Changes font-size and height for bigger screens */
-@media screen and (min-height: 730px) {
-  .download_container,
-  .imgs_container {
-    font-size: 1.3em;
-  }
-}
-
 /*-------------------CONTENT FOR OUR_TEAM.HTML-------------------*/
 /* Determines height for containers */
-#team_text
-{height: 83vh;
+.team_text {
+  font-size: 1.15em;
+  height: 75vh;
 }
 
 /* Styling for all character logo's (height for yamila_logo 
@@ -229,14 +218,6 @@ is larger because the img itself is smaller)*/
   padding-bottom: 6%;
 }
 
-/* Changes font-size and height for bigger screens */
-@media screen and (min-height: 730px) {
-  #team_text {
-    font-size: 1.3em;
-    height: 75vh;
-  }
-  
-}
 
 /*----------------------CONTENT FOR ABOUT.HTML-----------------------*/
 /* Sets width/height for imgs*/
@@ -248,19 +229,19 @@ is larger because the img itself is smaller)*/
 
 /*-----------------------------------FOOTER------------------------------*/
 /* css for copyright box at the bottom of the page*/
-#copyright{
+#copyright {
   background-color: #9fb6e8;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
-  height: 7vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  padding: 1%;
 }
 
 /* css for text in copyright box*/
-#copyright_text{
-  height: 100%;
-  text-align: center;
+#copyright_text {
   color: white;
-  margin-top: 1%;
 }
 /*----------------------------ERROR_TEMPLATES-----------------------------*/
 #error_box{
