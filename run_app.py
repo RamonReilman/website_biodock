@@ -204,10 +204,7 @@ def history():
             # uncomment to enable deleting
             # clear_me()
             return redirect("/")
-
-        else:
-            # Redirect to fitting temp_url
-            return redirect(url_for("template", project=user_input, **request.args))
+        return redirect(url_for("template", project=user_input, **request.args))
 
 
 @app.route("/about")
