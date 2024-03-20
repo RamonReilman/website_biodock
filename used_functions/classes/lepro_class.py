@@ -4,8 +4,8 @@ class LePro:
     """
     class docstring
     """
-    def __init__(self, pdb_save_path, **kwargs):
-        self.name_file = kwargs["name_file"]
+    def __init__(self, pdb_save_path, name_file):
+        self.name_file = name_file
         self.pdb_save_path = pdb_save_path
         self.lepro_path = subprocess.run(["find", "-name", "lepro_linux_x86"], check=True,
                                     capture_output=True, text=True).stdout.strip()
@@ -16,7 +16,7 @@ class LePro:
         """
         method docstring
         """
-        subprocess.run([self.lepro_path, self.pdb_save_path], check=True, capture_output=True)
+        subprocess.run([self.lepro_path, self.pdb_save_path], check=True)
 
     def mv_files(self):
         """

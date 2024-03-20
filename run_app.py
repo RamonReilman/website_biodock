@@ -96,20 +96,20 @@ def webtool():
         # creates json file and saves user-specified settings to it
         save_settings(save_dir, **kwargs)
 
-        pdb_save_path = os.path.join(save_dir, pdb_file_name)
-
         # creates instance for LePro-class
-        lepro_instance = LePro(pdb_save_path=pdb_save_path, pdb_file_name=pdb_file_name,
-                               **kwargs)
+        lepro_instance = LePro(pdb_save_path = os.path.join(save_dir, pdb_file_name), name_file=kwargs['name_file'])
         
         # runs run-method to activate LePro and moves output files to correct folder
         lepro_instance.run()
         lepro_instance.mv_files()
+
+        # gives __str__ output with info about the running proces
         print(lepro_instance)
 
         new_save_path_dock = os.path.join("static/history/", kwargs['name_file'], "dock.in")
     
         # runs settings_dok_file-function which transfers the user input from kwargs dict to dock.in file
+        
         settings_dok_file(new_save_path_dock, kwargs['RMSD_slider'], kwargs['dock_slider'])
 
     # render the 'form_POST.html' with the variables collected from the form in index.html
