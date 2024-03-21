@@ -5,6 +5,7 @@ MODULE DOCSTRING
 import os
 import json
 from shutil import rmtree
+import subprocess
 
 def clear_me():
     """
@@ -61,3 +62,15 @@ def settings_dok_file(new_save_path_dock, rmsd_slider, dock_slider):
             else:
                 # writes out lines from original dock.in file
                 dock_file_write.write(line)
+
+
+def mol2_to_ligands(path):
+
+    # loops through files in path
+    for file in os.listdir(path):
+
+        # checks if it ends with mol2
+        if file.endswith(".mol2"):
+            # writes name to ligands file
+            with open(f"{path}ligands", "w", encoding="utf-8") as ligands_file:
+                ligands_file.write(file)

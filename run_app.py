@@ -17,7 +17,7 @@ Commandline usage:
 """
 import os
 from flask import Flask, render_template, request, redirect, abort, send_file, url_for
-from used_functions.functions_hist_page import clear_me, save_settings, load_settings, settings_dok_file
+from used_functions.functions_hist_page import clear_me, save_settings, load_settings, settings_dok_file, mol2_to_ligands
 from used_functions.classes.lepro_class import LePro
 
 app = Flask(__name__)
