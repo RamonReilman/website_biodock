@@ -18,11 +18,11 @@ Commandline usage:
 import os
 from flask import Flask, render_template, request, redirect, abort, send_file, url_for
 from used_functions.functions_hist_page import clear_me, save_settings, load_settings, settings_dok_file, mol2_to_ligands
-from used_functions.classes.lepro_class import LePro
+from used_functions.classes.tool_classes import LePro, Ledock, Plip
+import used_functions.merge_pdb_dok as merge_pdb_dok
 
 app = Flask(__name__)
 # sets max. file limit to be uploaded by the user
-app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
 # sets allowed file extensions for user uploads
 app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
 
@@ -87,9 +87,9 @@ def webtool():
             abort(413)
 
         # checks the size of the mol2 file, returns an error of it exceeds the size limit
-        mol2_size = mol2_file.seek(0, os.SEEK_END)
-        if mol2_size > 3000: #TEST change this to the correct number
-            abort(400)
+        # mol2_size = mol2_file.seek(0, os.SEEK_END)
+        # if mol2_size > 3000: #TEST change this to the correct number
+        #     abort(400)
 
         # creates directory with the name that the user chose for the session
         save_dir = os.path.join(app.root_path, "static", "history", kwargs['name_file'])
@@ -98,6 +98,7 @@ def webtool():
         # variables for the names of the files
         pdb_file_name = pdb_file.filename
         mol2_file_name = mol2_file.filename
+
 
         # saves both files in the newly created directory
         pdb_file.save(os.path.join(save_dir, pdb_file_name))
@@ -113,11 +114,23 @@ def webtool():
         lepro_instance.run()
 
         # gives __str__ output with info about the running proces
-        print(lepro_instance)
-    
-        # runs settings_dok_file-function which transfers the user input from kwargs dict to dock.in file
-        settings_dok_file(lepro_instance.new_save_path_dock, kwargs['RMSD_slider'], kwargs['dock_slider'])
 
+
+        # runs settings_dok_file-function which transfers the user input from kwargs dict to dock.in file
+        print(save_dir)
+        settings_dok_file(lepro_instance.new_save_path_dock, kwargs['RMSD_slider'], kwargs['dock_slider'])
+        
+        mol2_to_ligands(path=save_dir)
+        mol2_for_dock = mol2_file_name.replace(".mol2", ".in")
+        ledock_instance = Ledock(path=save_dir, file_name=mol2_for_dock)
+        ledock_instance.run()
+        
+        merge_pdb_dok.main(pdb_file=save_dir+"/pro.pdb", lig_file=save_dir+"/"+mol2_file_name.replace(".mol2", ".dok"))
+
+        plip_instance = Plip(project_name=kwargs['name_file'])
+        plip_instance.run()
+        
+        return redirect(url_for("template", project=kwargs["name_file"], **request.args))
     # render the 'form_POST.html' with the variables collected from the form in index.html
     return render_template('form_POST.html', **kwargs)
 
