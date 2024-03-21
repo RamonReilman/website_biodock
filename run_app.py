@@ -192,7 +192,7 @@ def template():
                 if len(temp_img) < 2:
                     temp_img.append(filename)
                 if len(temp_img) == 2:
-                    imgs.append([temp_img[0], temp_img[1], score_list[count]])
+                    imgs.append(temp_img)
                     temp_img = []
                     count += 1
 
@@ -204,9 +204,12 @@ def template():
         if temp_img:
             imgs.append(temp_img)
 
+    sorted_imgs = [sorted(img) for img in imgs]
     zipped_imgs_scores = zip(imgs, score_list)
-    print(imgs)
-    print(zipped_imgs_scores)
+    print('imgs:', imgs)
+    print('Zipped list:', zipped_imgs_scores)
+    print('sorted list:', sorted_imgs)
+
     
     if request.method == "POST":
 
