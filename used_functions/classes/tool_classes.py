@@ -1,6 +1,13 @@
+"""
+MODULE DOCSTRING
+
+
+"""
 import subprocess
 import os
 import string
+
+
 class LePro:
     """
     Class that represents the 'LePro'-tool
@@ -31,6 +38,7 @@ class LePro:
         self.new_save_path_dock = new_save_path_dock
         self.new_save_path_pro = os.path.join("static/history/", self.name_file, "pro.pdb")
 
+
     def run(self):
         """
         Runs LePro with the specified lepro installation path and the .pdb file path and
@@ -54,12 +62,14 @@ class LePro:
         subprocess.run(["mv", "dock.in", self.new_save_path_dock], check=True)
         subprocess.run(["mv", "pro.pdb", self.new_save_path_pro], check=True)
 
+
     def __str__(self):
         return (f'LePro installation detected: {self.lepro_path}\n'
                 f'PDB file received by LePro:{self.pdb_save_path}, \
                     located in session: {self.name_file}.\n'
                 f'Generated dock.in location: {self.new_save_path_dock}\n'
                 f'Generated pro.pdb location: {self.new_save_path_pro}\n')
+
 
 class Ledock:
     """
@@ -84,17 +94,19 @@ class Ledock:
         :param path: the path to the directory housing the files you want to run ledock on
         """
         self.path = path
-        self.dock_path = subprocess.run(["find", "-name", "ledock_linux_x86"], check=True, capture_output=True,
-                                        text=True)
+        self.dock_path = subprocess.run(["find", "-name", "ledock_linux_x86"], check=True,
+                                        capture_output=True, text=True)
         self.file_name = file_name
+
 
     def run(self):
         """
-        modifies the dock_path to be able to access ledock from the directory in static/history and runs ledock on
-        the files in the self.path
+        modifies the dock_path to be able to access ledock from the directory in 
+        static/history and runs ledock on the files in the self.path
         :return: creates the .dok file in the given directory
         """
-        # replaces the "." that indicates this directory with the path from a directory in static/history
+        # replaces the "." that indicates this directory with the path from a
+        # directory in static/history
         ledock_path = "../../.." + self.dock_path.stdout[1:]
 
         # removes the /n if it is created
@@ -102,7 +114,8 @@ class Ledock:
 
         # runs ledock in the directory on the dock.in
         print(self.path)
-        subprocess.run([f"{ledock_path}", f"dock.in"], cwd=f"{self.path}/", check=True)
+        subprocess.run([{ledock_path}, "dock.in"], cwd=f"{self.path}/", check=True)
+
 
     def __str__(self):
         """
@@ -110,6 +123,7 @@ class Ledock:
         :return: The path given when creating first creating the class
         """
         return f"ledock recieved {self.path}"
+
 
 class Plip():
     """
@@ -148,6 +162,8 @@ class Plip():
         self.output_location = f"static/history/{project_name}"
         self.pro_pdb = f"static/history/{project_name}/pro.pdb"
         self.img_n = img_n
+
+
     def run(self):
         """
         Runs the plip tool via command line
@@ -161,15 +177,17 @@ class Plip():
                                    check=True, capture_output=True, text=True)
         plip_path = plip_path.stdout.split("\n")
         plip_path = plip_path[0]
-        command = ["python3", plip_path, "-f", self.pro_pdb, "-p", "-o", self.output_location, "--peptides",]
-        
+        command = ["python3", plip_path, "-f", self.pro_pdb, "-p", "-o", self.output_location,
+                   "--peptides",]
+
         # Adds correct ligand chains to command
         alphabet = list(string.ascii_lowercase)
         for num in range(0, self.img_n):
             command.append(alphabet[num])
-        
+
         # Runs tool
         subprocess.run(command, check=True)
+
 
     def __str__(self):
         return f"""Creates images using the {self.pro_pdb} file,
