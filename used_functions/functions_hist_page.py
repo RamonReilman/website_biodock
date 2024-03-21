@@ -10,6 +10,3 @@ def clear_me():
 
 # def merge_dok_pdb():
 
-
-def remove_dir(directory):
-    rmtree(directory)

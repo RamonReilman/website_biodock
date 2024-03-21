@@ -17,7 +17,7 @@ Commandline usage:
 """
 import os
 from flask import Flask, render_template, request, redirect, abort, send_file, url_for
-from used_functions.functions_hist_page import clear_me, remove_dir
+from used_functions.functions_hist_page import clear_me
 
 
 app = Flask(__name__)
@@ -46,7 +46,7 @@ def webtool():
     """
     if request.method == 'GET':
         # default response when a form is called, renders index.html
-        return render_template("index.html", webtool_active=True, confirm=False)
+        return render_template("index.html", webtool_active=True, name_exists=False)
 
     # response when the submit button is clicked in index.html
     # packs the variables in dictionary 'kwargs'
@@ -55,16 +55,11 @@ def webtool():
         'RMSD_slider': request.form['RMSD_slider'],
         'name_file': request.form['name_file'],
     }
-    print(request.form)
-    print(kwargs['name_file'])
-    if kwargs['name_file'] in os.listdir('static/history'):
-        print(os.listdir("static/history"))
-        if request.form['submit'] == "Submit":
-            return render_template("index.html", webtool_active=True, confirm=True)
-        elif request.form['submit'] == "Confirm ?":
-            dir_to_remove = os.path.join("templates", "history", kwargs['name_file'])
-            remove_dir(dir_to_remove)
 
+    # checks if the name already exists, if it does it returns the name_exists as true
+    if kwargs['name_file'] in os.listdir('static/history'):
+        # print(os.listdir("static/history"))
+        return render_template("index.html", webtool_active=True, name_exists=True)
 
     # sets allowed upload file extensions to .pdb and .mol2, will give an 400 error
     # if user uploads file with other extension
