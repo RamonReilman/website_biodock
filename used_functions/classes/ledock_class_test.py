@@ -40,14 +40,14 @@ class Ledock:
         ledock_path = ledock_path.replace("\n", "")
 
         # runs ledock in the directory on the dock.in
-        subprocess.run([f"{ledock_path}", "dock.in"], cwd=f"{self.path}")
+        subprocess.run([f"{ledock_path}", "dock.in"], cwd=f"{self.path}", check=True)
 
     def __str__(self):
         """
         gives this return when printing this class
         :return: The path given when creating first creating the class
         """
-        return self.path
+        return f"ledock recieved {self.path}"
 
 
 if __name__ == "__main__":
