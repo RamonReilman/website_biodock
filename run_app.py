@@ -87,8 +87,10 @@ def webtool():
             abort(413)
 
         # checks the size of the mol2 file, returns an error of it exceeds the size limit
-        mol2_size = mol2_file.seek(0, os.SEEK_END)
-        if mol2_size > 3000: #TEST change this to the correct number
+        mol2_file.seek(0, os.SEEK_END)
+        mol2_length = mol2_file.tell()
+        mol2_file.seek(0)
+        if mol2_length > 3000: #TEST change this to the correct number
             abort(400)
 
         # creates directory with the name that the user chose for the session
@@ -160,6 +162,9 @@ def template():
                 if len(temp_img) == 2:
                     imgs.append(temp_img)
                     temp_img = []
+
+            elif filename.endswith(".pdb"):
+                if filename != 
 
             # get the .dok file and make sure it is not displayed as a picture
             elif filename.endswith(".dok"):
