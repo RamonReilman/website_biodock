@@ -1,6 +1,6 @@
 import subprocess
 import os
-
+import string
 class LePro:
     """
     Class that represents the 'LePro'-tool
@@ -123,6 +123,8 @@ class Plip():
         path to where images will be saved
     pro_pdb : str
         The path to pro.pdb file
+    img_n : int
+        int that contains the number of images that need to be rendered.
 
     Methods
     -------
@@ -130,7 +132,7 @@ class Plip():
         runs the plip
 
     """
-    def __init__(self, project_name):
+    def __init__(self, project_name, img_n):
         """
         Constructs all the necessary attributes for the tool
 
@@ -138,11 +140,14 @@ class Plip():
         ----------
         project_name : str
             project name, given for history
+        img_n : int
+            int that contains the number of images that need to be rendered.
 
         """
 
         self.output_location = f"static/history/{project_name}"
         self.pro_pdb = f"static/history/{project_name}/pro.pdb"
+        self.img_n = img_n
     def run(self):
         """
         Runs the plip tool via command line
@@ -155,8 +160,16 @@ class Plip():
         plip_path = subprocess.run(["find", "-name", "plipcmd.py"],
                                    check=True, capture_output=True, text=True)
         plip_path = plip_path.stdout.strip()
-        subprocess.run(["python3", plip_path, "-f", self.pro_pdb, "-p", "--peptides",
-                        "0", "1", "2", "-o", self.output_location], check=True)
+        
+        command = ["python3", plip_path, "-f", self.pro_pdb, "-p", "-o", self.output_location, "--peptides",]
+        
+        # Adds correct ligand chains to command
+        alphabet = list(string.ascii_lowercase)
+        for num in range(0, self.img_n):
+            command.append(alphabet[num])
+        
+        # Runs tool
+        subprocess.run(command, check=True)
 
     def __str__(self):
         return f"""Creates images using the {self.pro_pdb} file,

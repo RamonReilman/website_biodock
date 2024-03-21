@@ -11,9 +11,6 @@ def clear_me():
     """
     FUNCTION DOCSTRING
     """
-    rmtree("templates/history")
-    os.mkdir("templates/history")
-
     rmtree("static/history")
     os.mkdir("static/history")
 

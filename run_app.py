@@ -125,9 +125,9 @@ def webtool():
         ledock_instance = Ledock(path=save_dir, file_name=mol2_for_dock)
         ledock_instance.run()
         
-        merge_pdb_dok.main(pdb_file=save_dir+"/pro.pdb", lig_file=save_dir+"/"+mol2_file_name.replace(".mol2", ".dok"))
+        n_ligands = merge_pdb_dok.main(pdb_file=save_dir+"/pro.pdb", lig_file=save_dir+"/"+mol2_file_name.replace(".mol2", ".dok"))
 
-        plip_instance = Plip(project_name=kwargs['name_file'])
+        plip_instance = Plip(project_name=kwargs['name_file'], img_n=n_ligands)
         plip_instance.run()
         
         return redirect(url_for("template", project=kwargs["name_file"], **request.args))
@@ -256,7 +256,7 @@ def history():
             print("Everything has been deleted")
 
             # uncomment to enable deleting
-            # clear_me()
+            clear_me()
             return redirect("/")
         return redirect(url_for("template", project=user_input, **request.args))
 
