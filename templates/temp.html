@@ -49,7 +49,7 @@
 
 
     <div class="container">
-        {% for img in imgs %}
+        {% for img, score in zipped_imgs_scores %}
         <!-- if statement to check if the list contains 1 or 2 images -->
         {% if img|length == 1 %}
 
@@ -59,7 +59,7 @@
                 <div class="col-sm-4 mt-5 mb-4 border pymol_row">
                     <img class="pymol_img" src="../../../static/history/{{ file_wanted }}/{{ img[0] }}" alt="">
                     <!-- Do not forget to changes this line later -->
-                    <p>{{ img[0] }}<br> Score: -2.84 kcal/mol</p>
+                    <p>{{ img[0] }}<br>{{ score[0] }}</p>
                     <!-- Download button for image -->
                     <form method="post">
                         <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ img[0] }}">Download image</button>
@@ -77,7 +77,7 @@
                     <img class="pymol_img" src="../../../static/history/{{ file_wanted }}/{{ img[0] }}" alt="">
                     
                     <!-- Do not forget to change this line later -->
-                    <p>{{ img[0] }}<br> Score: -2.84 kcal/mol</p>
+                    <p>{{ img[0] }}<br>{{ score[0] }}</p>
                     
                     <!-- Download button image -->
                     <form method="post">
@@ -91,7 +91,7 @@
                     <img class="pymol_img" src="../../../static/history/{{ file_wanted }}/{{ img[1] }}" alt="">
                     
                     <!-- Do not forget to changes this line later -->
-                    <p>{{ img[1] }}<br> Score: -2.82 kcal/mol</p>
+                    <p>{{ img[1]}}<br>{{ score[1] }}</p>
                     
                     <!-- Download button image -->
                     <form method="post">

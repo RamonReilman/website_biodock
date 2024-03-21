@@ -117,7 +117,6 @@ def webtool():
 
 
         # runs settings_dok_file-function which transfers the user input from kwargs dict to dock.in file
-        print(save_dir)
         settings_dok_file(lepro_instance.new_save_path_dock, kwargs['RMSD_slider'], kwargs['dock_slider'])
         
         mol2_to_ligands(path=save_dir)
@@ -161,18 +160,41 @@ def template():
     static_path = os.walk(img_path)
     temp_img = []
 
+
+# get the directory that was given in history
+    project_name = request.args["project"]
+    save_dir = os.path.join("static", "history", project_name)
+    settings = load_settings(save_dir)
+
+
+    # get the path to the static files
+    img_path = f"static/history/{project_name}"
+    imgs = []
+
+    # make the filenames accessible for looping
+    static_path = os.walk(img_path)
+    temp_img = []
+    score_list = []
+
+    lig_dok_path = f"static/history/{project_name}/dopa.dok"
+    with open(lig_dok_path, encoding='utf-8') as lig_dok_file:
+        for line in lig_dok_file:
+            if 'Score' in line:
+                score = line.strip()
+                score_list.append(score)
+    print(score_list)
+
+    count = 0
     for (_dirpath, _dirnames, filenames) in static_path:
-
         for filename in filenames:
-
             if filename.endswith(".png"):
-            # adds pictures to temp_img
-                temp_img.append(filename)
-
                 # make groups of 2 to display next to each other
+                if len(temp_img) < 2:
+                    temp_img.append(filename)
                 if len(temp_img) == 2:
-                    imgs.append(temp_img)
+                    imgs.append([temp_img[0], temp_img[1], score_list[count]])
                     temp_img = []
+                    count += 1
 
             # get the .dok file and make sure it is not displayed as a picture
             elif filename.endswith(".dok"):
@@ -182,7 +204,10 @@ def template():
         if temp_img:
             imgs.append(temp_img)
 
-
+    zipped_imgs_scores = zip(imgs, score_list)
+    print(imgs)
+    print(zipped_imgs_scores)
+    
     if request.method == "POST":
 
         # check which kind of button is pressed
@@ -209,8 +234,7 @@ def template():
 
     return render_template("temp.html", history_active=True, imgs=imgs,
                            file_wanted=project_name, dok_file=dok_file, RMSD_slider = settings["RMSD_slider"], 
-                           dock_slider = settings["dock_slider"])
-
+                           dock_slider = settings["dock_slider"], zipped_imgs_scores=zipped_imgs_scores)
 
 @app.route("/ourteam")
 def our_team():
