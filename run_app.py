@@ -164,7 +164,11 @@ def template():
                     temp_img = []
 
             elif filename.endswith(".pdb"):
-                if filename != 
+                if filename != "pro.pdb":
+                    pdb_file = os.path.join("static", "history", project_name, filename)
+
+            elif filename.endswith(".mol2"):
+                mol2_file = os.path.join("static", "history", project_name, filename)
 
             # get the .dok file and make sure it is not displayed as a picture
             elif filename.endswith(".dok"):
@@ -200,8 +204,8 @@ def template():
             return send_file(file_to_download, as_attachment=True)
 
     return render_template("temp.html", history_active=True, imgs=imgs,
-                           file_wanted=project_name, dok_file=dok_file, RMSD_slider = settings["RMSD_slider"], 
-                           dock_slider = settings["dock_slider"])
+                           file_wanted=project_name, dok_file=dok_file, pdb_file=pdb_file, mol2_file=mol2_file,
+                           RMSD_slider=settings["RMSD_slider"], dock_slider=settings["dock_slider"])
 
 
 @app.route("/ourteam")
