@@ -1,5 +1,17 @@
 """
-MODULE DOCSTRING
+A module containing all classes that allows the 3 tools (LePro, LeDock, PLIP) to 
+be integrated into the webtool.
+
+Classes
+-------
+LePro:
+    A class representing the 'LePro' tool that generates dock.in and pro.pdb
+
+Ledock:
+    A class representing the 'LeDock' tool that generates a .dok file
+
+Plip:
+    A class representing the 'PLIP' tool for generating molecular images based off the .dok file
 
 
 """
