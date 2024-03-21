@@ -9,3 +9,7 @@ def clear_me():
     os.mkdir("static/history")
 
 # def merge_dok_pdb():
+
+
+def remove_dir(directory):
+    rmtree(directory)

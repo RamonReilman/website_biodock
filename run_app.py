@@ -17,7 +17,7 @@ Commandline usage:
 """
 import os
 from flask import Flask, render_template, request, redirect, abort, send_file, url_for
-from used_functions.functions_hist_page import clear_me
+from used_functions.functions_hist_page import clear_me, remove_dir
 
 
 app = Flask(__name__)
@@ -61,6 +61,10 @@ def webtool():
         print(os.listdir("static/history"))
         if request.form['submit'] == "Submit":
             return render_template("index.html", webtool_active=True, confirm=True)
+        elif request.form['submit'] == "Confirm ?":
+            dir_to_remove = os.path.join("templates", "history", kwargs['name_file'])
+            remove_dir(dir_to_remove)
+
 
     # sets allowed upload file extensions to .pdb and .mol2, will give an 400 error
     # if user uploads file with other extension
