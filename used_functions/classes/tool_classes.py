@@ -159,8 +159,8 @@ class Plip():
 
         plip_path = subprocess.run(["find", "-name", "plipcmd.py"],
                                    check=True, capture_output=True, text=True)
-        plip_path = plip_path.stdout.strip()
-        
+        plip_path = plip_path.stdout.split("\n")
+        plip_path = plip_path[0]
         command = ["python3", plip_path, "-f", self.pro_pdb, "-p", "-o", self.output_location, "--peptides",]
         
         # Adds correct ligand chains to command
