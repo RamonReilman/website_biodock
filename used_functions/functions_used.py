@@ -11,9 +11,6 @@ def clear_me():
     """
     FUNCTION DOCSTRING
     """
-    rmtree("templates/history")
-    os.mkdir("templates/history")
-
     rmtree("static/history")
     os.mkdir("static/history")
 
@@ -72,5 +69,5 @@ def mol2_to_ligands(path):
         # checks if it ends with mol2
         if file.endswith(".mol2"):
             # writes name to ligands file
-            with open(f"{path}ligands", "w", encoding="utf-8") as ligands_file:
+            with open(f"{path}/ligands", "w", encoding="utf-8") as ligands_file:
                 ligands_file.write(file)
