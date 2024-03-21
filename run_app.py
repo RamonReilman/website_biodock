@@ -212,7 +212,7 @@ def history():
     Returns:
         - Incase of GET-request
             Renders the history.html template
-            
+
         - Incase of POST-request
             redirects to the url of the temp.html with project name in url.
     
@@ -225,20 +225,17 @@ def history():
     if request.method == "GET":
         return render_template("history.html", files=dir_list, history_active=True)
 
-    # If button is pressed, see what user wants
-    file_wanted = list(request.form.keys())
-    file_wanted = str(file_wanted).replace("[", "").replace("]", "").replace("'", "")
+    if request.method == "POST":
+        print(request.form.values())
+        # Delete history
+        user_input = request.form["user_input"]
+        if user_input == "clear_me":
+            print("Everything has been deleted")
 
-    # Delete history
-    if file_wanted == "clear_me":
-        print("Everything has been deleted")
-
-        # uncomment to enable deleting
-        # clear_me()
-        return redirect("/")
-
-    # Redirect to fitting temp_url
-    return redirect(url_for("template", project=file_wanted, **request.args))
+            # uncomment to enable deleting
+            # clear_me()
+            return redirect("/")
+        return redirect(url_for("template", project=user_input, **request.args))
 
 
 @app.route("/about")
