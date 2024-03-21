@@ -5,10 +5,9 @@
     <!-- Container for the elements between header and footer -->
     <div class="container">
 
-        <div class="row history_containers">
-
+        <div class="row">
             <div class="row justify-content-center">
-                <div class="col-sm-6 history_explanation mt-5 p-3 border">
+                <div class="col-sm-6 box mt-5 p-3 border">
                 <p>This is the history page. <br>
                     This page is used to store the files you get from the tool. <br>
                     You can clear the history by pressing the "clear me" button. <br>
@@ -19,8 +18,7 @@
                 </form>
                 </div>
             </div>
-
-            <div class="col-sm-7 mx-auto mt-5 mb-5 info_column">
+            <div class="col-sm-7 mt-5 mb-5">
                 <table class="table">
                     {% for file in files %}
                     <tr>
@@ -33,7 +31,8 @@
                     </tr>
                     {% endfor %}
                 </table>
-         </div>
+            </div>
+        </div>
     </div>
 </div>
 
