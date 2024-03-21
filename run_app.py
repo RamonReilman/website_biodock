@@ -38,6 +38,7 @@ def webtool():
             Renders form_POST.html with submitted data 
             Saves a directory (with a user-specified name) with the uploaded files
     """
+    img_path = config_path['paths']['img_path']
     if request.method == 'GET':
         # default response when a form is called, renders index.html
         return render_template("index.html", webtool_active=True)
@@ -93,6 +94,7 @@ def template():
     """
 
     # get the directory that was given in history
+    img_path = config_path['paths']['img_path']
     project_name = request.args["project"]
     save_dir = os.path.join(img_path, project_name)
     settings = load_settings(save_dir)
@@ -182,6 +184,7 @@ def history():
     
     """
     # Path of history folder and lists all dirs in this path
+    img_path = config_path['paths']['img_path']
     dir_list = os.listdir(img_path)
 
     # Render history page with the files in dir_list
@@ -222,8 +225,7 @@ if __name__ == "__main__":
     app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
 
     config_path = parse_config()
-    print(config_path.sections())
-    img_path = config_path['paths']['img_path']
+
 
     app.debug = True
     app.run()
