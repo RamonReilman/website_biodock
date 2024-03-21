@@ -55,15 +55,12 @@ def webtool():
         'RMSD_slider': request.form['RMSD_slider'],
         'name_file': request.form['name_file'],
     }
-    print(type(kwargs['name_file']))
+    print(request.form)
+    print(kwargs['name_file'])
     if kwargs['name_file'] in os.listdir('static/history'):
-        print(os.listdir("true"))
-        if "Submit" in request.form:
+        print(os.listdir("static/history"))
+        if request.form['submit'] == "Submit":
             return render_template("index.html", webtool_active=True, confirm=True)
-        else:
-            pass
-
-    print(os.listdir('static/history'))
 
     # sets allowed upload file extensions to .pdb and .mol2, will give an 400 error
     # if user uploads file with other extension

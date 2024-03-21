@@ -69,11 +69,10 @@
                         fields (2 file inputs and 1 text input) have been fulfilled -->
                     <div class="col-12 d-grid">
                         {% if confirm %}
-                            <p>name already exists, pressing submit again will replace the current files with this one. <br>
-                            continue?</p>
-                            <input type="submit" class="btn btn-outline-primary btn-block submit_button" value="Confirming">
+                            <p id="confirm_text">name already exists, pressing the confirm button will replace the current files with this one. <br></p>
+                            <input type="submit" name="submit" class="btn btn-outline-primary btn-block submit_button" value="Confirm ?">
                         {% else %}
-                            <input type="submit" class="btn btn-outline-primary btn-block submit_button" value="Submit">
+                            <input type="submit" name="submit" class="btn btn-outline-primary btn-block submit_button" value="Submit">
                         {% endif %}
                     </div>
 

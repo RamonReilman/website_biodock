@@ -91,6 +91,11 @@ header a.True {
   color: #9fb6e8;
 }
 
+/* css for text when confirming to override already existing dir when pressing submit button*/
+#confirm_text {
+  color: #9C1A1C;
+}
+
 
 /* css for text input for file name*/
 #name_file {
