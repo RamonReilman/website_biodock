@@ -69,8 +69,14 @@
 
                     <!-- submit button that is used to send all the users data to the server, can only be pressed once all required 
                         fields (2 file inputs and 1 text input) have been fulfilled -->
-                    <div class="col-12 d-grid mt-5">
-                        <input type="submit" class="btn btn-outline-primary btn-block" value="Submit">
+                    <div class="col-12 d-grid">
+                        <!-- if the given name already is a directory it gives a warning -->
+                        {% if name_exists %}
+                            <p id="confirm_text">name already exists, please select a different name or clear the history</p>
+                            <input type="submit" class="btn btn-outline-primary btn-block submit_button" value="Submit">
+                        {% else %}
+                            <input type="submit" class="btn btn-outline-primary btn-block submit_button" value="Submit">
+                        {% endif %}
                     </div>
 
                 </div>

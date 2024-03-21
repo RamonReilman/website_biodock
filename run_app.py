@@ -55,7 +55,7 @@ def webtool():
     """
     if request.method == 'GET':
         # default response when a form is called, renders index.html
-        return render_template("index.html", webtool_active=True)
+        return render_template("index.html", webtool_active=True, name_exists=False)
 
     # response when the submit button is clicked in index.html
     # packs the variables in dictionary 'kwargs'
@@ -65,6 +65,11 @@ def webtool():
         'name_file': request.form['name_file'],
 
     }
+
+    # checks if the name already exists, if it does it returns the name_exists as true
+    if kwargs['name_file'] in os.listdir('static/history'):
+        # print(os.listdir("static/history"))
+        return render_template("index.html", webtool_active=True, name_exists=True)
 
     # sets allowed upload file extensions to .pdb and .mol2, will give an 400 error
     # if user uploads file with other extension
@@ -80,6 +85,11 @@ def webtool():
         if pdb_file_ext not in app.config['UPLOAD_EXTENSIONS'] \
         or mol2_file_ext not in app.config['UPLOAD_EXTENSIONS']:
             abort(413)
+
+        # checks the size of the mol2 file, returns an error of it exceeds the size limit
+        mol2_size = mol2_file.seek(0, os.SEEK_END)
+        if mol2_size > 3000: #TEST change this to the correct number
+            abort(400)
 
         # creates directory with the name that the user chose for the session
         save_dir = os.path.join(app.root_path, "static", "history", kwargs['name_file'])
