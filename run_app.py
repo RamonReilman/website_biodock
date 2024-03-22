@@ -134,7 +134,6 @@ def webtool():
     return render_template('form_POST.html', **kwargs)
 
 
-
 @app.route("/template", methods=["POST", "GET"])
 def template():
     """
@@ -161,35 +160,33 @@ def template():
     img_list = []
     img_score_dict = {}
 
-    
+    # makes variable for .dok file path and opens .dok file
     lig_dok_path = f"static/history/{project_name}/dopa.dok"
     with open(lig_dok_path, encoding='utf-8') as lig_dok_file:
+
+        # adds each line with 'Score' in it to score_list
         for line in lig_dok_file:
             if 'Score' in line:
                 score = line.strip()
                 score_list.append(score)
 
         for (_dirpath, _dirnames, filenames) in static_path:
-        # adds all imgs to img_list
+
             for filename in filenames:
+                # adds all imgs to img_list
                 if filename.endswith(".png"):
                     img_list.append(filename)
+
+                # adds filename to dok_file
                 if filename.endswith(".dok"):
                     dok_file = filename
 
             # sorts the imgs alphabetically, so that the imgs will be displayed from high 'ranking' to low
             sorted_imgs = sorted(img_list)
             
-
+            # makes dict with img:score pairs
             for img, score in zip(sorted_imgs, score_list):
                 img_score_dict[img] = score
-
-
-
-    print('imgs_dict', img_score_dict)
-    print('sorted list:', sorted_imgs)
-
-
     
     if request.method == "POST":
 
