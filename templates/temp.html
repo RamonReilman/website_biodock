@@ -45,65 +45,34 @@
     </div>
 
 
-    <!-- for loop to loop through all the images -->
-    {% for img in imgs %}
-
     <div class="container">
+        <!-- loops through all the image/score pairs in temp_dict-->
+        {% for img, score in img_score_dict.items() %}
 
-        <!-- if statement to check if the list contains 1 or 2 images -->
-        {% if img|length == 1 %}
-
-            <!-- display for image -->
-            <div class="row justify-content-evenly">
-
-                <div class="col-sm-4 mt-5 mb-4 border pymol_row">
-                    <img class="pymol_img" src="../../../static/history/{{ file_wanted }}/{{ img[0] }}" alt="">
-                    <!-- Do not forget to changes this line later -->
-                    <p>{{ img[0] }}<br> Score: -2.84 kcal/mol</p>
-                    <!-- Download button for image -->
-                    <form method="post">
-                        <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ img[0] }}">Download image</button>
-                    </form>
-                </div>
-            
-            </div>
-
-        {% else %}
-
-            <div class="row justify-content-evenly">
-
-                <!-- image display -->
-                <div class="box col-sm-4 mt-5 mb-4 border">
-                    <img class="pymol_img" src="../../../static/history/{{ file_wanted }}/{{ img[0] }}" alt="">
-                    
-                    <!-- Do not forget to change this line later -->
-                    <p>{{ img[0] }}<br> Score: -2.84 kcal/mol</p>
-                    
-                    <!-- Download button image -->
-                    <form method="post">
-                        <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ img[0] }}">Download image</button>
-                    </form>
-
-                </div>
-
-                <!-- image display -->
-                <div class="col-sm-4 mt-5 mb-4 border pymol_row">
-                    <img class="pymol_img" src="../../../static/history/{{ file_wanted }}/{{ img[1] }}" alt="">
-                    
-                    <!-- Do not forget to changes this line later -->
-                    <p>{{ img[1] }}<br> Score: -2.82 kcal/mol</p>
-                    
-                    <!-- Download button image -->
-                    <form method="post">
-                        <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ img[1] }}">Download image</button>
-                    </form>
-                    
-                </div>
+            <!-- Starts a new row if the current index is an even number -->
+            {% if loop.index0 % 2 == 0 %}
+                <div class="row justify-content-evenly">
+            {% endif %}
+    
+            <!-- Image and score display -->
+            <div class="box col-sm-4 mt-5 mb-4 border">
+                <img class="pymol_img" src="../../../static/history/{{ file_wanted }}/{{ img }}" alt="">
+                <p>{{ img }}<br>{{ score }}</p>
                 
+                <!-- Download button for image -->
+                <form method="post">
+                    <button type="submit" name="Download_picture" class="btn btn-primary pymol_download_btn mb-4" value="{{ img }}">Download image</button>
+                </form>
             </div>
-        {% endif %}
+    
+            <!-- Close row if two imgs are displayed or if its the final img -->
+            {% if loop.index0 % 2 != 0 or loop.last %}
+
+                </div>
+
+            {% endif %}
         {% endfor %}
+
     </div>
-</div>
 
 {% endblock %}
