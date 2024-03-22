@@ -86,9 +86,11 @@ def webtool():
             abort(413)
 
         # checks the size of the mol2 file, returns an error of it exceeds the size limit
-        # mol2_size = mol2_file.seek(0, os.SEEK_END)
-        # if mol2_size > 3000: #TEST change this to the correct number
-        #     abort(400)
+        mol2_file.seek(0, os.SEEK_END)
+        mol2_length = mol2_file.tell()
+        mol2_file.seek(0)
+        if mol2_length > 3000: #TEST change this to the correct number
+            abort(400)
 
         # creates directory with the name that the user chose for the session
         save_dir = os.path.join(app.root_path, "static", "history", kwargs['name_file'])
@@ -177,9 +179,20 @@ def template():
                 if filename.endswith(".png"):
                     img_list.append(filename)
 
-                # adds filename to dok_file
-                if filename.endswith(".dok"):
-                    dok_file = filename
+            elif filename.endswith(".pdb"):
+                if filename != "pro.pdb":
+                    pdb_file = os.path.join("static", "history", project_name, filename)
+
+            elif filename.endswith(".mol2"):
+                mol2_file = os.path.join("static", "history", project_name, filename)
+
+            # get the .dok file and make sure it is not displayed as a picture
+            elif filename.endswith(".dok"):
+                dok_file = filename
+
+        # adds left-over image
+        if temp_img:
+            imgs.append(temp_img)
 
             # sorts the imgs alphabetically, so that the imgs will be displayed from high 'ranking' to low
             sorted_imgs = sorted(img_list)
@@ -212,9 +225,10 @@ def template():
             # make system download the file
             return send_file(file_to_download, as_attachment=True)
 
-    return render_template("temp.html", history_active=True,
-                           file_wanted=project_name, dok_file=dok_file, RMSD_slider = settings["RMSD_slider"], 
-                           dock_slider = settings["dock_slider"], img_score_dict=img_score_dict)
+    return render_template("temp.html", history_active=True, imgs=imgs,
+                           file_wanted=project_name, dok_file=dok_file, pdb_file=pdb_file, mol2_file=mol2_file,
+                           RMSD_slider=settings["RMSD_slider"], dock_slider=settings["dock_slider"])
+
 
 @app.route("/ourteam")
 def our_team():
