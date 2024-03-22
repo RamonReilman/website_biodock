@@ -179,20 +179,17 @@ def template():
                 if filename.endswith(".png"):
                     img_list.append(filename)
 
-            elif filename.endswith(".pdb"):
-                if filename != "pro.pdb":
-                    pdb_file = os.path.join("static", "history", project_name, filename)
+                elif filename.endswith(".pdb"):
+                    if filename != "pro.pdb":
+                        pdb_file = os.path.join("static", "history", project_name, filename)
 
-            elif filename.endswith(".mol2"):
-                mol2_file = os.path.join("static", "history", project_name, filename)
+                elif filename.endswith(".mol2"):
+                    mol2_file = os.path.join("static", "history", project_name, filename)
 
-            # get the .dok file and make sure it is not displayed as a picture
-            elif filename.endswith(".dok"):
-                dok_file = filename
+                # get the .dok file and make sure it is not displayed as a picture
+                elif filename.endswith(".dok"):
+                    dok_file = filename
 
-        # adds left-over image
-        if temp_img:
-            imgs.append(temp_img)
 
             # sorts the imgs alphabetically, so that the imgs will be displayed from high 'ranking' to low
             sorted_imgs = sorted(img_list)
@@ -225,7 +222,7 @@ def template():
             # make system download the file
             return send_file(file_to_download, as_attachment=True)
 
-    return render_template("temp.html", history_active=True, imgs=imgs,
+    return render_template("temp.html", history_active=True, img_score_dict=img_score_dict,
                            file_wanted=project_name, dok_file=dok_file, pdb_file=pdb_file, mol2_file=mol2_file,
                            RMSD_slider=settings["RMSD_slider"], dock_slider=settings["dock_slider"])
 

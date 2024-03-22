@@ -18,16 +18,18 @@
                             <li><a href="https://www.structbio.vanderbilt.edu/archives/amber-archive/2007/att-1568/01-mol2_2pg_113.pdf">MOL2</a><br></li>
                         </ul>
                 <p>
-                    You can also specify the number of binding poses and the RMSD-cutoff.
-                    The number of binding poses is the number of times there is attempted to dock. So if you lower the number the website
-                    will run faster but the output will be worse. The number of binding poses is limited to 20, because anything higher
+                    <br>You can specify the <u>number of binding poses</u> and the <u>RMSD-cutoff</u>.<br><br>
+                    The <b>number of binding poses</b> is the number of times the program attempts to dock the ligand onto the protein, 
+                    so it's the number of iterations. If you lower the number, the webtool
+                    will run faster but the output will show less docking poses. The number of binding poses is limited to a maximum of 20, because any number higher
                     will take too long and is in a vast majority of cases unnecessary.<br><br>
                     <b>RMSD</b> or Root Mean Square Division is the measure of average distance between atoms of 
                     molecules and atoms of ligand configurations.
                     It is measured in Ångström (Å). Decreasing this value will give higher accuracy but the docking process 
-                    will take longer and higher values will give lower accuracy and a faster docking process.<br>
-                    As output you will get a dok file that houses all of the calculated binding poses and three images
-                    of the three most optimal calculated binding poses. Those look like this:<br><br>
+                    will take longer, higher RMSD-values will bundle similar docking poses together into 1, which gives lower accuracy and 
+                    a faster docking process.<br><br>
+                    As output you will get a .dok-file that houses all of the calculated binding poses and images of all found binding poses.
+                    The images will look something like this:<br><br>
                 </p>
                 <img src="../static/img/PLIP_image.png" alt="protein-lig_dok_example" id="protein-lig_dok_example">
                 
@@ -37,11 +39,9 @@
                 <div class="box mt-5 p-3 border">
                     <h1>What does it do?</h1>
                     <p>
-                        The website takes your input (PDB- and MOL2-file) and runs it through an algorithm to simplify your file (LePro).
-                        after that step it runs the new file through an program called LeDock, which contains an AI trained to dock ligands onto proteins. This can take a very long time
-                        depending on the number of binding poses specified. This is because this number is the amount of iterations the AI will go through. Each iteration the AI tries to dock the
-                        ligand onto the protein, and if the pose works the AI calculates the score, and then it repeats this process.
-                        Finally, the outcomes are put in a file in decreasing order based on score and this webtool visualises the top 3 binding-poses using PLIP.
+                        The website takes your input (PDB- and MOL2-file) and runs it through an algorithm to simplify your file (<b>LePro</b>).
+                        Next it runs the result from Lepro through a program called <b>LeDock</b>, which contains an AI trained to dock ligands onto proteins, all found binding poses get saved and get a score assigned. 
+                        Finally, the outcomes are put in a .dok-file in decreasing order based on score and this webtool visualises this data into images using <b>PLIP</b> (Protein-Ligand Interaction Profiler).
                     </p>
                     <div class="mt-4 mb-3">
                         <img src="../static/img/protein-ligand-docking.png" alt="Docking_image" id="docking_image">
@@ -58,11 +58,18 @@
                 </div>
 
                 <div class="box border mt-5 p-3">
-                    <h1>Image explained</h1>
+                    <h1>Images explained</h1>
                     <p>
-                        The website generates images of the ligand docked in the protein. The molecules and interactions are all different colors. <br>
-                        This is why we created a legend, that explains what all of the colors and shapes represent. <br>
-                        This legend can be found on the page after you have used the tool. 
+                        The website generates images of the ligand docked onto the protein. The molecules and interactions are 
+                        all represented by different colors and are explained in a legend after using the webtool. <br><br>
+                        The imgs all come with a <b>score</b> based off of how likely that certain docking pose is. 
+                        The lower the score, the more energy (kcal/mol) it gives and the more likely it is. 
+                        The <b>cluster number</b> stands for the docking pose and it consists of at minimum 1 <b>pose</b>. 
+                        With a high RMSD value poses that are similar get clustered together into one docking pose. <br>
+                        <ul>
+                            <li><b>Example:</b> Cluster 1 of poses: 5<br></li>
+                        </ul>
+                        The example respresents the first and most likely docking pose, it consists of the average result of the 5 poses combined together.
                     </p>
                 </div>
             </div>
