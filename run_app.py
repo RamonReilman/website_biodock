@@ -147,68 +147,48 @@ def template():
             Downloads the file that matches the clicked button
     """
 
-    # get the directory that was given in history
+    # Assuming project_name and request.args are defined
     project_name = request.args["project"]
     save_dir = os.path.join("static", "history", project_name)
     settings = load_settings(save_dir)
 
     # get the path to the static files
     img_path = f"static/history/{project_name}"
-    imgs = []
-
+    
     # make the filenames accessible for looping
     static_path = os.walk(img_path)
-    temp_img = []
-
-
-# get the directory that was given in history
-    project_name = request.args["project"]
-    save_dir = os.path.join("static", "history", project_name)
-    settings = load_settings(save_dir)
-
-
-    # get the path to the static files
-    img_path = f"static/history/{project_name}"
-    imgs = []
-
-    # make the filenames accessible for looping
-    static_path = os.walk(img_path)
-    temp_img = []
     score_list = []
+    img_list = []
+    img_score_dict = {}
 
+    
     lig_dok_path = f"static/history/{project_name}/dopa.dok"
     with open(lig_dok_path, encoding='utf-8') as lig_dok_file:
         for line in lig_dok_file:
             if 'Score' in line:
                 score = line.strip()
                 score_list.append(score)
-    print(score_list)
 
-    count = 0
-    for (_dirpath, _dirnames, filenames) in static_path:
-        for filename in filenames:
-            if filename.endswith(".png"):
-                # make groups of 2 to display next to each other
-                if len(temp_img) < 2:
-                    temp_img.append(filename)
-                if len(temp_img) == 2:
-                    imgs.append(temp_img)
-                    temp_img = []
-                    count += 1
+        for (_dirpath, _dirnames, filenames) in static_path:
+        # adds all imgs to img_list
+            for filename in filenames:
+                if filename.endswith(".png"):
+                    img_list.append(filename)
+                if filename.endswith(".dok"):
+                    dok_file = filename
 
-            # get the .dok file and make sure it is not displayed as a picture
-            elif filename.endswith(".dok"):
-                dok_file = filename
+            # sorts the imgs alphabetically, so that the imgs will be displayed from high 'ranking' to low
+            sorted_imgs = sorted(img_list)
+            
 
-        # adds left-over image
-        if temp_img:
-            imgs.append(temp_img)
+            for img, score in zip(sorted_imgs, score_list):
+                img_score_dict[img] = score
 
-    sorted_imgs = [sorted(img) for img in imgs]
-    zipped_imgs_scores = zip(imgs, score_list)
-    print('imgs:', imgs)
-    print('Zipped list:', zipped_imgs_scores)
+
+
+    print('imgs_dict', img_score_dict)
     print('sorted list:', sorted_imgs)
+
 
     
     if request.method == "POST":
@@ -235,9 +215,9 @@ def template():
             # make system download the file
             return send_file(file_to_download, as_attachment=True)
 
-    return render_template("temp.html", history_active=True, imgs=imgs,
+    return render_template("temp.html", history_active=True,
                            file_wanted=project_name, dok_file=dok_file, RMSD_slider = settings["RMSD_slider"], 
-                           dock_slider = settings["dock_slider"], zipped_imgs_scores=zipped_imgs_scores)
+                           dock_slider = settings["dock_slider"], img_score_dict=img_score_dict)
 
 @app.route("/ourteam")
 def our_team():
