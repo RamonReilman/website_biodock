@@ -126,7 +126,7 @@ class Ledock:
 
         # runs ledock in the directory on the dock.in
         print(self.path)
-        subprocess.run([f'{ledock_path}', "dock.in"], cwd=f"{self.path}/", check=True)
+        subprocess.run([f'{ledock_path}', 'dock.in'], cwd=f"{self.path}/", check=True)
 
 
     def __str__(self):
