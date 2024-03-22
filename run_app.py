@@ -171,6 +171,7 @@ def template():
             elif filename.endswith(".dok"):
                 dok_file = filename
 
+            # looks in the ligands file for the mol2 file(s)
             elif filename == "ligands":
                 with open(os.path.join("static", "history", project_name, filename), "rt") as ligands:
                     for line in ligands:
@@ -178,6 +179,8 @@ def template():
                         line = line.replace("\n", "")
                         mol2_files.append(os.path.join("static", "history", project_name, str(line)))
 
+            # goes through a number of criteria to check if the .pdb file is not made by one of the functions of
+            # the website
             elif filename.endswith(".pdb"):
                 if filename != "pro.pdb" and filename != "pro_protonated.pdb" and "plipfixed" not in filename:
                     pdb_file = os.path.join("static", "history", project_name, filename)
