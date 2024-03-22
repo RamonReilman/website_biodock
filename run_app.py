@@ -22,7 +22,6 @@ from used_functions.classes.tool_classes import LePro, Ledock, Plip
 import used_functions.merge_pdb_dok as merge_pdb_dok
 
 app = Flask(__name__)
-# sets max. file limit to be uploaded by the user
 # sets allowed file extensions for user uploads
 app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
 
@@ -99,7 +98,6 @@ def webtool():
         pdb_file_name = pdb_file.filename
         mol2_file_name = mol2_file.filename
 
-
         # saves both files in the newly created directory
         pdb_file.save(os.path.join(save_dir, pdb_file_name))
         mol2_file.save(os.path.join(save_dir, mol2_file_name))
@@ -108,13 +106,15 @@ def webtool():
         save_settings(save_dir, **kwargs)
 
         # creates instance for LePro-class
-        lepro_instance = LePro(pdb_save_path = os.path.join(save_dir, pdb_file_name), name_file=kwargs['name_file'], new_save_path_dock = os.path.join("static/history/", kwargs['name_file'], "dock.in"))
+        lepro_instance = LePro(pdb_save_path = os.path.join(save_dir, pdb_file_name), 
+                               name_file=kwargs['name_file'], new_save_path_dock = os.path.join("static/history/", 
+                                kwargs['name_file'], "dock.in"))
         
         # runs run-method to activate LePro and moves output files to correct folder
         lepro_instance.run()
 
         # gives __str__ output with info about the running proces
-
+        print(lepro_instance)
 
         # runs settings_dok_file-function which transfers the user input from kwargs dict to dock.in file
         settings_dok_file(lepro_instance.new_save_path_dock, kwargs['RMSD_slider'], kwargs['dock_slider'])
@@ -146,7 +146,7 @@ def template():
             Downloads the file that matches the clicked button
     """
 
-    # Assuming project_name and request.args are defined
+    # defines needed variables
     project_name = request.args["project"]
     save_dir = os.path.join("static", "history", project_name)
     settings = load_settings(save_dir)
@@ -187,7 +187,7 @@ def template():
             # makes dict with img:score pairs
             for img, score in zip(sorted_imgs, score_list):
                 img_score_dict[img] = score
-    
+
     if request.method == "POST":
 
         # check which kind of button is pressed
