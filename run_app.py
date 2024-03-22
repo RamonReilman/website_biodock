@@ -22,7 +22,6 @@ from used_functions.classes.tool_classes import LePro, Ledock, Plip
 import used_functions.merge_pdb_dok as merge_pdb_dok
 
 app = Flask(__name__)
-# sets max. file limit to be uploaded by the user
 # sets allowed file extensions for user uploads
 app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
 
@@ -99,7 +98,6 @@ def webtool():
         pdb_file_name = pdb_file.filename
         mol2_file_name = mol2_file.filename
 
-
         # saves both files in the newly created directory
         pdb_file.save(os.path.join(save_dir, pdb_file_name))
         mol2_file.save(os.path.join(save_dir, mol2_file_name))
@@ -108,16 +106,17 @@ def webtool():
         save_settings(save_dir, **kwargs)
 
         # creates instance for LePro-class
-        lepro_instance = LePro(pdb_save_path = os.path.join(save_dir, pdb_file_name), name_file=kwargs['name_file'], new_save_path_dock = os.path.join("static/history/", kwargs['name_file'], "dock.in"))
+        lepro_instance = LePro(pdb_save_path = os.path.join(save_dir, pdb_file_name), 
+                               name_file=kwargs['name_file'], new_save_path_dock = os.path.join("static/history/", 
+                                kwargs['name_file'], "dock.in"))
         
         # runs run-method to activate LePro and moves output files to correct folder
         lepro_instance.run()
 
         # gives __str__ output with info about the running proces
-
+        print(lepro_instance)
 
         # runs settings_dok_file-function which transfers the user input from kwargs dict to dock.in file
-        print(save_dir)
         settings_dok_file(lepro_instance.new_save_path_dock, kwargs['RMSD_slider'], kwargs['dock_slider'])
         
         mol2_to_ligands(path=save_dir)
@@ -135,7 +134,6 @@ def webtool():
     return render_template('form_POST.html', **kwargs)
 
 
-
 @app.route("/template", methods=["POST", "GET"])
 def template():
     """
@@ -148,40 +146,47 @@ def template():
             Downloads the file that matches the clicked button
     """
 
-    # get the directory that was given in history
+    # defines needed variables
     project_name = request.args["project"]
     save_dir = os.path.join("static", "history", project_name)
     settings = load_settings(save_dir)
 
     # get the path to the static files
     img_path = f"static/history/{project_name}"
-    imgs = []
-
+    
     # make the filenames accessible for looping
     static_path = os.walk(img_path)
-    temp_img = []
+    score_list = []
+    img_list = []
+    img_score_dict = {}
 
-    for (_dirpath, _dirnames, filenames) in static_path:
+    # makes variable for .dok file path and opens .dok file
+    lig_dok_path = f"static/history/{project_name}/dopa.dok"
+    with open(lig_dok_path, encoding='utf-8') as lig_dok_file:
 
-        for filename in filenames:
+        # adds each line with 'Score' in it to score_list
+        for line in lig_dok_file:
+            if 'Score' in line:
+                score = line.strip()
+                score_list.append(score)
 
-            if filename.endswith(".png"):
-            # adds pictures to temp_img
-                temp_img.append(filename)
+        for (_dirpath, _dirnames, filenames) in static_path:
 
-                # make groups of 2 to display next to each other
-                if len(temp_img) == 2:
-                    imgs.append(temp_img)
-                    temp_img = []
+            for filename in filenames:
+                # adds all imgs to img_list
+                if filename.endswith(".png"):
+                    img_list.append(filename)
 
-            # get the .dok file and make sure it is not displayed as a picture
-            elif filename.endswith(".dok"):
-                dok_file = filename
+                # adds filename to dok_file
+                if filename.endswith(".dok"):
+                    dok_file = filename
 
-        # adds left-over image
-        if temp_img:
-            imgs.append(temp_img)
-
+            # sorts the imgs alphabetically, so that the imgs will be displayed from high 'ranking' to low
+            sorted_imgs = sorted(img_list)
+            
+            # makes dict with img:score pairs
+            for img, score in zip(sorted_imgs, score_list):
+                img_score_dict[img] = score
 
     if request.method == "POST":
 
@@ -207,10 +212,9 @@ def template():
             # make system download the file
             return send_file(file_to_download, as_attachment=True)
 
-    return render_template("temp.html", history_active=True, imgs=imgs,
+    return render_template("temp.html", history_active=True,
                            file_wanted=project_name, dok_file=dok_file, RMSD_slider = settings["RMSD_slider"], 
-                           dock_slider = settings["dock_slider"])
-
+                           dock_slider = settings["dock_slider"], img_score_dict=img_score_dict)
 
 @app.route("/ourteam")
 def our_team():
