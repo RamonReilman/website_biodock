@@ -16,7 +16,7 @@ Commandline usage:
     - python3 run_app.py
 """
 import os
-from flask import Flask, render_template, request, redirect, abort, send_file, url_for
+from flask import Flask, render_template, request, redirect, abort, send_file, url_for, session
 from used_functions.functions_hist_page import clear_me, save_settings, load_settings, settings_dok_file, mol2_to_ligands
 from used_functions.classes.lepro_class import LePro
 
@@ -146,6 +146,10 @@ def template():
     img_path = f"static/history/{project_name}"
     imgs = []
 
+    # define mol2 and pdb variables
+    mol2_files = []
+    pdb_file = ""
+
     # make the filenames accessible for looping
     static_path = os.walk(img_path)
     temp_img = []
@@ -163,18 +167,23 @@ def template():
                     imgs.append(temp_img)
                     temp_img = []
 
-            # puts the pdb file that is not pro.pdb in a variable
-            elif filename.endswith(".pdb"):
-                if filename != "pro.pdb":
-                    pdb_file = os.path.join("static", "history", project_name, filename)
-
-            # puts the .mol2 file in a variable
-            elif filename.endswith(".mol2"):
-                mol2_file = os.path.join("static", "history", project_name, filename)
-
             # get the .dok file and make sure it is not displayed as a picture
             elif filename.endswith(".dok"):
                 dok_file = filename
+
+            elif filename == "ligands":
+                with open(os.path.join("static", "history", project_name, filename), "rt") as ligands:
+                    for line in ligands:
+                        print(line)
+                        line = line.replace("\n", "")
+                        mol2_files.append(os.path.join("static", "history", project_name, str(line)))
+
+            elif filename.endswith(".pdb"):
+                if "pro" not in filename:
+                    pdb_file = os.path.join("static", "history", project_name, filename)
+
+        print(mol2_files)
+        print(open(mol2_files[-1]))
 
         # adds left-over image
         if temp_img:
@@ -206,7 +215,7 @@ def template():
             return send_file(file_to_download, as_attachment=True)
 
     return render_template("temp.html", history_active=True, imgs=imgs,
-                           file_wanted=project_name, dok_file=dok_file, pdb_file=pdb_file, mol2_file=mol2_file,
+                           file_wanted=project_name, dok_file=dok_file, pdb_file=pdb_file, mol2_files=mol2_files,
                            RMSD_slider=settings["RMSD_slider"], dock_slider=settings["dock_slider"])
 
 
