@@ -179,11 +179,8 @@ def template():
                         mol2_files.append(os.path.join("static", "history", project_name, str(line)))
 
             elif filename.endswith(".pdb"):
-                if "pro" not in filename:
+                if filename != "pro.pdb" and filename != "pro_protonated.pdb" and "plipfixed" not in filename:
                     pdb_file = os.path.join("static", "history", project_name, filename)
-
-        print(mol2_files)
-        print(open(mol2_files[-1]))
 
         # adds left-over image
         if temp_img:
