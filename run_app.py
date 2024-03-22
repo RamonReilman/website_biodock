@@ -163,10 +163,12 @@ def template():
                     imgs.append(temp_img)
                     temp_img = []
 
+            # puts the pdb file that is not pro.pdb in a variable
             elif filename.endswith(".pdb"):
                 if filename != "pro.pdb":
                     pdb_file = os.path.join("static", "history", project_name, filename)
 
+            # puts the .mol2 file in a variable
             elif filename.endswith(".mol2"):
                 mol2_file = os.path.join("static", "history", project_name, filename)
 
