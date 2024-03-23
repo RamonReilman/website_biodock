@@ -18,7 +18,7 @@ Commandline usage:
 import os
 from flask import Flask, render_template, request, redirect, abort, send_file, url_for
 from used_functions.functions_used import clear_me, save_settings, load_settings, \
-    settings_dok_file, mol2_to_ligands
+    settings_dok_file, mol2_to_ligands, parse_config
 from used_functions.classes.tool_classes import LePro, Ledock, Plip
 from used_functions import merge_pdb_dok
 

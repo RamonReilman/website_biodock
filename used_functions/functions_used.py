@@ -26,6 +26,7 @@ Functions:
 import os
 import json
 from shutil import rmtree
+import configparser
 
 
 def clear_me():
@@ -121,3 +122,10 @@ def mol2_to_ligands(path):
             # writes name of .mol2 file to ligands file
             with open(f"{path}/ligands", "w", encoding="utf-8") as ligands_file:
                 ligands_file.write(file)
+
+
+
+def parse_config():
+    parser = configparser.ConfigParser()
+    parser.read("used_functions/config.ini")
+    return parser
