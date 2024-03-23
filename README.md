@@ -49,12 +49,6 @@ To install the tools LeDock/LePro:
 But you could also create an alias in the .bash_aliases or .bashrc files. <br>
 <br>
 PLIP: <br>
-There are 2 ways to install PLIP, depending on if you're installing it on your own computer or the bin computers. <br>
-
-On your own laptop/computer:
-```bash
-~$ pip3 install -r /path/to/requirements.txt --no-deps plip
-```
 
 To install PLIP on a bin computer, you will need to install it in a virtual enviroment. <br>
 ```bash
