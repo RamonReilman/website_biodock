@@ -209,16 +209,12 @@ def template():
     save_dir = os.path.join(img_path, project_name)
     settings = load_settings(save_dir)
 
-    # get the path to the static files
-    output_path = f"{img_path}{project_name}"
-    imgs = []
-
     # define mol2 and pdb variables
     mol2_file = ""
     pdb_file = ""
 
     # make the filenames accessible for looping
-    static_path = os.walk(img_path)
+    static_path = os.walk(img_path + project_name)
     score_list = []
     img_list = []
     img_score_dict = {}
