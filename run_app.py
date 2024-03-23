@@ -219,7 +219,7 @@ def template():
     img_list = []
     img_score_dict = {}
 
-    
+
     for (_dirpath, _dirnames, filenames) in static_path:
 
         for filename in filenames:
@@ -238,13 +238,14 @@ def template():
                 mol2_file = os.path.join("static", "history", \
                             project_name, str(filename))
 
-            # goes through a number of criteria to check if the .pdb file is not made by one 
+            # goes through a number of criteria to check if the .pdb file is not made by one
             # of the functions of the website
             elif filename.endswith(".pdb"):
-                if filename != "pro.pdb" and filename != "pro_protonated.pdb" and "plipfixed" not in filename:
+                if filename != "pro.pdb" and filename != "pro_protonated.pdb" and \
+                    "plipfixed" not in filename:
                     pdb_file_name = filename
                     pdb_file = os.path.join("static", "history", project_name, filename)
-            
+
     lig_dok_path =  f"static/history/{project_name}/{dok_file}"
     with open(lig_dok_path, encoding='utf-8') as lig_dok_file:
 
@@ -284,14 +285,14 @@ def template():
             # get the path to the file
             file_to_download = os.path.join("static", "history", \
                             project_name, str(dok_file))
-            
+
             # make system download the file
             return send_file(file_to_download, as_attachment=True)
 
     return render_template("temp.html", history_active=True, img_score_dict=img_score_dict,
                            file_wanted=project_name, dok_file=dok_file, pdb_file=pdb_file, \
                             mol2_file=mol2_file, pdb_file_name=pdb_file_name, \
-                            mol2_file_name=mol2_file_name, 
+                            mol2_file_name=mol2_file_name,
                             RMSD_slider=settings["RMSD_slider"], \
                             dock_slider=settings["dock_slider"])
 
