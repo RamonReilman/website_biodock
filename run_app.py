@@ -282,8 +282,9 @@ def template():
             dok_file = request.form["file_download"]
 
             # get the path to the file
-            file_to_download = os.path.join(img_path, dok_file)
-
+            file_to_download = os.path.join("static", "history", \
+                            project_name, str(dok_file))
+            
             # make system download the file
             return send_file(file_to_download, as_attachment=True)
 
