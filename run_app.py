@@ -184,23 +184,23 @@ def template():
                 if filename.endswith(".png"):
                     img_list.append(filename)
 
-            # get the .dok file and make sure it is not displayed as a picture
-            elif filename.endswith(".dok"):
-                dok_file = filename
+                # get the .dok file and make sure it is not displayed as a picture
+                elif filename.endswith(".dok"):
+                    dok_file = filename
 
-            # looks in the ligands file for the mol2 file(s)
-            elif filename == "ligands":
-                with open(os.path.join("static", "history", project_name, filename), "rt") as ligands:
-                    for line in ligands:
-                        print(line)
-                        line = line.replace("\n", "")
-                        mol2_files.append(os.path.join("static", "history", project_name, str(line)))
+                # looks in the ligands file for the mol2 file(s)
+                elif filename == "ligands":
+                    with open(os.path.join("static", "history", project_name, filename), "rt") as ligands:
+                        for line in ligands:
+                            print(line)
+                            line = line.replace("\n", "")
+                            mol2_files.append(os.path.join("static", "history", project_name, str(line)))
 
-            # goes through a number of criteria to check if the .pdb file is not made by one of the functions of
-            # the website
-            elif filename.endswith(".pdb"):
-                if filename != "pro.pdb" and filename != "pro_protonated.pdb" and "plipfixed" not in filename:
-                    pdb_file = os.path.join("static", "history", project_name, filename)
+                # goes through a number of criteria to check if the .pdb file is not made by one of the functions of
+                # the website
+                elif filename.endswith(".pdb"):
+                    if filename != "pro.pdb" and filename != "pro_protonated.pdb" and "plipfixed" not in filename:
+                        pdb_file = os.path.join("static", "history", project_name, filename)
 
         # adds left-over image
         if temp_img:
@@ -238,7 +238,7 @@ def template():
             return send_file(file_to_download, as_attachment=True)
 
     return render_template("temp.html", history_active=True, img_score_dict=img_score_dict,
-                           file_wanted=project_name, dok_file=dok_file, pdb_file=pdb_file, mol2_file=mol2_file,
+                           file_wanted=project_name, dok_file=dok_file, pdb_file=pdb_file, mol2_files=mol2_files,
                            RMSD_slider=settings["RMSD_slider"], dock_slider=settings["dock_slider"])
 
 
