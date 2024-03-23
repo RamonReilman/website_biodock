@@ -223,8 +223,33 @@ def template():
     img_list = []
     img_score_dict = {}
 
-    # makes variable for .dok file path and opens .dok file
-    lig_dok_path = f"static/history/{project_name}/dopa.dok"
+    
+    for (_dirpath, _dirnames, filenames) in static_path:
+
+        for filename in filenames:
+
+            # adds all imgs to img_list
+            if filename.endswith(".png"):
+                img_list.append(filename)
+
+            # get the .dok file and make sure it is not displayed as a picture
+            elif filename.endswith(".dok"):
+                dok_file = filename
+
+            # looks in the ligands file for the mol2 file(s
+            elif filename.endswith(".mol2"):
+                mol2_file_name = filename
+                mol2_file = os.path.join("static", "history", \
+                            project_name, str(filename))
+
+            # goes through a number of criteria to check if the .pdb file is not made by one 
+            # of the functions of the website
+            elif filename.endswith(".pdb"):
+                if filename != "pro.pdb" and filename != "pro_protonated.pdb" and "plipfixed" not in filename:
+                    pdb_file_name = filename
+                    pdb_file = os.path.join("static", "history", project_name, filename)
+            
+    lig_dok_path =  f"static/history/{project_name}/{dok_file}"
     with open(lig_dok_path, encoding='utf-8') as lig_dok_file:
 
         # adds each line with 'Score' in it to score_list
@@ -233,38 +258,14 @@ def template():
                 score = line.strip()
                 score_list.append(score)
 
-        for (_dirpath, _dirnames, filenames) in static_path:
-
-            for filename in filenames:
-
-                # adds all imgs to img_list
-                if filename.endswith(".png"):
-                    img_list.append(filename)
-
-                # get the .dok file and make sure it is not displayed as a picture
-                elif filename.endswith(".dok"):
-                    dok_file = filename
-
-                # looks in the ligands file for the mol2 file(s
-                elif filename.endswith(".mol2"):
-                    mol2_file_name = filename
-                    mol2_file = os.path.join("static", "history", \
-                                project_name, str(filename))
-
-                # goes through a number of criteria to check if the .pdb file is not made by one 
-                # of the functions of the website
-                elif filename.endswith(".pdb"):
-                    if filename != "pro.pdb" and filename != "pro_protonated.pdb" and "plipfixed" not in filename:
-                        pdb_file_name = filename
-                        pdb_file = os.path.join("static", "history", project_name, filename)
-
             # sorts the imgs alphabetically, so that the imgs will be displayed from
             # high 'ranking' to low
             sorted_imgs = sorted(img_list)
-
+            print(sorted_imgs, score_list)
             # makes dict with img:score pairs
             for img, score in zip(sorted_imgs, score_list):
                 img_score_dict[img] = score
+        print(img_score_dict)
 
     if request.method == "POST":
 
