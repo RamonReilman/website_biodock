@@ -34,7 +34,8 @@ def process_lig_file(path_to_lig):
                 amount_ends += 1
 
             else:
-                # Updates ligand lines, for easy render with plip
+                # Gives every ligand a chain name
+                # So that plip can render these ligands
                 if not line.startswith("REMARK"):
                     line = line.replace("LIG     0      ", f"LIG {alphabet[amount_ends]}   0      ")
                     string_with_ligand += line
@@ -54,6 +55,8 @@ def update_pro(path_to_pro, lig_string):
     # Opens and reads pro.pdb file
     with open(path_to_pro, "r", encoding="utf-8") as pro_file:
         string_pdb = pro_file.read()
+        
+        # Merges the ligand and pdb file
         new_string = lig_string + string_pdb
     return new_string   
 
@@ -61,7 +64,7 @@ def main(pdb_file, lig_file):
     lig_string, n_ligands= process_lig_file(lig_file)
     new_string = update_pro(pdb_file, lig_string)
     
-    # merges pdb and ligand file.
+    # Writes merged pdb and ligand file to new pro.pdb file.
     with open(pdb_file, 'w', encoding='utf-8') as file:
         file.write(new_string)
     return n_ligands
