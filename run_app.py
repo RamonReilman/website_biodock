@@ -35,7 +35,7 @@ def precondition_failed(error):
 
     :return: renders error.html with 412-specific args
     """
-
+    print(error)
     return render_template('error.html', status_code=412, description='Precondition Failed',
                         message='Make sure that all required tools  (LePro, LeDock, PLIP) are \
                               installed in the virtual environment.'), 412
@@ -48,7 +48,7 @@ def payload_too_large(error):
 
     :return: renders error.html with 413-specific args
     """
-
+    print(error)
     return render_template('error.html', status_code=413, description='Payload Too Large',
                         message='Please submit a smaller MOL2 file.'), 413
 
@@ -60,6 +60,7 @@ def unsupported_media_type(error):
 
     :return: renders error.html with 415-specific args
     """
+    print(error)
 
     return render_template('error.html', status_code=415, description='Unsupported Media Type',
                         message='Make sure to upload only supported media types \
@@ -213,7 +214,7 @@ def template():
     imgs = []
 
     # define mol2 and pdb variables
-    mol2_files = []
+    mol2_file = ""
     pdb_file = ""
 
     # make the filenames accessible for looping
@@ -244,23 +245,18 @@ def template():
                 elif filename.endswith(".dok"):
                     dok_file = filename
 
-                # looks in the ligands file for the mol2 file(s)
-                elif filename == "ligands":
-                    with open(os.path.join("static", "history", project_name, filename), "rt") as ligands:
-                        for line in ligands:
-                            print(line)
-                            line = line.replace("\n", "")
-                            mol2_files.append(os.path.join("static", "history", project_name, str(line)))
+                # looks in the ligands file for the mol2 file(s
+                elif filename.endswith(".mol2"):
+                    mol2_file_name = filename
+                    mol2_file = os.path.join("static", "history", \
+                                project_name, str(filename))
 
-                # goes through a number of criteria to check if the .pdb file is not made by one of the functions of
-                # the website
+                # goes through a number of criteria to check if the .pdb file is not made by one 
+                # of the functions of the website
                 elif filename.endswith(".pdb"):
                     if filename != "pro.pdb" and filename != "pro_protonated.pdb" and "plipfixed" not in filename:
+                        pdb_file_name = filename
                         pdb_file = os.path.join("static", "history", project_name, filename)
-
-        # adds left-over image
-        if temp_img:
-            imgs.append(temp_img)
 
             # sorts the imgs alphabetically, so that the imgs will be displayed from
             # high 'ranking' to low
@@ -296,8 +292,10 @@ def template():
 
     return render_template("temp.html", history_active=True, img_score_dict=img_score_dict,
                            file_wanted=project_name, dok_file=dok_file, pdb_file=pdb_file, \
-                            mol2_file=mol2_file, RMSD_slider=settings["RMSD_slider"], \
-                                dock_slider=settings["dock_slider"])
+                            mol2_file=mol2_file, pdb_file_name=pdb_file_name, \
+                            mol2_file_name=mol2_file_name, 
+                            RMSD_slider=settings["RMSD_slider"], \
+                            dock_slider=settings["dock_slider"])
 
 
 @app.route("/ourteam")
@@ -367,8 +365,6 @@ def about():
 
 
 if __name__ == "__main__":
-    # sets max. file limit to be uploaded by the user
-    app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
     # sets allowed file extensions for user uploads
     app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
 
