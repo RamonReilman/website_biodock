@@ -18,3 +18,10 @@ RMSDSlider.oninput = function() {
 
 
 // https://www.w3schools.com/howto/howto_js_rangeslider.asp
+function call_load(){
+  document.getElementById("load").classList.add("load_icon")
+  document.getElementById("load").classList.remove("load_icon_hidden")
+}
+
+
+window.addEventListener("submit", call_load)
