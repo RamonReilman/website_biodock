@@ -1,5 +1,4 @@
 openbabel-wheel
 lxml
 numpy
-plip
 flask
