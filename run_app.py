@@ -25,14 +25,40 @@ app = Flask(__name__)
 # sets allowed file extensions for user uploads
 app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
 
+@app.errorhandler(412)
+def precondition_failed(error):
+    """
+    Function to catch and handle the 412 errors
+
+    :return: renders error.html with 412-specific args
+    """
+
+    return render_template('error.html', status_code=412, description='Precondition Failed',
+                        message='Make sure that all required tools  (LePro, LeDock, PLIP) are installed in the virtual environment.'), 412
+
+
 @app.errorhandler(413)
-def exceeds_capacity_limit(error):
+def payload_too_large(error):
     """
     Function to catch and handle the 413 errors
-    :param error:
-    :return: rendered own defined 413.html
+
+    :return: renders error.html with 413-specific args
     """
-    return render_template('error_templates/413.html'), 413
+
+    return render_template('error.html', status_code=413, description='Payload Too Large',
+                        message='Please submit a smaller MOL2 file.'), 413
+
+
+@app.errorhandler(415)
+def unsupported_media_type(error):
+    """
+    Function to catch and handle the 415 errors
+
+    :return: renders error.html with 415-specific args
+    """
+
+    return render_template('error.html', status_code=415, description='Unsupported Media Type',
+                        message='Make sure to upload only supported media types (.pdb and .mol2).'), 415
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -81,16 +107,19 @@ def webtool():
     if pdb_file.filename and mol2_file.filename != '':
 
         # checks if uploaded files have the correct extension, else returns an error
+        # which is 415: Unsupported Media Type
         if pdb_file_ext not in app.config['UPLOAD_EXTENSIONS'] \
         or mol2_file_ext not in app.config['UPLOAD_EXTENSIONS']:
-            abort(413)
+            abort(415)
 
         # checks the size of the mol2 file, returns an error of it exceeds the size limit
         mol2_file.seek(0, os.SEEK_END)
         mol2_length = mol2_file.tell()
         mol2_file.seek(0)
-        if mol2_length > 3000: #TEST change this to the correct number
-            abort(400)
+
+        # raises error (413: Payload Too Large) if mol2 file is bigger than 3000 bytes
+        if mol2_length > 3000:
+            abort(413, 'Content Too Large', ' Please submit a smaller MOL2-file.')
 
         # creates directory with the name that the user chose for the session
         save_dir = os.path.join(app.root_path, "static", "history", kwargs['name_file'])
@@ -107,11 +136,16 @@ def webtool():
         # creates json file and saves user-specified settings to it
         save_settings(save_dir, **kwargs)
 
+        
         # creates instance for LePro-class
         lepro_instance = LePro(pdb_save_path = os.path.join(save_dir, pdb_file_name), 
                                name_file=kwargs['name_file'], new_save_path_dock = os.path.join("static/history/", 
                                 kwargs['name_file'], "dock.in"))
         
+        # raises error (412 Precondition Not Found) if LePro installation is not found
+        if lepro_instance.lepro_path == '':
+            abort(412)
+
         # runs run-method to activate LePro and moves output files to correct folder
         lepro_instance.run()
 
@@ -121,17 +155,27 @@ def webtool():
         # runs settings_dok_file-function which transfers the user input from kwargs dict to dock.in file
         settings_dok_file(lepro_instance.new_save_path_dock, kwargs['RMSD_slider'], kwargs['dock_slider'])
         
+        #
         mol2_to_ligands(path=save_dir)
         mol2_for_dock = mol2_file_name.replace(".mol2", ".in")
+
+        # creates instance for LeDock-class
         ledock_instance = Ledock(path=save_dir, file_name=mol2_for_dock)
+        
+        #if ledock_instance.dock_path == '':
+         #   abort(412)
+
         ledock_instance.run()
         
         n_ligands = merge_pdb_dok.main(pdb_file=save_dir+"/pro.pdb", lig_file=save_dir+"/"+mol2_file_name.replace(".mol2", ".dok"))
 
         plip_instance = Plip(project_name=kwargs['name_file'], img_n=n_ligands)
+
+
         plip_instance.run()
         
         return redirect(url_for("template", project=kwargs["name_file"], **request.args))
+    
     # render the 'form_POST.html' with the variables collected from the form in index.html
     return render_template('form_POST.html', **kwargs)
 
@@ -175,6 +219,7 @@ def template():
         for (_dirpath, _dirnames, filenames) in static_path:
 
             for filename in filenames:
+
                 # adds all imgs to img_list
                 if filename.endswith(".png"):
                     img_list.append(filename)

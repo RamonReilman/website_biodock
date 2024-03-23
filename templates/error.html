@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+
+    <div class="container">
+        <div class="row boxes justify-content-evenly">
+            <div class="col-sm-8 my-auto">
+                <div class="box p-3 my-auto border" id="error_box">
+                    <div class="pt-5">
+                        <h1>ERROR {{status_code}} : {{ description }}</h1>
+                        <p>{{ message }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                
+
+{% endblock %}
