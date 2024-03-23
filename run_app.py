@@ -83,6 +83,7 @@ def webtool():
             Renders form_POST.html with submitted data 
             Saves a directory (with a user-specified name) with the uploaded files
     """
+    img_path = config_path['paths']['img_path']
     if request.method == 'GET':
         # default response when a form is called, renders index.html
         return render_template("index.html", webtool_active=True, name_exists=False)
@@ -127,7 +128,7 @@ def webtool():
             abort(413, 'Content Too Large', ' Please submit a smaller MOL2-file.')
 
         # creates directory with the name that the user chose for the session
-        save_dir = os.path.join(app.root_path, "static", "history", kwargs['name_file'])
+        save_dir = os.path.join(img_path, kwargs['name_file'])
         os.makedirs(save_dir, exist_ok=True)
 
         # variables for the names of the files
@@ -201,13 +202,14 @@ def template():
             Downloads the file that matches the clicked button
     """
 
-    # defines needed variables
+    # get the directory that was given in history
+    img_path = config_path['paths']['img_path']
     project_name = request.args["project"]
-    save_dir = os.path.join("static", "history", project_name)
+    save_dir = os.path.join(img_path, project_name)
     settings = load_settings(save_dir)
 
     # get the path to the static files
-    img_path = f"static/history/{project_name}"
+    output_path = f"{img_path}{project_name}"
     imgs = []
 
     # define mol2 and pdb variables
@@ -327,8 +329,8 @@ def history():
     
     """
     # Path of history folder and lists all dirs in this path
-    path = "static/history"
-    dir_list = os.listdir(path)
+    img_path = config_path['paths']['img_path']
+    dir_list = os.listdir(img_path)
 
     # Render history page with the files in dir_list
     if request.method == "GET":
@@ -365,5 +367,13 @@ def about():
 
 
 if __name__ == "__main__":
+    # sets max. file limit to be uploaded by the user
+    app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
+    # sets allowed file extensions for user uploads
+    app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
+
+    config_path = parse_config()
+
+
     app.debug = True
     app.run()
