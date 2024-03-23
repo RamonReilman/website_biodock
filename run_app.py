@@ -29,7 +29,7 @@ app = Flask(__name__)
 app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
 
 @app.errorhandler(412)
-def precondition_failed():
+def precondition_failed(error):
     """
     Function to catch and handle the 412 errors
 
@@ -42,7 +42,7 @@ def precondition_failed():
 
 
 @app.errorhandler(413)
-def payload_too_large():
+def payload_too_large(error):
     """
     Function to catch and handle the 413 errors
 
@@ -54,7 +54,7 @@ def payload_too_large():
 
 
 @app.errorhandler(415)
-def unsupported_media_type():
+def unsupported_media_type(error):
     """
     Function to catch and handle the 415 errors
 
