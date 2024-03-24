@@ -33,7 +33,6 @@ def process_lig_file(path_to_lig):
 
             # Counts amount of ligands
             if line.startswith("END"):
-                print(amount_ends)
                 amount_ends += 1
 
             else:

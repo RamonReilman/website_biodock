@@ -100,7 +100,7 @@ def webtool():
 
     # checks if the name already exists, if it does it returns the name_exists as true
     if kwargs['name_file'] in os.listdir('static/history'):
-        # print(os.listdir("static/history"))
+
         return render_template("index.html", webtool_active=True, name_exists=True)
 
     # sets allowed upload file extensions to .pdb and .mol2, will give an 400 error
@@ -170,6 +170,7 @@ def webtool():
 
         # creates instance for LeDock-class
         ledock_instance = Ledock(path=save_dir, file_name=mol2_for_dock)
+        print(ledock_instance)
 
         # raises error (412 Precondition Not Found) if LeDock installation is not found
         if ledock_instance.dock_path.stdout.strip() == '':
@@ -181,7 +182,9 @@ def webtool():
         n_ligands = merge_pdb_dok.main(pdb_file=save_dir+"/pro.pdb", \
                             lig_file=save_dir+"/"+mol2_file_name.replace(".mol2", ".dok"))
 
+        # creates instance for PLIP-class
         plip_instance = Plip(project_name=kwargs['name_file'], img_n=n_ligands)
+        print(plip_instance)
 
         plip_instance.run()
 
@@ -258,11 +261,10 @@ def template():
             # sorts the imgs alphabetically, so that the imgs will be displayed from
             # high 'ranking' to low
             sorted_imgs = sorted(img_list)
-            print(sorted_imgs, score_list)
+
             # makes dict with img:score pairs
             for img, score in zip(sorted_imgs, score_list):
                 img_score_dict[img] = score
-        print(img_score_dict)
 
     if request.method == "POST":
 

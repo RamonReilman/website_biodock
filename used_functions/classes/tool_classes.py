@@ -78,7 +78,7 @@ class LePro:
     def __str__(self):
         return (f'LePro installation detected: {self.lepro_path}\n'
                 f'PDB file received by LePro:{self.pdb_save_path}, \
-                    located in session: {self.name_file}.\n'
+                located in session: {self.name_file}.\n'
                 f'Generated dock.in location: {self.new_save_path_dock}\n'
                 f'Generated pro.pdb location: {self.new_save_path_pro}\n')
 
@@ -109,7 +109,7 @@ class Ledock:
         self.dock_path = subprocess.run(["find", "-name", "ledock_linux_x86"], check=True,
                                         capture_output=True, text=True)
         self.file_name = file_name
-
+        self.ledock_path = ("../../.." + self.dock_path.stdout[1:]).replace("\n", "")
 
     def run(self):
         """
@@ -117,16 +117,9 @@ class Ledock:
         static/history and runs ledock on the files in the self.path
         :return: creates the .dok file in the given directory
         """
-        # replaces the "." that indicates this directory with the path from a
-        # directory in static/history
-        ledock_path = "../../.." + self.dock_path.stdout[1:]
-
-        # removes the /n if it is created
-        ledock_path = ledock_path.replace("\n", "")
-
+       
         # runs ledock in the directory on the dock.in
-        print(self.path)
-        subprocess.run([f'{ledock_path}', 'dock.in'], cwd=f"{self.path}/", check=True)
+        subprocess.run([f'{self.ledock_path}', 'dock.in'], cwd=f"{self.path}/", check=True)
 
 
     def __str__(self):
@@ -134,7 +127,8 @@ class Ledock:
         gives this return when printing this class
         :return: The path given when creating first creating the class
         """
-        return f"ledock recieved {self.path}"
+        return (f"LeDock installation found {self.ledock_path}.\n"
+                f"Generated .dok-file in {self.path}")
 
 
 class Plip():
@@ -202,5 +196,5 @@ class Plip():
 
 
     def __str__(self):
-        return f"""Creates images using the {self.pro_pdb} file,
-                and saves these images in {self.output_location}"""
+        return f"""Created images using the {self.pro_pdb} file,
+                and saved these images in {self.output_location}"""
