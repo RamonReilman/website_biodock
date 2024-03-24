@@ -126,6 +126,11 @@ def mol2_to_ligands(path):
 
 
 def parse_config():
+    """
+    Reads the config.ini file and parses it
+    
+    return parser: object containing all information from the config.ini file.
+    """
     parser = configparser.ConfigParser()
     parser.read("used_functions/config.ini")
     return parser

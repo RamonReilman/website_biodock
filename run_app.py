@@ -161,7 +161,7 @@ def webtool():
 
         # runs settings_dok_file-function which transfers the user input from kwargs
         # dict to dock.in file
-        settings_dok_file(lepro_instance.new_save_path_dock, kwargs['RMSD_slider'], \
+        settings_dok_file(lepro_instance.new_save_path_dock, kwargs['RMSD_slider'],
                           kwargs['dock_slider'])
 
 

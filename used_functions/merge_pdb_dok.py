@@ -68,7 +68,12 @@ def update_pro(path_to_pro, lig_string):
 
 def main(pdb_file, lig_file):
     """
-    DOCSTRING
+    Acts like the main function of this script
+    
+    :param pdb_file: Path to a pdb file
+    :param lig_file: path to the .dok file
+    
+    return n_ligands: int with number of ligands in .dok file.
     """
     lig_string, n_ligands= process_lig_file(lig_file)
     new_string = update_pro(pdb_file, lig_string)
