@@ -29,15 +29,15 @@ from shutil import rmtree
 import configparser
 
 
-def clear_me():
+def clear_me(img_path):
     """
     This function deletes the history ("static/history") folder and makes a new 
     folder with the same name.
 
     """
 
-    rmtree("static/history")
-    os.mkdir("static/history")
+    rmtree(img_path)
+    os.mkdir(img_path)
 
 
 def save_settings(save_dir, **kwargs):

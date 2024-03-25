@@ -346,7 +346,7 @@ def history():
             print("Everything has been deleted")
 
             # uncomment to enable deleting
-            clear_me()
+            clear_me(img_path)
 
             return redirect("/")
 
