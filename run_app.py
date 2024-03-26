@@ -26,8 +26,6 @@ from used_functions import merge_pdb_dok
 app = Flask(__name__)
 
 # sets allowed file extensions for user uploads
-app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
-
 @app.errorhandler(412)
 def precondition_failed(error):
     """
@@ -70,6 +68,7 @@ def unsupported_media_type(error):
 @app.route('/', methods=['POST', 'GET'])
 def webtool():
     """
+
     Handles GET and POST requests for the webtool page (index.html) 
     and form functionality. When a GET-request is received, it renders the
     index.html template. When a POST-request is received (so when a form is submitted), 
@@ -84,6 +83,10 @@ def webtool():
             Renders form_POST.html with submitted data 
             Saves a directory (with a user-specified name) with the uploaded files
     """
+    app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
+
+    config_path = parse_config()
+
     img_path = config_path['paths']['img_path']
     if request.method == 'GET':
         # default response when a form is called, renders index.html
@@ -207,6 +210,7 @@ def template():
     """
 
     # get the directory that was given in history
+    config_path = parse_config()
     img_path = config_path['paths']['img_path']
     project_name = request.args["project"]
     save_dir = os.path.join(img_path, project_name)
@@ -328,6 +332,7 @@ def history():
     
     """
     # Path of history folder and lists all dirs in this path
+    config_path = parse_config()
     img_path = config_path['paths']['img_path']
     dir_list = os.listdir(img_path)
 
@@ -366,11 +371,5 @@ def about():
 
 
 if __name__ == "__main__":
-    # sets allowed file extensions for user uploads
-    app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
-
-    config_path = parse_config()
-
-
     app.debug = True
     app.run()
