@@ -20,6 +20,7 @@ import os
 import string
 
 
+
 class LePro:
     """
     Class that represents the 'LePro'-tool
@@ -42,13 +43,13 @@ class LePro:
 
     """
 
-    def __init__(self, pdb_save_path, name_file, new_save_path_dock):
+    def __init__(self, pdb_save_path, name_file, new_save_path_dock, img_path):
         self.name_file = name_file
         self.pdb_save_path = pdb_save_path
         self.lepro_path = subprocess.run(["find", "-name", "lepro_linux_x86"], check=True,
                                          capture_output=True, text=True).stdout.strip()
         self.new_save_path_dock = new_save_path_dock
-        self.new_save_path_pro = os.path.join("static/history/", self.name_file, "pro.pdb")
+        self.new_save_path_pro = os.path.join(img_path, self.name_file, "pro.pdb")
 
 
     def run(self):
@@ -70,6 +71,8 @@ class LePro:
             path to LePro installation on PC
 
         """
+        #functie toevoegen die input checkt
+        #cwd toevoegen
         subprocess.run([self.lepro_path, self.pdb_save_path], check=True)
         subprocess.run(["mv", "dock.in", self.new_save_path_dock], check=True)
         subprocess.run(["mv", "pro.pdb", self.new_save_path_pro], check=True)
@@ -109,6 +112,7 @@ class Ledock:
         self.dock_path = subprocess.run(["find", "-name", "ledock_linux_x86"], check=True,
                                         capture_output=True, text=True)
         self.file_name = file_name
+        #config file gebruiken path
         self.ledock_path = ("../../.." + self.dock_path.stdout[1:]).replace("\n", "")
 
     def run(self):
@@ -152,7 +156,7 @@ class Plip():
         runs the plip
 
     """
-    def __init__(self, project_name, img_n):
+    def __init__(self, project_name, img_n, img_path):
         """
         Constructs all the necessary attributes for the tool
 
@@ -165,8 +169,8 @@ class Plip():
 
         """
 
-        self.output_location = f"static/history/{project_name}"
-        self.pro_pdb = f"static/history/{project_name}/pro.pdb"
+        self.output_location = img_path + project_name
+        self.pro_pdb = f"{img_path}{project_name}/pro.pdb"
         self.img_n = img_n
 
 

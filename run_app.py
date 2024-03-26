@@ -144,7 +144,7 @@ def webtool():
         save_settings(save_dir, **kwargs)
 
         # creates instance for LePro-class
-        lepro_instance = LePro(pdb_save_path = os.path.join(save_dir, pdb_file_name),
+        lepro_instance = LePro(img_path=img_path, pdb_save_path = os.path.join(save_dir, pdb_file_name),
                                name_file=kwargs['name_file'], new_save_path_dock = \
                                 os.path.join("static/history/", \
                                              kwargs['name_file'], "dock.in"))
@@ -183,7 +183,7 @@ def webtool():
                             lig_file=save_dir+"/"+mol2_file_name.replace(".mol2", ".dok"))
 
         # creates instance for PLIP-class
-        plip_instance = Plip(project_name=kwargs['name_file'], img_n=n_ligands)
+        plip_instance = Plip(img_path=img_path, project_name=kwargs['name_file'], img_n=n_ligands)
         print(plip_instance)
 
         plip_instance.run()
