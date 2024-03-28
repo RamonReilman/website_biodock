@@ -50,7 +50,7 @@ def update_pro(path_to_pro, lig_string):
     :param path_to_pro: the path to the pro.pdb file
     :param lig_string: string that contains ligands, ready to merge
 
-    return new_string: returns combined string of pro.pdb and .dok file
+    return combined_string: returns combined string of pro.pdb and .dok file
 
     """
 
@@ -59,9 +59,9 @@ def update_pro(path_to_pro, lig_string):
         string_pdb = pro_file.read()
 
         # Merges the ligand and pdb file
-        new_string = lig_string + string_pdb
+        combined_string = lig_string + string_pdb
 
-    return new_string
+    return combined_string
 
 
 def main(pdb_file, lig_file):
@@ -74,10 +74,10 @@ def main(pdb_file, lig_file):
     return n_ligands: int with number of ligands in .dok file.
     """
     lig_string, n_ligands= process_lig_file(lig_file)
-    new_string = update_pro(pdb_file, lig_string)
+    combined_string = update_pro(pdb_file, lig_string)
 
     # Writes merged pdb and ligand file to new pro.pdb file.
     with open(pdb_file, 'w', encoding='utf-8') as file:
-        file.write(new_string)
+        file.write(combined_string)
 
     return n_ligands
