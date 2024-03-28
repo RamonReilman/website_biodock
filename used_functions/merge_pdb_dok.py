@@ -18,7 +18,6 @@ def process_lig_file(path_to_lig):
     Opens ligand file and readies it to be merged with pro.pdb
 
     :param path_to_lig: the path to the .dok file
-    :param amount_ligands: the amount of ligands to be added to the pro.pdb file
 
     return string_with_ligand: string that contains the ligands added to the pro.pdb file
 
