@@ -66,6 +66,18 @@ def unsupported_media_type(error):
                         message='Make sure to upload only supported media types \
                             (.pdb and .mol2).'), 415
 
+# @app.errorhandler(422)
+# def unprocessable_content(error):
+#     """
+#     Function to catch and handle the 415 errors
+
+#     :return: renders error.html with 415-specific args
+#     """
+#     print(error)
+
+#     return render_template('error.html', status_code=422, description='Unprocessable Content',
+#                         message='Please use only A-Z and 0-9 characters for the session name.'), 415
+
 
 @app.route('/', methods=['POST', 'GET'])
 def webtool():
@@ -126,7 +138,10 @@ def webtool():
 
         # raises error (413: Payload Too Large) if mol2 file is bigger than 3000 bytes
         if mol2_length > 3000:
-            abort(413, 'Content Too Large', ' Please submit a smaller MOL2-file.')
+            abort(413)
+
+        if '/' in kwargs['name_file'] or '\\' in kwargs['name_file'] or '?' in kwargs['name_file']:
+            abort(415)
 
         # creates directory with the name that the user chose for the session
         save_dir = os.path.join(img_path, kwargs['name_file'])
