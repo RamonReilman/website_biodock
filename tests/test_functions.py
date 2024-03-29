@@ -110,7 +110,7 @@ def test_mol2_to_ligands():
     expected_content = ['test.mol2']
 
     # opens ligands file that got created by mol2_to_ligands function
-    with open (path, 'r', encoding='utf-8') as ligands_file:
+    with open (f'{path}/ligands', 'r', encoding='utf-8') as ligands_file:
         content = ligands_file.readlines()
 
         # checks if the content of ligands_file is equal to the expected content (name of mol2 file)

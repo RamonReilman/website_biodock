@@ -127,6 +127,7 @@ def mol2_to_ligands(path):
             with open(f"{path}/ligands", "w", encoding="utf-8") as ligands_file:
                 ligands_file.write(file)
                 
+    return path
 
 def parse_config():
     """
