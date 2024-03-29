@@ -122,13 +122,11 @@ def mol2_to_ligands(path):
 
         # checks if file ends with .mol2
         if file.endswith(".mol2"):
-            path = path.join('ligands')
 
             # writes name of .mol2 file to ligands file
-            with open(path, "w", encoding="utf-8") as ligands_file:
+            with open(f"{path}/ligands", "w", encoding="utf-8") as ligands_file:
                 ligands_file.write(file)
-    return path
-
+                
 
 def parse_config():
     """
