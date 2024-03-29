@@ -55,6 +55,8 @@ def save_settings(save_dir, **kwargs):
     with open(f"{save_dir}/settings.json", "w", encoding="utf-8") as settings_file:
         settings_file.write(json_object)
 
+        return json_object
+
 
 def load_settings(save_dir):
     """
@@ -104,10 +106,12 @@ def settings_dok_file(new_save_path_dock, rmsd_slider, dock_slider):
                 # writes out lines from original dock.in file
                 dock_file_write.write(line)
 
+    return new_save_path_dock
 
 def mol2_to_ligands(path):
     """
-    Writes name of .mol2 file to a 'ligands' file.
+    Writes name of .mol2 file
+     to a 'ligands' file.
 
     :param path: dir path to .mol2-file (str)
         
@@ -118,11 +122,12 @@ def mol2_to_ligands(path):
 
         # checks if file ends with .mol2
         if file.endswith(".mol2"):
+            path = path.join('ligands')
 
             # writes name of .mol2 file to ligands file
-            with open(f"{path}/ligands", "w", encoding="utf-8") as ligands_file:
+            with open(path, "w", encoding="utf-8") as ligands_file:
                 ligands_file.write(file)
-
+    return path
 
 
 def parse_config():
