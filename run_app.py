@@ -100,10 +100,13 @@ def webtool():
         'name_file': request.form['name_file'],
 
     }
+
+    # Makes giving the project a name optional
     if not kwargs["name_file"]:
         pdb_file = request.files['pdb_file']
         mol2_file = request.files['mol2_file']
-        kwargs["name_file"] = f"{pdb_file.filename}+{mol2_file.filename}"
+        kwargs["name_file"] = f"{pdb_file.filename}_{mol2_file.filename}_dock.poses:{kwargs['dock_slider']}_RMSD.value:{kwargs['RMSD_slider']}"
+
     # checks if the name already exists, if it does it returns the name_exists as true
     if kwargs['name_file'] in os.listdir('static/history'):
 
