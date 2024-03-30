@@ -62,7 +62,7 @@
                             <div class="col-12">
                                 <p>Save file as:</p>
                                 <label for="name_file"></label>
-                                <input type="text" id="name_file" name="name_file" minlength="4" maxlength="20" required>
+                                <input type="text" id="name_file" name="name_file" minlength="4" maxlength="20">
                             </div>
                         </div>
                     </div>
@@ -73,9 +73,9 @@
                         <!-- if the given name already is a directory it gives a warning -->
                         {% if name_exists %}
                             <p id="confirm_text">Name already exists, please select a different name or clear the history.</p>
-                            <input type="submit" class="btn btn-outline-primary btn-block submit_button" value="Submit">
+                            <input type="submit" class="btn btn-outline-primary btn-block submit_button" value="Submit" name="project_name">
                         {% else %}
-                            <input type="submit" class="btn btn-outline-primary btn-block submit_button" value="Submit">
+                            <input type="submit" class="btn btn-outline-primary btn-block submit_button" value="Submit" name="project_name">
                         {% endif %}
                     </div>
 
