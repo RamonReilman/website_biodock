@@ -100,7 +100,10 @@ def webtool():
         'name_file': request.form['name_file'],
 
     }
-
+    if not kwargs["name_file"]:
+        pdb_file = request.files['pdb_file']
+        mol2_file = request.files['mol2_file']
+        kwargs["name_file"] = f"{pdb_file.filename}+{mol2_file.filename}"
     # checks if the name already exists, if it does it returns the name_exists as true
     if kwargs['name_file'] in os.listdir('static/history'):
 
@@ -335,11 +338,15 @@ def history():
     config_path = parse_config()
     img_path = config_path['paths']['img_path']
     dir_list = os.listdir(img_path)
-
+    settings_list = []
+    for project in dir_list:
+        loaded_setting = load_settings(img_path+project)
+        temp_list = [f"No. of docking poses: {loaded_setting['dock_slider']}", f"RMSD setting: {loaded_setting['RMSD_slider']}"]
+        settings_list.extend(temp_list)
     # Render history page with the files in dir_list
     if request.method == "GET":
 
-        return render_template("history.html", files=dir_list, history_active=True)
+        return render_template("history.html", files=dir_list, settings=settings_list, history_active=True)
 
     if request.method == "POST":
         print(request.form.values())
