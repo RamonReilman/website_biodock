@@ -1,5 +1,17 @@
 """
-MODULE DOCSTRING
+PyTest script for testing the flask app (as seen in run_app.py)
+    - Authors: Ramon Reilman, Stijn Vermeulen, Yamila Timmer
+
+test_flask_app.py tests the following things:
+    - whether rendering the templates yields a 200 response code (OK/success status)
+    - whether the source code when rendering the templates is valid
+
+Usage:
+    Run pytest to test the used functions, using this script.
+
+Commandline usage: 
+    - pytest
+
 """
 import pytest
 import html5lib
@@ -9,7 +21,7 @@ from run_app import app
 @pytest.fixture
 def client():
     """
-    DOCSTRING
+    Fixture to create a test client for the Flask app
     """
     return app.test_client()
 
@@ -20,9 +32,13 @@ def client():
     "/ourteam"
 ])
 
+
 def test_get(client, urls):
     """
-    DOCSTRING
+    Tests if GET requests to different urls return a 200 status code (succes)
+
+    :param client: test client for Flask app
+    :param urls: URLs for testing different templates (str)
     """
     response = client.get(urls)
     assert response.status_code == 200
@@ -34,9 +50,13 @@ def test_get(client, urls):
     ("/ourteam", False)
 ])
 
+
 def test_html_valid(client, uri, inputs):
     """
-    DOCSTRING
+    Test if the sourcecode from specified URLs is valid HTML5
+    :param client:
+    :param uri:
+    :param inputs:
     """
     response = client.get(uri)
     assert response.status_code == 200
