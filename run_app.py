@@ -26,8 +26,6 @@ from used_functions import merge_pdb_dok
 app = Flask(__name__)
 
 # sets allowed file extensions for user uploads
-app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
-
 @app.errorhandler(412)
 def precondition_failed(error):
     """
@@ -70,6 +68,7 @@ def unsupported_media_type(error):
 @app.route('/', methods=['POST', 'GET'])
 def webtool():
     """
+
     Handles GET and POST requests for the webtool page (index.html) 
     and form functionality. When a GET-request is received, it renders the
     index.html template. When a POST-request is received (so when a form is submitted), 
@@ -84,6 +83,10 @@ def webtool():
             Renders form_POST.html with submitted data 
             Saves a directory (with a user-specified name) with the uploaded files
     """
+    app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
+
+    config_path = parse_config()
+
     img_path = config_path['paths']['img_path']
     if request.method == 'GET':
         # default response when a form is called, renders index.html
@@ -97,6 +100,12 @@ def webtool():
         'name_file': request.form['name_file'],
 
     }
+
+    # Makes giving the project a name optional
+    if not kwargs["name_file"]:
+        pdb_file = request.files['pdb_file']
+        mol2_file = request.files['mol2_file']
+        kwargs["name_file"] = f"{pdb_file.filename}_{mol2_file.filename}_dock.poses:{kwargs['dock_slider']}_RMSD.value:{kwargs['RMSD_slider']}"
 
     # checks if the name already exists, if it does it returns the name_exists as true
     if kwargs['name_file'] in os.listdir(img_path):
@@ -144,7 +153,7 @@ def webtool():
         save_settings(save_dir, **kwargs)
 
         # creates instance for LePro-class
-        lepro_instance = LePro(pdb_save_path = os.path.join(save_dir, pdb_file_name),
+        lepro_instance = LePro(img_path=img_path, pdb_save_path = os.path.join(save_dir, pdb_file_name),
                                name_file=kwargs['name_file'], new_save_path_dock = \
                                 os.path.join(img_path, \
                                              kwargs['name_file'], "dock.in"))
@@ -183,7 +192,7 @@ def webtool():
                             lig_file=save_dir+"/"+mol2_file_name.replace(".mol2", ".dok"))
 
         # creates instance for PLIP-class
-        plip_instance = Plip(project_name=kwargs['name_file'], img_n=n_ligands)
+        plip_instance = Plip(img_path=img_path, project_name=kwargs['name_file'], img_n=n_ligands)
         print(plip_instance)
 
         plip_instance.run()
@@ -207,6 +216,7 @@ def template():
     """
 
     # get the directory that was given in history
+    config_path = parse_config()
     img_path = config_path['paths']['img_path']
     project_name = request.args["project"]
     save_dir = os.path.join(img_path, project_name)
@@ -328,13 +338,18 @@ def history():
     
     """
     # Path of history folder and lists all dirs in this path
+    config_path = parse_config()
     img_path = config_path['paths']['img_path']
     dir_list = os.listdir(img_path)
-
+    settings_list = []
+    for project in dir_list:
+        loaded_setting = load_settings(img_path+project)
+        temp_list = [f"No. of docking poses: {loaded_setting['dock_slider']}", f"RMSD setting: {loaded_setting['RMSD_slider']}"]
+        settings_list.extend(temp_list)
     # Render history page with the files in dir_list
     if request.method == "GET":
 
-        return render_template("history.html", files=dir_list, history_active=True)
+        return render_template("history.html", files=dir_list, settings=settings_list, history_active=True)
 
     if request.method == "POST":
         print(request.form.values())
@@ -366,11 +381,5 @@ def about():
 
 
 if __name__ == "__main__":
-    # sets allowed file extensions for user uploads
-    app.config['UPLOAD_EXTENSIONS'] = ['.pdb', '.mol2']
-
-    config_path = parse_config()
-
-
     app.debug = True
     app.run()
