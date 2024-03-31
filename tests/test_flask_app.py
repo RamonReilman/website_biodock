@@ -25,25 +25,8 @@ def client():
     """
     return app.test_client()
 
-@pytest.mark.parametrize("urls", [
-    "/",
-    "/history",
-    "/about",
-    "/ourteam"
-])
 
-
-def test_get(client, urls):
-    """
-    Tests if GET requests to different urls return a 200 status code (succes)
-
-    :param client: test client for Flask app
-    :param urls: URLs for testing different templates (str)
-    """
-    response = client.get(urls)
-    assert response.status_code == 200
-
-@pytest.mark.parametrize("uri, inputs", [
+@pytest.mark.parametrize("url, inputs", [
     ("/", True),
     ("/history", False),
     ("/about", False),
@@ -51,27 +34,35 @@ def test_get(client, urls):
 ])
 
 
-def test_html_valid(client, uri, inputs):
+def test_html_valid(client, url, inputs):
     """
-    Test if the sourcecode from specified URLs is valid HTML5
-    :param client:
-    :param uri:
-    :param inputs:
+    Test if GET requests to different URLs return a 200 status code (success)
+    and whether the sourcecode from those URLs is valid HTML5
+    :param client: test client for Flask app
+    :param url: URLs for testing different templates (str)
+    :param inputs: whether the template expects input (bool)
     """
-    response = client.get(uri)
+
+    # checks if get.request returns a 200 status code (success)
+    response = client.get(url)
     assert response.status_code == 200
 
+    # tries to check if source code is valid HTML5
     try:
         parse = html5lib.HTMLParser(strict=True, namespaceHTMLElements=False)
         htmldoc = parse.parse(response.data)
 
+    # fails the pytest if source code is not valid HTML5 and returns error
     except html5lib.html5parser.ParseError as error:
         pytest.fail(f"{error.__class__.__name__}: {str(error)}", pytrace=False)
 
     forms = htmldoc.findall("./body/div/form")
 
+    # if-statement for when inputs = True (on '/' URL)
     if inputs:
+        # checks if the amount of forms found is equal to 1
         assert len(forms) == 1
+
         form = forms[0]
         names = set()
 
@@ -79,5 +70,6 @@ def test_html_valid(client, uri, inputs):
             print(list(inp.attrib.items()))
             names.add(inp.attrib['name'])
 
+        # checks if the form contains the following attributes
         assert names == {"pdb_file", "mol2_file", "dock_slider", "RMSD_slider", \
                          "name_file", "project_name"}
