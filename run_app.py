@@ -108,7 +108,7 @@ def webtool():
         kwargs["name_file"] = f"{pdb_file.filename}_{mol2_file.filename}_dock.poses:{kwargs['dock_slider']}_RMSD.value:{kwargs['RMSD_slider']}"
 
     # checks if the name already exists, if it does it returns the name_exists as true
-    if kwargs['name_file'] in os.listdir('static/history'):
+    if kwargs['name_file'] in os.listdir(img_path):
 
         return render_template("index.html", webtool_active=True, name_exists=True)
 
@@ -135,7 +135,7 @@ def webtool():
 
         # raises error (413: Payload Too Large) if mol2 file is bigger than 3000 bytes
         if mol2_length > 3000:
-            abort(413, 'Content Too Large', ' Please submit a smaller MOL2-file.')
+            abort(413)
 
         # creates directory with the name that the user chose for the session
         save_dir = os.path.join(img_path, kwargs['name_file'])
@@ -155,7 +155,7 @@ def webtool():
         # creates instance for LePro-class
         lepro_instance = LePro(img_path=img_path, pdb_save_path = os.path.join(save_dir, pdb_file_name),
                                name_file=kwargs['name_file'], new_save_path_dock = \
-                                os.path.join("static/history/", \
+                                os.path.join(img_path, \
                                              kwargs['name_file'], "dock.in"))
 
         # raises error (412 Precondition Not Found) if LePro installation is not found
@@ -248,7 +248,7 @@ def template():
             # looks in the ligands file for the mol2 file(s
             elif filename.endswith(".mol2"):
                 mol2_file_name = filename
-                mol2_file = os.path.join("static", "history", \
+                mol2_file = os.path.join(img_path, \
                             project_name, str(filename))
 
             # goes through a number of criteria to check if the .pdb file is not made by one
@@ -257,9 +257,9 @@ def template():
                 if filename != "pro.pdb" and filename != "pro_protonated.pdb" and \
                     "plipfixed" not in filename:
                     pdb_file_name = filename
-                    pdb_file = os.path.join("static", "history", project_name, filename)
+                    pdb_file = os.path.join(img_path, project_name, filename)
 
-    lig_dok_path =  f"static/history/{project_name}/{dok_file}"
+    lig_dok_path =  f"{img_path}{project_name}/{dok_file}"
     with open(lig_dok_path, encoding='utf-8') as lig_dok_file:
 
         # adds each line with 'Score' in it to score_list
@@ -285,7 +285,7 @@ def template():
             image = request.form["Download_picture"]
 
             # get file path
-            file_to_download = os.path.join(img_path, image)
+            file_to_download = os.path.join(img_path, project_name, image)
 
             # get the system to download the file
             return send_file(file_to_download, as_attachment=True)
@@ -295,7 +295,7 @@ def template():
             dok_file = request.form["file_download"]
 
             # get the path to the file
-            file_to_download = os.path.join("static", "history", \
+            file_to_download = os.path.join(img_path, \
                             project_name, str(dok_file))
 
             # make system download the file
@@ -361,7 +361,7 @@ def history():
             print("Everything has been deleted")
 
             # uncomment to enable deleting
-            clear_me()
+            clear_me(img_path)
 
             return redirect("/")
 
