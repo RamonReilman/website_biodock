@@ -21,14 +21,14 @@
 
             <div class="col-sm-7 mt-5 mb-5 mx-auto">
                 <table class="table">
-                    {% for file in files %}
+                    {% for file, setting in files %}
                     <tr>
                         <td>
                             <form method="post">
                                 <button type="submit" name='user_input' value="{{ file }}" class="btn btn-primary">Open</button>
                             </form>
                         </td>
-                      <td>Title: {{ file }}, Settings: {{ settings }} <br></td>
+                      <td>Title: {{ file }}, Settings: {{ setting }} <br></td>
                     </tr>
                     {% endfor %}
                 </table>
