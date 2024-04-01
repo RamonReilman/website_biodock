@@ -345,11 +345,11 @@ def history():
     for project in dir_list:
         loaded_setting = load_settings(img_path+project)
         temp_list = [f"No. of docking poses: {loaded_setting['dock_slider']}", f"RMSD setting: {loaded_setting['RMSD_slider']}"]
-        settings_list.extend(temp_list)
+        settings_list.append(temp_list)
     # Render history page with the files in dir_list
     if request.method == "GET":
 
-        return render_template("history.html", files=dir_list, settings=settings_list, history_active=True)
+        return render_template("history.html", files=zip(dir_list, settings_list), history_active=True)
 
     if request.method == "POST":
         print(request.form.values())
@@ -381,5 +381,5 @@ def about():
 
 
 if __name__ == "__main__":
-    app.debug = True
+    print("juh")
     app.run()
