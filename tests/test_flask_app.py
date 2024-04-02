@@ -21,7 +21,7 @@ import html5lib
 from run_app import app
 
 
-het_pad = Path(__file__).parent / "resources"
+path = Path(__file__).parent / "resources"
 @pytest.fixture
 def client():
     """
@@ -31,34 +31,34 @@ def client():
     return app.test_client()
 
 # opens a normal pdb file
-with open(het_pad / "4zel.pdb", 'r', encoding="utf-8") as pdb_file:
+with open(path / "4zel.pdb", 'r', encoding="utf-8") as pdb_file:
     pdb_test_file = pdb_file.read()
 
 # opens a pdb file with some incorrect parts
-with open(het_pad / "error.pdb", 'r', encoding="utf-8") as pdb_file:
+with open(path / "error.pdb", 'r', encoding="utf-8") as pdb_file:
     pdb_test_error_file = pdb_file.read()
 
 # opens a normal mol2 file
-with open(het_pad / "pytest.mol2", 'r', encoding="utf-8") as mol2_file:
+with open(path / "pytest.mol2", 'r', encoding="utf-8") as mol2_file:
     mol2_test_file = mol2_file.read()
 
 # opens a mol2 file near the max file size
-with open(het_pad / "new_169196800.mol2", 'r', encoding="utf-8") as mol2_file:
+with open(path / "new_169196800.mol2", 'r', encoding="utf-8") as mol2_file:
     big_mol2_test_file = mol2_file.read()
 
-with open(het_pad / "error.mol2", 'r', encoding="utf-8") as mol2_file:
+with open(path / "error.mol2", 'r', encoding="utf-8") as mol2_file:
     mol2_error_test_file = mol2_file.read()
 
 # opens a empty file with pdb extention
-with open(het_pad / "empty.pdb", 'r', encoding="utf-8") as pdb_file:
+with open(path / "empty.pdb", 'r', encoding="utf-8") as pdb_file:
     pdb_empty_test_file = pdb_file.read()
 
 # opens a empty file
-with open(het_pad / "empty.mol2", 'r', encoding="utf-8") as mol2_file:
+with open(path / "empty.mol2", 'r', encoding="utf-8") as mol2_file:
     mol2_empty_test_file = mol2_file.read()
 
 # opens a mol2 file over the max file limit
-with open(het_pad / "lig.mol2", 'r', encoding="utf-8") as mol2_file:
+with open(path / "lig.mol2", 'r', encoding="utf-8") as mol2_file:
     mol2_toobig_test_file = mol2_file.read()
 
 
@@ -71,7 +71,7 @@ def test_index(client):
     assert response.status_code == 200
 
 
-@pytest.mark.parametrize("data, verwacht",[
+@pytest.mark.parametrize("data, expected",[
     ({
         "dock_slider": 12,
         "RMSD_slider": 1,
@@ -132,7 +132,7 @@ def test_index(client):
 )
 
 
-def test_index_post(client, data, verwacht):
+def test_index_post(client, data, expected):
     """
     takes the data and puts it through the tools and the response code is checked,
     while this happends the time of the docking is taken and checked if it takes too long
@@ -142,7 +142,7 @@ def test_index_post(client, data, verwacht):
 
     response = client.post("/", data=data)
 
-    assert response.status_code == verwacht
+    assert response.status_code == expected
     end = time.time()
 
     time_passed = start - end
