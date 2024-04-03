@@ -68,16 +68,6 @@ def test_index(client):
         "pdb_file": (io.BytesIO(opened_files[0].encode('utf-8')), "4zel.pdb"),
         "mol2_file": (io.BytesIO(opened_files[2].encode("utf-8")), "new_169196800.mol2")}, 302),
 
-    # tests when a repeat name is given
-    # NOTE: the test now expects that a test dir named 4zel.pdb exists if the file is removed,
-    # this name should be replaced
-    ({
-        "dock_slider": 20,
-        "RMSD_slider": 0.5,
-        "name_file": '4zel.pdb',
-        "pdb_file": (io.BytesIO(opened_files[0].encode('utf-8')), "4zel.pdb"),
-        "mol2_file": (io.BytesIO(opened_files[2].encode("utf-8")), "new_169196800.mol2")}, 200),
-
     # tests if a input is refused if the mol2 file is too big
     ({
         "dock_slider": 12,
@@ -131,12 +121,13 @@ def test_index_post(client, data, verwacht):
     time_passed = start - end
 
     # removes the directory created in the test run
-    if name in os.listdir(img_path) and name != "4zel.pdb":
+    if name in os.listdir(img_path):
         path_to_remove = os.path.join(img_path, name)
         shutil.rmtree(path_to_remove)
 
     # if too much time has passed it returns a fail
     assert time_passed < 10
+
 
 
 @pytest.mark.parametrize("url, inputs", [
