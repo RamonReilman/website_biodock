@@ -114,7 +114,7 @@ def webtool():
     mol2_file_ext = os.path.splitext(mol2_file.filename)[1]
 
     # checks if both files got uploaded, otherwise the input will be equal to ''
-    if pdb_file.filename and mol2_file.filename != '':
+    if pdb_file.filename and mol2_file.filename != '' and "!" not in kwargs['name_file']:
 
         # checks if uploaded files have the correct extension, else returns an error
         # which is 415: Unsupported Media Type
