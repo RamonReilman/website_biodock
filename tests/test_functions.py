@@ -134,3 +134,6 @@ def test_mol2_to_ligands():
 
         # checks if the content of ligands_file is equal to the expected content (name of mol2 file)
         assert content == expected_content
+
+    # clears ligands file, for future testing
+    open(f'{path}/ligands', 'w', encoding='utf-8').close()
