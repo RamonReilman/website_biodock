@@ -46,16 +46,16 @@ def test_index(client):
 
     # tests a wrong data file given
     ({
-        "dock_slider": 12,
-        "RMSD_slider": 1,
+        "dock_slider": 6,
+        "RMSD_slider": 2.3,
         "name_file": "tester",
         "pdb_file": (io.BytesIO(b"Data"), "test.txt"),
         "mol2_file": (io.BytesIO(b"Mol2 informatie"), "dsafsaf.mol2")}, 415),
 
     # tests s a basic data set
     ({
-        "dock_slider": 12,
-        "RMSD_slider": 1,
+        "dock_slider": 5,
+        "RMSD_slider": 1.5,
         "name_file": "-check",
         "pdb_file": (io.BytesIO(opened_files[0].encode('utf-8')), "4zel.pdb"),
         "mol2_file": (io.BytesIO(opened_files[2].encode("utf-8")), "dopa.mol2")}, 302),
@@ -74,22 +74,22 @@ def test_index(client):
     ({
         "dock_slider": 20,
         "RMSD_slider": 0.5,
-        "name_file": '12345678901234567890',
+        "name_file": '4zel.pdb',
         "pdb_file": (io.BytesIO(opened_files[0].encode('utf-8')), "4zel.pdb"),
         "mol2_file": (io.BytesIO(opened_files[2].encode("utf-8")), "new_169196800.mol2")}, 200),
 
     # tests if a input is refused if the mol2 file is too big
     ({
-        "dock_slider": 20,
-        "RMSD_slider": 0.5,
+        "dock_slider": 12,
+        "RMSD_slider": 3.5,
         "name_file": 'TooBig',
         "pdb_file": (io.BytesIO(opened_files[0].encode('utf-8')), "4zel.pdb"),
         "mol2_file": (io.BytesIO(opened_files[3].encode("utf-8")), "lig.mol2")}, 413),
 
     # test if a file is refused if the given dir name has characters that can intercept with code
     ({
-        "dock_slider": 12,
-        "RMSD_slider": 1,
+        "dock_slider": 9,
+        "RMSD_slider": 2.0,
         "name_file": '!@#$%^&*()[]/\\`~\'',
         "pdb_file": (io.BytesIO(opened_files[0].encode('utf-8')), "4zel.pdb"),
         "mol2_file": (io.BytesIO(opened_files[2].encode("utf-8")), "dopa.mol2")}, 200),
