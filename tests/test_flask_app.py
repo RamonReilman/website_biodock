@@ -11,53 +11,40 @@ import pytest
 het_pad = Path(__file__).parent / "resources"
 
 
-@pytest.fixture
 def client():
+    """
+    creates a client to run the webserver through
+    :return: the client to run the webserver
+    """
     return app.test_client()
 
 
-# opens a normal pdb file
-with open(het_pad / "4zel.pdb", 'r', encoding="utf-8") as pdb_file:
-    pdb_test_file = pdb_file.read()
+all_files = ["4zel.pdb", "pytest.mol2", "new_169196800.mol2", "lig.mol2",
+             "error.pdb", "error.mol2", "empty.pdb", "empty.mol2"]
 
-# opens a pdb file with some incorrect parts
-with open(het_pad / "error.pdb", 'r', encoding="utf-8") as pdb_file:
-    pdb_test_error_file = pdb_file.read()
+opened_files = []
 
-# opens a normal mol2 file
-with open(het_pad / "pytest.mol2", 'r', encoding="utf-8") as mol2_file:
-    mol2_test_file = mol2_file.read()
-
-# opens a mol2 file near the max file size
-with open(het_pad / "new_169196800.mol2", 'r', encoding="utf-8") as mol2_file:
-    big_mol2_test_file = mol2_file.read()
-
-with open(het_pad / "error.mol2", 'r', encoding="utf-8") as mol2_file:
-    mol2_error_test_file = mol2_file.read()
-
-# opens a empty file with pdb extention
-with open(het_pad / "empty.pdb", 'r', encoding="utf-8") as pdb_file:
-    pdb_empty_test_file = pdb_file.read()
-
-# opens a empty file
-with open(het_pad / "empty.mol2", 'r', encoding="utf-8") as mol2_file:
-    mol2_empty_test_file = mol2_file.read()
-
-# opens a mol2 file over the max file limit
-with open(het_pad / "lig.mol2", 'r', encoding="utf-8") as mol2_file:
-    mol2_toobig_test_file = mol2_file.read()
+for file in all_files:
+    # opens the file and puts it in the file list
+    with open(het_pad / file, 'r', encoding="utf-8") as open_file:
+        opened_files.append(open_file.read())
 
 config_path = parse_config()
 img_path = config_path['paths']['img_path']
 
 
 def test_index(client):
+    """
+    activates the predefined client
+    :param client: the client created in the client() function
+    """
     response = client.get("/")
     assert response.status_code == 200
 
 
 @pytest.mark.parametrize("data, verwacht", [
-  
+
+    # tests a wrong data file given
     ({
         "dock_slider": 12,
         "RMSD_slider": 1,
@@ -65,59 +52,65 @@ def test_index(client):
         "pdb_file": (io.BytesIO(b"Data"), "test.txt"),
         "mol2_file": (io.BytesIO(b"Mol2 informatie"), "dsafsaf.mol2")}, 415),
 
+    # tests s a basic data set
     ({
         "dock_slider": 12,
         "RMSD_slider": 1,
         "name_file": "-check",
-        "pdb_file": (io.BytesIO(pdb_test_file.encode('utf-8')), "4zel.pdb"),
-        "mol2_file": (io.BytesIO(mol2_test_file.encode("utf-8")), "dopa.mol2")}, 302),
+        "pdb_file": (io.BytesIO(opened_files[0].encode('utf-8')), "4zel.pdb"),
+        "mol2_file": (io.BytesIO(opened_files[2].encode("utf-8")), "dopa.mol2")}, 302),
 
+    # tests files that are borderline small enough to pass
     ({
         "dock_slider": 20,
         "RMSD_slider": 0.5,
         "name_file": '12345678901234567890',
-        "pdb_file": (io.BytesIO(pdb_test_file.encode('utf-8')), "4zel.pdb"),
-        "mol2_file": (io.BytesIO(big_mol2_test_file.encode("utf-8")), \
-                      "new_169196800.mol2")}, 302),
+        "pdb_file": (io.BytesIO(opened_files[0].encode('utf-8')), "4zel.pdb"),
+        "mol2_file": (io.BytesIO(opened_files[2].encode("utf-8")), "new_169196800.mol2")}, 302),
 
+    # tests when a repeat name is given
+    # NOTE: the test now expects that a test dir named 4zel.pdb exists if the file is removed,
+    # this name should be replaced
     ({
         "dock_slider": 20,
         "RMSD_slider": 0.5,
         "name_file": '12345678901234567890',
-        "pdb_file": (io.BytesIO(pdb_test_file.encode('utf-8')), "4zel.pdb"),
-        "mol2_file": (io.BytesIO(big_mol2_test_file.encode("utf-8")), "new_169196800.mol2")}, 200),
+        "pdb_file": (io.BytesIO(opened_files[0].encode('utf-8')), "4zel.pdb"),
+        "mol2_file": (io.BytesIO(opened_files[2].encode("utf-8")), "new_169196800.mol2")}, 200),
 
+    # tests if a input is refused if the mol2 file is too big
     ({
         "dock_slider": 20,
         "RMSD_slider": 0.5,
         "name_file": 'TooBig',
-        "pdb_file": (io.BytesIO(pdb_test_file.encode('utf-8')), "4zel.pdb"),
-        "mol2_file": (io.BytesIO(mol2_toobig_test_file.encode("utf-8")), "lig.mol")}, 415),
+        "pdb_file": (io.BytesIO(opened_files[0].encode('utf-8')), "4zel.pdb"),
+        "mol2_file": (io.BytesIO(opened_files[3].encode("utf-8")), "lig.mol2")}, 415),
 
+    # test if a file is refused if the given dir name has characters that can intercept with code
     ({
         "dock_slider": 12,
         "RMSD_slider": 1,
         "name_file": '!@#$%^&*()[]/\\`~\'',
-        "pdb_file": (io.BytesIO(pdb_test_file.encode('utf-8')), "4zel.pdb"),
-        "mol2_file": (io.BytesIO(mol2_test_file.encode("utf-8")), "dopa.mol2")}, 200),
+        "pdb_file": (io.BytesIO(opened_files[0].encode('utf-8')), "4zel.pdb"),
+        "mol2_file": (io.BytesIO(opened_files[2].encode("utf-8")), "dopa.mol2")}, 200),
 
+    # tests a corrupted file (a file that can't run because it has changes made to the source)
     ({
         "dock_slider": 2,
         "RMSD_slider": 4.0,
         "name_file": 'corrupt',
-        "pdb_file": (io.BytesIO(pdb_test_error_file.encode('utf-8')), "error.pdb"),
-        "mol2_file": (io.BytesIO(mol2_error_test_file.encode("utf-8")), "error.mol2")}, 500),
+        "pdb_file": (io.BytesIO(opened_files[4].encode('utf-8')), "error.pdb"),
+        "mol2_file": (io.BytesIO(opened_files[5].encode("utf-8")), "error.mol2")}, 500),
 
+    # tests if empty files are given
     ({
         "dock_slider": 20,
         "RMSD_slider": 0.5,
         "name_file": 'empty',
-        "pdb_file": (io.BytesIO(pdb_empty_test_file.encode('utf-8')), "empty.pdb"),
-        "mol2_file": (io.BytesIO(mol2_empty_test_file.encode("utf-8")), "empy.mol2")}, 500)
+        "pdb_file": (io.BytesIO(opened_files[6].encode('utf-8')), "empty.pdb"),
+        "mol2_file": (io.BytesIO(opened_files[7].encode("utf-8")), "empy.mol2")}, 500)
 ]
 )
-
-
 def test_index_post(client, data, verwacht):
     """
     takes the data and puts it through the tools and the response code is checked,
@@ -145,14 +138,13 @@ def test_index_post(client, data, verwacht):
     # if too much time has passed it returns a fail
     assert time_passed < 10
 
+
 @pytest.mark.parametrize("url, inputs", [
     ("/", True),
     ("/history", False),
     ("/about", False),
     ("/ourteam", False)
 ])
-
-
 def test_html_valid(client, url, inputs):
     """
     Test if GET requests to different URLs return a 200 status code (success)
