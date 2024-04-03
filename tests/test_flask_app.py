@@ -57,42 +57,67 @@ def test_index(client):
 
 
 @pytest.mark.parametrize("data, verwacht", [
-    (dict(dock_slider=12, RMSD_slider=1, name_file='tester',
-          pdb_file=(io.BytesIO(b"Data"), "test.txt"),
-          mol2_file=(io.BytesIO(b"Mol2 informatie"), "dsafsaf.mol2")), 415),
-    (dict(dock_slider=12, RMSD_slider=1, name_file='-check',
-          pdb_file=(io.BytesIO(pdb_test_file.encode('utf-8')), "4zel.pdb"),
-          mol2_file=(io.BytesIO(mol2_test_file.encode("utf-8")), "dopa.mol2")), 302),
-    # takes a long time
-    (dict(dock_slider=20, RMSD_slider=0.5, name_file='12345678901234567890',
-          pdb_file=(io.BytesIO(pdb_test_file.encode('utf-8')), "4zel.pdb"),
-          mol2_file=(io.BytesIO(big_mol2_test_file.encode("utf-8")), "new_169196800.mol2")), 302),
-    # gets a repeat name so should work and be short 
-    # NOTE: the repeat name in this example is 4zel.pdb IF THIS DIRECTORY IS REMOVED THE NAME SHOULD BE REPLACED WITH A DIFFERENT TEST DIRECTORY
-    (dict(dock_slider=20, RMSD_slider=0.5, name_file='4zel.pdb',
-          pdb_file=(io.BytesIO(pdb_test_file.encode('utf-8')), "4zel.pdb"),
-          mol2_file=(io.BytesIO(big_mol2_test_file.encode("utf-8")), "new_169196800.mol2")), 200),
-    # too big mol2 file
-    (dict(dock_slider=20, RMSD_slider=0.5, name_file='TooBig',
-          pdb_file=(io.BytesIO(pdb_test_file.encode('utf-8')), "4zel.pdb"),
-          mol2_file=(io.BytesIO(mol2_toobig_test_file.encode("utf-8")), "lig.mol")), 415),
-    # gives wrong status code since the minimum file name lenght check happens before this gets executed
-    # (dict(dock_slider=1, RMSD_slider=4.0, name_file='1',
-    # pdb_file=(io.BytesIO(pdb_test_file.encode('utf-8')), "4zel.pdb"),
-    # mol2_file=(io.BytesIO(big_mol2_test_file.encode("utf-8")), "new_169196800.mol2")), 200),
-    # gets held because of name
-    (dict(dock_slider=12, RMSD_slider=1, name_file='!@#$%^&*()[]/\\`~\'',
-          pdb_file=(io.BytesIO(pdb_test_file.encode('utf-8')), "4zel.pdb"),
-          mol2_file=(io.BytesIO(mol2_test_file.encode("utf-8")), "dopa.mol2")), 200),
-    # gives error because files are corrupted
-    (dict(dock_slider=2, RMSD_slider=4.0, name_file='corrupt',
-          pdb_file=(io.BytesIO(pdb_test_error_file.encode('utf-8')), "error.pdb"),
-          mol2_file=(io.BytesIO(mol2_error_test_file.encode("utf-8")), "error.mol2")), 500),
-    # gives error because the files are empty
-    (dict(dock_slider=20, RMSD_slider=0.5, name_file='empty',
-          pdb_file=(io.BytesIO(pdb_empty_test_file.encode('utf-8')), "empty.pdb"),
-          mol2_file=(io.BytesIO(mol2_empty_test_file.encode("utf-8")), "empy.mol2")), 500)
-])
+  
+    ({
+        "dock_slider": 12,
+        "RMSD_slider": 1,
+        "name_file": "tester",
+        "pdb_file": (io.BytesIO(b"Data"), "test.txt"),
+        "mol2_file": (io.BytesIO(b"Mol2 informatie"), "dsafsaf.mol2")}, 415),
+
+    ({
+        "dock_slider": 12,
+        "RMSD_slider": 1,
+        "name_file": "-check",
+        "pdb_file": (io.BytesIO(pdb_test_file.encode('utf-8')), "4zel.pdb"),
+        "mol2_file": (io.BytesIO(mol2_test_file.encode("utf-8")), "dopa.mol2")}, 302),
+
+    ({
+        "dock_slider": 20,
+        "RMSD_slider": 0.5,
+        "name_file": '12345678901234567890',
+        "pdb_file": (io.BytesIO(pdb_test_file.encode('utf-8')), "4zel.pdb"),
+        "mol2_file": (io.BytesIO(big_mol2_test_file.encode("utf-8")), \
+                      "new_169196800.mol2")}, 302),
+
+    ({
+        "dock_slider": 20,
+        "RMSD_slider": 0.5,
+        "name_file": '12345678901234567890',
+        "pdb_file": (io.BytesIO(pdb_test_file.encode('utf-8')), "4zel.pdb"),
+        "mol2_file": (io.BytesIO(big_mol2_test_file.encode("utf-8")), "new_169196800.mol2")}, 200),
+
+    ({
+        "dock_slider": 20,
+        "RMSD_slider": 0.5,
+        "name_file": 'TooBig',
+        "pdb_file": (io.BytesIO(pdb_test_file.encode('utf-8')), "4zel.pdb"),
+        "mol2_file": (io.BytesIO(mol2_toobig_test_file.encode("utf-8")), "lig.mol")}, 415),
+
+    ({
+        "dock_slider": 12,
+        "RMSD_slider": 1,
+        "name_file": '!@#$%^&*()[]/\\`~\'',
+        "pdb_file": (io.BytesIO(pdb_test_file.encode('utf-8')), "4zel.pdb"),
+        "mol2_file": (io.BytesIO(mol2_test_file.encode("utf-8")), "dopa.mol2")}, 200),
+
+    ({
+        "dock_slider": 2,
+        "RMSD_slider": 4.0,
+        "name_file": 'corrupt',
+        "pdb_file": (io.BytesIO(pdb_test_error_file.encode('utf-8')), "error.pdb"),
+        "mol2_file": (io.BytesIO(mol2_error_test_file.encode("utf-8")), "error.mol2")}, 500),
+
+    ({
+        "dock_slider": 20,
+        "RMSD_slider": 0.5,
+        "name_file": 'empty',
+        "pdb_file": (io.BytesIO(pdb_empty_test_file.encode('utf-8')), "empty.pdb"),
+        "mol2_file": (io.BytesIO(mol2_empty_test_file.encode("utf-8")), "empy.mol2")}, 500)
+]
+)
+
+
 def test_index_post(client, data, verwacht):
     """
     takes the data and puts it through the tools and the response code is checked,
