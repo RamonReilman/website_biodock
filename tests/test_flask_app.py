@@ -10,7 +10,7 @@ import pytest
 
 het_pad = Path(__file__).parent / "resources"
 
-
+@pytest.fixture()
 def client():
     """
     creates a client to run the webserver through
@@ -84,7 +84,7 @@ def test_index(client):
         "RMSD_slider": 0.5,
         "name_file": 'TooBig',
         "pdb_file": (io.BytesIO(opened_files[0].encode('utf-8')), "4zel.pdb"),
-        "mol2_file": (io.BytesIO(opened_files[3].encode("utf-8")), "lig.mol2")}, 415),
+        "mol2_file": (io.BytesIO(opened_files[3].encode("utf-8")), "lig.mol2")}, 413),
 
     # test if a file is refused if the given dir name has characters that can intercept with code
     ({
