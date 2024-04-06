@@ -1,10 +1,15 @@
 #!/bin/bash
+
+# Creates venv
 python3 -m venv website_venv --system-site-packages
 echo "Venv created, installing tools"
 
+# Checks if dir exists or not
 if ! test -d static/history/; then
   mkdir static/history
 fi
+
+# Installs tools
 source website_venv/bin/activate
 pip3 install -r requirements.txt --no-deps plip
 cd website_venv
