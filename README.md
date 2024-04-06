@@ -27,38 +27,10 @@ BioDock Visualiser is a webtool that allows users to dock ligands onto proteins 
 - pip3
 
 ### Installing tools: <br>
-To install the tools LeDock/LePro:
+Setup website
 ```bash
-# Create venv
-~$ python3 -m venv /path/to/newvenv --system-site-packages
-
-# Goto correct dir
-~$ cd path/to/venv/bin
-
-# Download tools to venv
-~$ wget http://www.lephar.com/download/ledock_linux_x86
-
-~$ wget http://www.lephar.com/download/lepro_linux_x86
-
-# Now make the tools executable
-~$ chmod +x /path/to/tool
-
-# To use the tools
-~$ /path/to/tool
+~$ setup/setup.sh
 ```
-But you could also create an alias in the .bash_aliases or .bashrc files. <br>
-<br>
-PLIP: <br>
-
-To install PLIP on a bin computer, you will need to install it in a virtual enviroment. <br>
-```bash
-# Activate the venv
-~$ source /path/to/newvenv/bin/activate
-# Install package into the venv
-~$ pip3 install -r /path/to/requirements.txt --no-deps plip
-```
-PLIP can now be used within the venv. <br>
-
 
 ## User's manual
 Before running the tools you must already have:
