@@ -27,8 +27,13 @@ BioDock Visualiser is a webtool that allows users to dock ligands onto proteins 
 - pip3
 
 ### Installing tools: <br>
-Setup website
+To setup and install website:
 ```bash
+# Get the project
+~$ git@git.bioinf.nl:biodock_vis/website_biodock.git
+~$ cd website_biodock
+
+# Setup tools and venv for website
 ~$ setup/setup.sh
 ```
 
