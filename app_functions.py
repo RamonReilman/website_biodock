@@ -83,6 +83,7 @@ def webtool():
 
     img_path = config_path['paths']['img_path']
     pro_path = config_path["paths"]["pro_path"]
+    dock_path = config_path["paths"]["dock_path"]
     if request.method == 'GET':
         # default response when a form is called, renders index.html
         return render_template("index.html", webtool_active=True, name_exists=False)
@@ -170,7 +171,7 @@ def webtool():
         mol2_for_dock = mol2_file_name.replace(".mol2", ".in")
 
         # creates instance for LeDock-class
-        ledock_instance = Ledock(path=save_dir, ledock_path="../../../website_venv/ledock_linux_x86")
+        ledock_instance = Ledock(path=save_dir, ledock_path=dock_path)
         print(ledock_instance)
 
         # raises error (412 Precondition Not Found) if LeDock installation is not found
