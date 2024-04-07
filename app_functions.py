@@ -170,11 +170,11 @@ def webtool():
         mol2_for_dock = mol2_file_name.replace(".mol2", ".in")
 
         # creates instance for LeDock-class
-        ledock_instance = Ledock(path=save_dir, file_name=mol2_for_dock)
+        ledock_instance = Ledock(path=save_dir, ledock_path="../../../website_venv/ledock_linux_x86")
         print(ledock_instance)
 
         # raises error (412 Precondition Not Found) if LeDock installation is not found
-        if ledock_instance.dock_path.stdout.strip() == '':
+        if ledock_instance.ledock_path == '':
             abort(412)
 
         # runs run-method to activate LeDock

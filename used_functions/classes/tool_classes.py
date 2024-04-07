@@ -95,18 +95,14 @@ class Ledock:
     run(self):
         runs ledock on the correct files in the directory
     """
-    def __init__(self, path, file_name):
+    def __init__(self, path, ledock_path):
         """
         Constructs all the necessary attributes for the Ledock object
 
         :param path: the path to the directory housing the files you want to run ledock on
         """
         self.path = path
-        self.dock_path = subprocess.run(["find", "-name", "ledock_linux_x86"], check=True,
-                                        capture_output=True, text=True)
-        self.file_name = file_name
-        #config file gebruiken path
-        self.ledock_path = ("../../.." + self.dock_path.stdout[1:]).replace("\n", "")
+        self.ledock_path = ledock_path
 
     def run(self):
         """
