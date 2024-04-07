@@ -29,12 +29,12 @@ class LePro:
 
     Attributes
     ----------
-    - pdb_save_path : str
-        path to user-submitted .pdb file
     - name_file : str
-        user given session name, used for history
-    - new_save_path_dock: str
-        path that dock.in gets moved to, after it gets created in same dir as LePro
+        name of the user-submitted .pdb file
+    - dir_path : str
+        path for the user given session name, used for history
+    - lepro_path: str
+        path to the lepro executable
 
     Methods
     -------
@@ -53,20 +53,6 @@ class LePro:
         """
         Runs LePro with the specified lepro installation path and the .pdb file path and
         moves the generated files to the specified locations.
-
-            Parameters
-            ----------
-        - pdb_save_path : str
-            path to user-submitted .pdb file
-        - name_file : str
-            user given session name, used for history
-        - new_save_path_dock: str
-            path that dock.in gets moved to, after it gets created in same dir as LePro
-        - new_save_path_pro: str
-            path that pro.pdb gets moved to, after it gets created in same dir as LePro
-        - lepro_path: str
-            path to LePro installation on PC
-
         """
         #functie toevoegen die input checkt
         #cwd toevoegen
@@ -88,7 +74,7 @@ class Ledock:
     Attributes
     ----------
     path : the path to the directory housing the files you want to run ledock on
-    dock_path : the path to the ledock executable
+    ledock_path : the path to the ledock executable
 
     Methods
     -------
@@ -100,6 +86,7 @@ class Ledock:
         Constructs all the necessary attributes for the Ledock object
 
         :param path: the path to the directory housing the files you want to run ledock on
+        :parom ledock_path: the path to the ledock executable
         """
         self.path = path
         self.ledock_path = ledock_path
@@ -108,7 +95,6 @@ class Ledock:
         """
         modifies the dock_path to be able to access ledock from the directory in 
         static/history and runs ledock on the files in the self.path
-        :return: creates the .dok file in the given directory
         """
        
         # runs ledock in the directory on the dock.in
@@ -118,7 +104,7 @@ class Ledock:
     def __str__(self):
         """
         gives this return when printing this class
-        :return: The path given when creating first creating the class
+        :return: The paths given when creating first creating the class
         """
         return (f"LeDock installation found {self.ledock_path}.\n"
                 f"Generated .dok-file in {self.path}")
