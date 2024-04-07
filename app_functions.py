@@ -82,6 +82,7 @@ def webtool():
     config_path = parse_config()
 
     img_path = config_path['paths']['img_path']
+    pro_path = config_path["paths"]["pro_path"]
     if request.method == 'GET':
         # default response when a form is called, renders index.html
         return render_template("index.html", webtool_active=True, name_exists=False)
@@ -147,7 +148,7 @@ def webtool():
         save_settings(save_dir, **kwargs)
 
         # creates instance for LePro-class
-        lepro_instance = LePro(dir_path=save_dir, name_file=pdb_file_name, lepro_path="../../../website_venv/lepro_linux_x86")
+        lepro_instance = LePro(dir_path=save_dir, name_file=pdb_file_name, lepro_path=pro_path)
 
         # raises error (412 Precondition Not Found) if LePro installation is not found
         if lepro_instance.lepro_path == '':
