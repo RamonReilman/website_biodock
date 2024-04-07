@@ -43,13 +43,10 @@ class LePro:
 
     """
 
-    def __init__(self, pdb_save_path, name_file, new_save_path_dock, img_path):
+    def __init__(self, name_file, dir_path, lepro_path):
         self.name_file = name_file
-        self.pdb_save_path = pdb_save_path
-        self.lepro_path = subprocess.run(["find", "-name", "lepro_linux_x86"], check=True,
-                                         capture_output=True, text=True).stdout.strip()
-        self.new_save_path_dock = new_save_path_dock
-        self.new_save_path_pro = os.path.join(img_path, self.name_file, "pro.pdb")
+        self.dir_path = dir_path
+        self.lepro_path = lepro_path
 
 
     def run(self):
@@ -73,17 +70,13 @@ class LePro:
         """
         #functie toevoegen die input checkt
         #cwd toevoegen
-        subprocess.run([self.lepro_path, self.pdb_save_path], check=True)
-        subprocess.run(["mv", "dock.in", self.new_save_path_dock], check=True)
-        subprocess.run(["mv", "pro.pdb", self.new_save_path_pro], check=True)
+        subprocess.run([self.lepro_path, self.name_file], check=True, cwd=self.dir_path)
 
 
     def __str__(self):
         return (f'LePro installation detected: {self.lepro_path}\n'
-                f'PDB file received by LePro:{self.pdb_save_path}, \
-                located in session: {self.name_file}.\n'
-                f'Generated dock.in location: {self.new_save_path_dock}\n'
-                f'Generated pro.pdb location: {self.new_save_path_pro}\n')
+                f'PDB file received by LePro:{self.name_file},\n'
+                'located in session: {self.dir_path}.')
 
 
 class Ledock:

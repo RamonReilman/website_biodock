@@ -147,10 +147,7 @@ def webtool():
         save_settings(save_dir, **kwargs)
 
         # creates instance for LePro-class
-        lepro_instance = LePro(img_path=img_path, pdb_save_path = os.path.join(save_dir, pdb_file_name),
-                               name_file=kwargs['name_file'], new_save_path_dock = \
-                                os.path.join(img_path, \
-                                             kwargs['name_file'], "dock.in"))
+        lepro_instance = LePro(dir_path=save_dir, name_file=pdb_file_name, lepro_path="../../../website_venv/lepro_linux_x86")
 
         # raises error (412 Precondition Not Found) if LePro installation is not found
         if lepro_instance.lepro_path == '':
@@ -164,7 +161,7 @@ def webtool():
 
         # runs settings_dok_file-function which transfers the user input from kwargs
         # dict to dock.in file
-        settings_dok_file(lepro_instance.new_save_path_dock, kwargs['RMSD_slider'],
+        settings_dok_file(os.path.join(save_dir, "dock.in"), kwargs['RMSD_slider'],
                           kwargs['dock_slider'])
 
 
