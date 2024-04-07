@@ -84,6 +84,7 @@ def webtool():
     img_path = config_path['paths']['img_path']
     pro_path = config_path["paths"]["pro_path"]
     dock_path = config_path["paths"]["dock_path"]
+    plip_path = config_path["paths"]["plip_path"]
     if request.method == 'GET':
         # default response when a form is called, renders index.html
         return render_template("index.html", webtool_active=True, name_exists=False)
@@ -185,7 +186,7 @@ def webtool():
                             lig_file=save_dir+"/"+mol2_file_name.replace(".mol2", ".dok"))
 
         # creates instance for PLIP-class
-        plip_instance = Plip(img_path=img_path, project_name=kwargs['name_file'], img_n=n_ligands)
+        plip_instance = Plip(img_path=img_path, project_name=kwargs['name_file'], img_n=n_ligands, plip_path=plip_path)
         print(plip_instance)
 
         plip_instance.run()

@@ -131,7 +131,7 @@ class Plip():
         runs the plip
 
     """
-    def __init__(self, project_name, img_n, img_path):
+    def __init__(self, project_name, img_n, img_path, plip_path):
         """
         Constructs all the necessary attributes for the tool
 
@@ -147,6 +147,7 @@ class Plip():
         self.output_location = img_path + project_name
         self.pro_pdb = f"{img_path}{project_name}/pro.pdb"
         self.img_n = img_n
+        self.plip_path = plip_path
 
 
     def run(self):
@@ -157,12 +158,7 @@ class Plip():
         -------
         None
         """
-
-        plip_path = subprocess.run(["find", "-name", "plipcmd.py"],
-                                   check=True, capture_output=True, text=True)
-        plip_path = plip_path.stdout.split("\n")
-        plip_path = plip_path[0]
-        command = ["python3", plip_path, "-f", self.pro_pdb, "-p", "-o", self.output_location,
+        command = ["python3", self.plip_path, "-f", self.pro_pdb, "-p", "-o", self.output_location,
                    "--peptides",]
 
         # Adds correct ligand chains to command
