@@ -29,12 +29,12 @@ class LePro:
 
     Attributes
     ----------
-    - pdb_save_path : str
-        path to user-submitted .pdb file
     - name_file : str
-        user given session name, used for history
-    - new_save_path_dock: str
-        path that dock.in gets moved to, after it gets created in same dir as LePro
+        name of the user-submitted .pdb file
+    - dir_path : str
+        path for the user given session name, used for history
+    - lepro_path: str
+        path to the lepro executable
 
     Methods
     -------
@@ -43,47 +43,26 @@ class LePro:
 
     """
 
-    def __init__(self, pdb_save_path, name_file, new_save_path_dock, img_path):
+    def __init__(self, name_file, dir_path, lepro_path):
         self.name_file = name_file
-        self.pdb_save_path = pdb_save_path
-        self.lepro_path = subprocess.run(["find", "-name", "lepro_linux_x86"], check=True,
-                                         capture_output=True, text=True).stdout.strip()
-        self.new_save_path_dock = new_save_path_dock
-        self.new_save_path_pro = os.path.join(img_path, self.name_file, "pro.pdb")
+        self.dir_path = dir_path
+        self.lepro_path = lepro_path
 
 
     def run(self):
         """
         Runs LePro with the specified lepro installation path and the .pdb file path and
         moves the generated files to the specified locations.
-
-            Parameters
-            ----------
-        - pdb_save_path : str
-            path to user-submitted .pdb file
-        - name_file : str
-            user given session name, used for history
-        - new_save_path_dock: str
-            path that dock.in gets moved to, after it gets created in same dir as LePro
-        - new_save_path_pro: str
-            path that pro.pdb gets moved to, after it gets created in same dir as LePro
-        - lepro_path: str
-            path to LePro installation on PC
-
         """
         #functie toevoegen die input checkt
         #cwd toevoegen
-        subprocess.run([self.lepro_path, self.pdb_save_path], check=True)
-        subprocess.run(["mv", "dock.in", self.new_save_path_dock], check=True)
-        subprocess.run(["mv", "pro.pdb", self.new_save_path_pro], check=True)
+        subprocess.run([self.lepro_path, self.name_file], check=True, cwd=self.dir_path)
 
 
     def __str__(self):
         return (f'LePro installation detected: {self.lepro_path}\n'
-                f'PDB file received by LePro:{self.pdb_save_path}, \
-                located in session: {self.name_file}.\n'
-                f'Generated dock.in location: {self.new_save_path_dock}\n'
-                f'Generated pro.pdb location: {self.new_save_path_pro}\n')
+                f'PDB file received by LePro:{self.name_file},\n'
+                'located in session: {self.dir_path}.')
 
 
 class Ledock:
@@ -95,31 +74,27 @@ class Ledock:
     Attributes
     ----------
     path : the path to the directory housing the files you want to run ledock on
-    dock_path : the path to the ledock executable
+    ledock_path : the path to the ledock executable
 
     Methods
     -------
     run(self):
         runs ledock on the correct files in the directory
     """
-    def __init__(self, path, file_name):
+    def __init__(self, path, ledock_path):
         """
         Constructs all the necessary attributes for the Ledock object
 
         :param path: the path to the directory housing the files you want to run ledock on
+        :parom ledock_path: the path to the ledock executable
         """
         self.path = path
-        self.dock_path = subprocess.run(["find", "-name", "ledock_linux_x86"], check=True,
-                                        capture_output=True, text=True)
-        self.file_name = file_name
-        #config file gebruiken path
-        self.ledock_path = ("../../.." + self.dock_path.stdout[1:]).replace("\n", "")
+        self.ledock_path = ledock_path
 
     def run(self):
         """
         modifies the dock_path to be able to access ledock from the directory in 
         static/history and runs ledock on the files in the self.path
-        :return: creates the .dok file in the given directory
         """
        
         # runs ledock in the directory on the dock.in
@@ -129,7 +104,7 @@ class Ledock:
     def __str__(self):
         """
         gives this return when printing this class
-        :return: The path given when creating first creating the class
+        :return: The paths given when creating first creating the class
         """
         return (f"LeDock installation found {self.ledock_path}.\n"
                 f"Generated .dok-file in {self.path}")
@@ -156,7 +131,7 @@ class Plip():
         runs the plip
 
     """
-    def __init__(self, project_name, img_n, img_path):
+    def __init__(self, project_name, img_n, img_path, plip_path):
         """
         Constructs all the necessary attributes for the tool
 
@@ -172,6 +147,7 @@ class Plip():
         self.output_location = img_path + project_name
         self.pro_pdb = f"{img_path}{project_name}/pro.pdb"
         self.img_n = img_n
+        self.plip_path = plip_path
 
 
     def run(self):
@@ -182,12 +158,7 @@ class Plip():
         -------
         None
         """
-
-        plip_path = subprocess.run(["find", "-name", "plipcmd.py"],
-                                   check=True, capture_output=True, text=True)
-        plip_path = plip_path.stdout.split("\n")
-        plip_path = plip_path[0]
-        command = ["python3", plip_path, "-f", self.pro_pdb, "-p", "-o", self.output_location,
+        command = ["python3", self.plip_path, "-f", self.pro_pdb, "-p", "-o", self.output_location,
                    "--peptides",]
 
         # Adds correct ligand chains to command

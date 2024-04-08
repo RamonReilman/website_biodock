@@ -82,6 +82,9 @@ def webtool():
     config_path = parse_config()
 
     img_path = config_path['paths']['img_path']
+    pro_path = config_path["paths"]["pro_path"]
+    dock_path = config_path["paths"]["dock_path"]
+    plip_path = config_path["paths"]["plip_path"]
     if request.method == 'GET':
         # default response when a form is called, renders index.html
         return render_template("index.html", webtool_active=True, name_exists=False)
@@ -147,10 +150,7 @@ def webtool():
         save_settings(save_dir, **kwargs)
 
         # creates instance for LePro-class
-        lepro_instance = LePro(img_path=img_path, pdb_save_path = os.path.join(save_dir, pdb_file_name),
-                               name_file=kwargs['name_file'], new_save_path_dock = \
-                                os.path.join(img_path, \
-                                             kwargs['name_file'], "dock.in"))
+        lepro_instance = LePro(dir_path=save_dir, name_file=pdb_file_name, lepro_path=pro_path)
 
         # raises error (412 Precondition Not Found) if LePro installation is not found
         if lepro_instance.lepro_path == '':
@@ -164,7 +164,7 @@ def webtool():
 
         # runs settings_dok_file-function which transfers the user input from kwargs
         # dict to dock.in file
-        settings_dok_file(lepro_instance.new_save_path_dock, kwargs['RMSD_slider'],
+        settings_dok_file(os.path.join(save_dir, "dock.in"), kwargs['RMSD_slider'],
                           kwargs['dock_slider'])
 
 
@@ -172,11 +172,11 @@ def webtool():
         mol2_for_dock = mol2_file_name.replace(".mol2", ".in")
 
         # creates instance for LeDock-class
-        ledock_instance = Ledock(path=save_dir, file_name=mol2_for_dock)
+        ledock_instance = Ledock(path=save_dir, ledock_path=dock_path)
         print(ledock_instance)
 
         # raises error (412 Precondition Not Found) if LeDock installation is not found
-        if ledock_instance.dock_path.stdout.strip() == '':
+        if ledock_instance.ledock_path == '':
             abort(412)
 
         # runs run-method to activate LeDock
@@ -186,7 +186,7 @@ def webtool():
                             lig_file=save_dir+"/"+mol2_file_name.replace(".mol2", ".dok"))
 
         # creates instance for PLIP-class
-        plip_instance = Plip(img_path=img_path, project_name=kwargs['name_file'], img_n=n_ligands)
+        plip_instance = Plip(img_path=img_path, project_name=kwargs['name_file'], img_n=n_ligands, plip_path=plip_path)
         print(plip_instance)
 
         plip_instance.run()
