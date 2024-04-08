@@ -166,19 +166,19 @@ header a.True {
 /* Determines height for containers */
 .team_text {
   font-size: 1.15em;
-  height: 100vh;
+  height: 100%;
 }
 
 /* Styling for all character logo's (height for yamila_logo 
 is larger because the img itself is smaller)*/
 #yamila_logo {
-  height: 36%;
+  height: 210px;
   width: auto;
 }
 
 #ramon_logo,
 #stijn_logo {
-  height: 35%;
+  height: 200px;
   width: auto;
   padding-bottom: 3%;
   padding-top: 1%;
