@@ -19,46 +19,6 @@ from used_functions import merge_pdb_dok
 
 app = Flask(__name__)
 
-# sets allowed file extensions for user uploads
-@app.errorhandler(412)
-def precondition_failed(error):
-    """
-    Function to catch and handle the 412 errors
-
-    :return: renders error.html with 412-specific args
-    """
-    print(error)
-    return render_template('error.html', status_code=412, description='Precondition Failed',
-                        message='Make sure that all required tools  (LePro, LeDock, PLIP) are \
-                              installed in the virtual environment.'), 412
-
-
-@app.errorhandler(413)
-def payload_too_large(error):
-    """
-    Function to catch and handle the 413 errors
-
-    :return: renders error.html with 413-specific args
-    """
-    print(error)
-    return render_template('error.html', status_code=413, description='Payload Too Large',
-                        message='Please submit a smaller MOL2 file.'), 413
-
-
-@app.errorhandler(415)
-def unsupported_media_type(error):
-    """
-    Function to catch and handle the 415 errors
-
-    :return: renders error.html with 415-specific args
-    """
-    print(error)
-
-    return render_template('error.html', status_code=415, description='Unsupported Media Type',
-                        message='Make sure to upload only supported media types \
-                            (.pdb and .mol2).'), 415
-
-
 @app.route('/', methods=['POST', 'GET'])
 def webtool():
     """
@@ -85,6 +45,7 @@ def webtool():
     pro_path = config_path["paths"]["pro_path"]
     dock_path = config_path["paths"]["dock_path"]
     plip_path = config_path["paths"]["plip_path"]
+
     if request.method == 'GET':
         # default response when a form is called, renders index.html
         return render_template("index.html", webtool_active=True, name_exists=False)
@@ -102,7 +63,8 @@ def webtool():
     if not kwargs["name_file"]:
         pdb_file = request.files['pdb_file']
         mol2_file = request.files['mol2_file']
-        kwargs["name_file"] = f"{pdb_file.filename}_{mol2_file.filename}_dock.poses:{kwargs['dock_slider']}_RMSD.value:{kwargs['RMSD_slider']}"
+        kwargs["name_file"] = f"{pdb_file.filename}_{mol2_file.filename}_dock.poses:\
+            {kwargs['dock_slider']}_RMSD.value:{kwargs['RMSD_slider']}"
 
     # checks if the name already exists, if it does it returns the name_exists as true
     if kwargs['name_file'] in os.listdir(img_path):
@@ -167,9 +129,7 @@ def webtool():
         settings_dok_file(os.path.join(save_dir, "dock.in"), kwargs['RMSD_slider'],
                           kwargs['dock_slider'])
 
-
         mol2_to_ligands(path=save_dir)
-        mol2_for_dock = mol2_file_name.replace(".mol2", ".in")
 
         # creates instance for LeDock-class
         ledock_instance = Ledock(path=save_dir, ledock_path=dock_path)
@@ -186,7 +146,9 @@ def webtool():
                             lig_file=save_dir+"/"+mol2_file_name.replace(".mol2", ".dok"))
 
         # creates instance for PLIP-class
-        plip_instance = Plip(img_path=img_path, project_name=kwargs['name_file'], img_n=n_ligands, plip_path=plip_path)
+        plip_instance = Plip(img_path=img_path, project_name=kwargs['name_file'], \
+                        img_n=n_ligands, plip_path=plip_path)
+
         print(plip_instance)
 
         plip_instance.run()
@@ -336,14 +298,18 @@ def history():
     img_path = config_path['paths']['img_path']
     dir_list = os.listdir(img_path)
     settings_list = []
+
     for project in dir_list:
         loaded_setting = load_settings(img_path+project)
-        temp_list = [f"No. of docking poses: {loaded_setting['dock_slider']}", f"RMSD setting: {loaded_setting['RMSD_slider']}"]
+        temp_list = [f"No. of docking poses: {loaded_setting['dock_slider']}", \
+                     f"RMSD setting: {loaded_setting['RMSD_slider']}"]
         settings_list.append(temp_list)
+
     # Render history page with the files in dir_list
     if request.method == "GET":
 
-        return render_template("history.html", files=zip(dir_list, settings_list), history_active=True)
+        return render_template("history.html", files=zip(dir_list, settings_list), \
+                               history_active=True)
 
     if request.method == "POST":
         print(request.form.values())
@@ -373,6 +339,47 @@ def about():
     """
     return render_template("about.html", about_active=True)
 
+# error handlers
+@app.errorhandler(412)
+def precondition_failed(error):
+    """
+    Function to catch and handle the 412 errors, which occurs when 
+    the user does not have the required tools in the required location.
+
+    :return: renders error.html with 412-specific args
+    """
+    print(error)
+    return render_template('error.html', status_code=412, description='Precondition Failed',
+                        message='Make sure that all required tools  (LePro, LeDock, PLIP) are \
+                              installed in the virtual environment.'), 412
+
+
+@app.errorhandler(413)
+def payload_too_large(error):
+    """
+    Function to catch and handle the 413 errors, which occurs
+    when the user submits a MOL2 file that exceeds file limit.
+
+    :return: renders error.html with 413-specific args
+    """
+    print(error)
+    return render_template('error.html', status_code=413, description='Payload Too Large',
+                        message='Please submit a smaller MOL2 file.'), 413
+
+
+@app.errorhandler(415)
+def unsupported_media_type(error):
+    """
+    Function to catch and handle the 415 errors, which occurs when 
+    user uploads unsupported media type.
+
+    :return: renders error.html with 415-specific args
+    """
+    print(error)
+
+    return render_template('error.html', status_code=415, description='Unsupported Media Type',
+                        message='Make sure to upload only supported media types \
+                            (.pdb and .mol2).'), 415
 
 if __name__ == "__main__":
     app.run()
