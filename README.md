@@ -74,38 +74,43 @@ In order to run the tools, the user must provide the following files:
 The webtool offers 2 settings that allow the user to make changes to the dock.in file. The user can choose the RMSD-cutoff and the number of docking poses. A lower number for docking poses as well as a higher RMSD-cutoff leads to quicker processing times, whereas a higher number of docking poses and a lower RMSD-cutoff makes the program run slower. 
 
 - <b>Number of docking poses</b> (slider range 1-20, with increments of 1)\
-The number of iterations LeDock will go through, each with a chance of finding a new ligand configuration.  
+The number of iterations LeDock will go through, each with a chance of finding a new ligand configuration.
+
 - <b>RMSD-cutoff</b> (slider range 0.5-4.0, with increments of 0.1)\
 The cutoff of the Root Mean Square Division (RMSD). This is the average distance between atoms of different ligand configurations. It is measured in Ångström (Å). Different ligand configurations with a smaller distance in atoms than the given RMSD-cutoff, will be merged together into 1 ligand configuration. A high RMSD-cutoff will cause most of the docking poses that are even slightly similar, to be merged together. A low RMSD-cutoff makes it so that (almost) every ligand configuration will remain as a unique one and will not be merged, and thus is a more specific method. 
 
 
 ### Commandline example
-To get pictures out of the .pdb file you usually run:
+If you want to run the tools this through the commandline, instead of using the webtool, you can run the following: 
 
 ```bash
+# Runs LePro, using the user-supplied .pdb file
 ~$ /path/to/lepro_linux_x8 XXXXX.pdb
+
+# Runs LeDock, using the generated dock.in file
 ~$ /path/to/ledock_linux_x8 dock.in
-*add the desired ligands to the pro.pdb*
+
+# Runs PLIP, using the generated pro.pdb file and creates images
 ~$ plip -f pro.pdb -p --peptides 1 2 3
 ```
-
 
 ## In/output data
 ### Input data
 To use the tools you need:
-- A .pdb file of a peptide <br>
+- <b>A .pdb file of a protein</b> <br>
     - This contains information about the peptide
-- A .mol2 file of a ligand
+
+- <b>A .mol2 file of a ligand</b>
     - Molecular information about the ligand, can be used to render it in PyMOL for example.
 
 ### Output data
-- A .dok file
+- <b>A .dok file</b>
     - This contains a number of position the ligand could be in, it is in an decreasing order. The first ligand has the most optimal position
     
-- Pictures of ligand in binding site
-    - These pictures show how a ligand is fit into the binding site. There are also bonds formed and showed. PLIP is used for this and gives us a legend to use in said pictures.
+- <b>Images of the ligand docked onto the protein</b>
+    - These images show how a ligand is fit into the binding site. There are also bonds formed and showed. PLIP is used for this and gives us a legend to use in said pictures.
 
-PLIP legend:
+### PLIP legend:
 
 | Description  | RGB | PyMOL color | Representation |
 | ------------ | --- | ------------| ---------------|
@@ -117,7 +122,7 @@ PLIP legend:
 | Ions | [250, 255, 128] | hotpink | spheres |
 
 [1]
-#### Interactions
+### Interactions
 
 | Description  | RGB | PyMOL color | Representation |
 | ------------ | --- | ------------| -------------- |
@@ -134,7 +139,7 @@ PLIP legend:
 [1]
 
 
-## Support (contact details)
+## Support
 In case of any bugs or needed support, open up an issue at our repo: <br>
 https://git.bioinf.nl/biodock_vis/website_biodock
 
