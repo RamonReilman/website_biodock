@@ -15,7 +15,7 @@ BioDock Visualiser is a webtool that allows users to dock ligands onto proteins 
 - Docks selected ligand onto selected protein,
 - Returns lig.dok-file with (up to 20) possible ligand configurations, sorted from most-likely to least-likely configuration*,
 - Returns visualisation of selected ligand configurations, in which part of the protein will be visible and showing the bonds between ligand and protein,
-- User-friendly webtool interface, with options like which configurations the user wants to be visible in the visualisation, etc.
+- User-friendly webtool interface, that allows user to change settings like RMSD-value and number of docking poses, making it so that the user can tweak the output of the program.
 
 *This is based on the amount of kcal/mol that the ligand configuration gives when binding to a protein, the more kcal/mol, the more likely the configuration will be.
 
@@ -38,10 +38,9 @@ To setup and install website:
 ```
 
 ## User's manual
-Before running the tools you must already have:
+In order to run the tools, the user must provide:
 - A .pdb file of the protein
 - A .mol2 file of the ligand
-- A ligand file without extensions that holds the filenames of all the .mol2 ligand files
 
 LePro takes a .pdb file and creates a copy called pro.pdb in which things like water molecules and ligands are removed and hydrogen atoms are added.\
 It also creates a dock.in file that looks like this:
@@ -64,8 +63,14 @@ It also creates a dock.in file that looks like this:
 >\
 >END
 
-You can change the dock.in. If you want LeDock to run faster for example, you can reduce the number of binding poses.
-This will cause LeDock to run fewer iterations.\
+The webtool offers 2 settings that allow the user to change the RMSD-value and the number of binding poses. This works with a slider ranging from 1-20 (number of docking poses) and a slider ranging from 0.5-4.0 (RMSD-value). A lower number for docking poses as well as a higher RMSD-value leads to quicker processing times, whereas a higher number of docking poses and a lower RMSD-value makes the program run slower. 
+
+Adjustable settings:
+- Number of docking poses
+The number of iterations the LeDock tool will go through, each with a chance of finding a new ligand configuration. 
+- RMSD-value
+The Root Mean Square Division. This is the average distance between atoms of different ligand configurations. It is measured in Ångström (Å). Different ligandconfigurations with a smaller distance in atoms than the given RMSD-value, will be merged together into 1 ligand configuration. A high RMSD-value will cause most of the docking poses that are even slightly similar, to be merged together. A low RMSD-value makes it so that (almost) every ligand configuration will remain as a unique one and will not be merged, and thus is a more specific method. 
+
 The dock.in is used to run LeDock. LeDock uses the file references in the dock.in to effectively get all the data.
 LeDock uses that data to dock the given ligands and it returns a .dok file with the specified number of binding poses sorted
 on score (a lower number is a higher score).\
