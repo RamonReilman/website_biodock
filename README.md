@@ -7,42 +7,38 @@
 
 
 ## Description
-Understanding interactions between proteins and ligands is of great importance for various branches of molecular biology. Examples of its usage include, but are not limited to, developing new medicines or improving existing ones, as well as getting a better understanding of various biochemical processes.
+BioDock Visualiser is a webtool that allows users to dock ligands onto proteins and visualise the results afterwards. The process of 'docking' refers to predicting the most likely configuration of a ligand when it attaches itself to a protein.
 
-BioDock Visualiser is a webtool that allows users to dock ligands onto proteins and visualise the result afterwards. The process of 'docking' refers to predicting the most likely configuration of a ligand when it attaches itself to a protein.
+Understanding interactions between proteins and ligands is of great importance for various branches of molecular biology. Examples of its usage include, but are not limited to, developing new medicines or improving existing ones, as well as getting a better understanding of various biochemical processes.
 
 ### Key-features
 - Docks selected ligand onto selected protein,
 - Returns lig.dok-file with (up to 20) possible ligand configurations, sorted from most-likely to least-likely configuration*,
-- Returns visualisation of selected ligand configurations, in which part of the protein will be visible and showing the bonds between ligand and protein,
-- User-friendly webtool interface, that allows user to change settings like RMSD-value and number of docking poses, making it so that the user can tweak the output of the program.
+- Returns visualisation of all ligand configurations (as PNG), in which the ligand and the part of the protein that is bound to the ligand are visible,
+- User-friendly webtool interface, that allows user to change settings like RMSD-cutoff and number of docking poses, making it so that the user can tweak the output of the program.
 
-*This is based on the amount of kcal/mol that the ligand configuration gives when binding to a protein, the more kcal/mol, the more likely the configuration will be.
-
+*This is based on the amount of kcal/mol that the ligand configuration gives when binding to a protein, the more kcal/mol, the more likely the configuration is.
 
 ## System requirements and installation<br>
 ### System requirements: <br>
-- OS, linux
+- OS, Linux
 - Python 3.0 or higher
-- pip3
+- Pip3
 
 ### Installing tools: <br>
 To setup and install website:
 ```bash
 # Get the project
-~$ git@git.bioinf.nl:biodock_vis/website_biodock.git
+~$ git clone git@git.bioinf.nl:biodock_vis/website_biodock.git
 ~$ cd website_biodock
 
 # Setup tools and venv for website
 ~$ setup/setup.sh
 ```
-
-## User's manual
-In order to run the tools, the user must provide:
-- A .pdb file of the protein
-- A .mol2 file of the ligand
-
-LePro takes a .pdb file and creates a copy called pro.pdb in which things like water molecules and ligands are removed and hydrogen atoms are added.\
+## Tools
+### LePro
+LePro takes the .pdb file and creates a modified version named pro.pdb, in which things like water molecules and ligands are removed and hydrogen atoms are added. This is an important step in order to make the file ready to be used by LeDock.\
+\
 It also creates a dock.in file that looks like this:
 >Receptor\
 >pro.pdb\
@@ -63,28 +59,33 @@ It also creates a dock.in file that looks like this:
 >\
 >END
 
-The webtool offers 2 settings that allow the user to change the RMSD-value and the number of binding poses. This works with a slider ranging from 1-20 (number of docking poses) and a slider ranging from 0.5-4.0 (RMSD-value). A lower number for docking poses as well as a higher RMSD-value leads to quicker processing times, whereas a higher number of docking poses and a lower RMSD-value makes the program run slower. 
+### Ledock
+The dock.in is used to run LeDock. LeDock uses the file references in the dock.in to effectively get all the data. LeDock uses that data to dock the given ligands and it returns a .dok file with the specified number of binding poses sorted on score (a lower number is a higher score).
 
-Adjustable settings:
-- Number of docking poses
-The number of iterations the LeDock tool will go through, each with a chance of finding a new ligand configuration. 
-- RMSD-value
-The Root Mean Square Division. This is the average distance between atoms of different ligand configurations. It is measured in Ångström (Å). Different ligandconfigurations with a smaller distance in atoms than the given RMSD-value, will be merged together into 1 ligand configuration. A high RMSD-value will cause most of the docking poses that are even slightly similar, to be merged together. A low RMSD-value makes it so that (almost) every ligand configuration will remain as a unique one and will not be merged, and thus is a more specific method. 
+### PLIP (Protein-Ligand Interaction Profiler)
+PLIP takes a modified pro.pdb file and uses PyMOL to create the images. The pro.pdb has to be modified so that the data of the protein, aswell as the data of the ligand is in the file. We have created a function that does this, so the user does not have to manually change anything.
 
-The dock.in is used to run LeDock. LeDock uses the file references in the dock.in to effectively get all the data.
-LeDock uses that data to dock the given ligands and it returns a .dok file with the specified number of binding poses sorted
-on score (a lower number is a higher score).\
-PLIP takes a .pdb file to create an image, in this case the .pdb file needs to have the protein and the appropriate ligands
-The best way to do this here is to take the appropriate ligands from the .dok file and put them in the pro.pdb.
-You can do this because this .dok file is just a .pdb made by LeDock.
+## User's manual
+In order to run the tools, the user must provide the following files:
+- A .pdb file of the protein (can be obtained from: https://www.rcsb.org/)
+- A .mol2 file of the ligand (can be obtained from: https://zinc.docking.org/)
+
+### Adjustable settings:
+The webtool offers 2 settings that allow the user to make changes to the dock.in file. The user can choose the RMSD-cutoff and the number of docking poses. A lower number for docking poses as well as a higher RMSD-cutoff leads to quicker processing times, whereas a higher number of docking poses and a lower RMSD-cutoff makes the program run slower. 
+
+- <b>Number of docking poses</b> (slider range 1-20, with increments of 1)\
+The number of iterations LeDock will go through, each with a chance of finding a new ligand configuration.  
+- <b>RMSD-cutoff</b> (slider range 0.5-4.0, with increments of 0.1)\
+The cutoff of the Root Mean Square Division (RMSD). This is the average distance between atoms of different ligand configurations. It is measured in Ångström (Å). Different ligand configurations with a smaller distance in atoms than the given RMSD-cutoff, will be merged together into 1 ligand configuration. A high RMSD-cutoff will cause most of the docking poses that are even slightly similar, to be merged together. A low RMSD-cutoff makes it so that (almost) every ligand configuration will remain as a unique one and will not be merged, and thus is a more specific method. 
+
 
 ### Commandline example
 To get pictures out of the .pdb file you usually run:
 
 ```bash
-~$ /path/to/lepro_linux_x8 XXXXX.pdb\
-~$ /path/to/ledock_linux_x8 dock.in\
-*add the desired ligands to the pro.pdb*\
+~$ /path/to/lepro_linux_x8 XXXXX.pdb
+~$ /path/to/ledock_linux_x8 dock.in
+*add the desired ligands to the pro.pdb*
 ~$ plip -f pro.pdb -p --peptides 1 2 3
 ```
 
