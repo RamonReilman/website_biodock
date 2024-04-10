@@ -11,7 +11,7 @@ fi
 
 # Installs tools
 source website_venv/bin/activate
-pip3 install -r requirements.txt --no-deps plip
+pip3 install -r setup/requirements.txt --no-deps plip
 cd website_venv
 wget http://www.lephar.com/download/ledock_linux_x86 http://www.lephar.com/download/lepro_linux_x86
 chmod +x ledock_linux_x86 lepro_linux_x86
